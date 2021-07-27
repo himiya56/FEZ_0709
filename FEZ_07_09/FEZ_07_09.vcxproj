@@ -44,12 +44,15 @@
     <ClInclude Include="player.h" />
     <ClInclude Include="player_hook.h" />
     <ClInclude Include="polygon2d.h" />
+    <ClInclude Include="polygon3d.h" />
     <ClInclude Include="renderer.h" />
     <ClInclude Include="scene3d.h" />
     <ClInclude Include="sound.h" />
+    <ClInclude Include="spike.h" />
     <ClInclude Include="stage_select_button_manager.h" />
     <ClInclude Include="testObj.h" />
     <ClInclude Include="title_button_manager.h" />
+    <ClInclude Include="wire.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="billboard.cpp" />
@@ -77,12 +80,15 @@
     <ClCompile Include="player.cpp" />
     <ClCompile Include="player_hook.cpp" />
     <ClCompile Include="polygon2d.cpp" />
+    <ClCompile Include="polygon3d.cpp" />
     <ClCompile Include="renderer.cpp" />
     <ClCompile Include="scene3d.cpp" />
     <ClCompile Include="sound.cpp" />
+    <ClCompile Include="spike.cpp" />
     <ClCompile Include="stage_select_button_manager.cpp" />
     <ClCompile Include="testObj.cpp" />
     <ClCompile Include="title_button_manager.cpp" />
+    <ClCompile Include="wire.cpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{FC4E3825-92BA-4632-BDC0-B1F3D168ECA5}</ProjectGuid>

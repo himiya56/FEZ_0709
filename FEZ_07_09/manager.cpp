@@ -41,6 +41,7 @@ CInputKeyboard *CManager::m_pInput = NULL;
 CCamera *CManager::m_pCamera = NULL;
 CLight *CManager::m_pLight = NULL;
 CPlayer *CManager::m_pPlayer = NULL;
+CPlayerHook *CManager::m_pPlayerHook = NULL;
 CManager::MODE  CManager::m_Mode = MODE_NONE;		//モード
 bool CManager::m_bUseFade = false;					//フェードの使用状態
 CSound * CManager::m_pSound = NULL;

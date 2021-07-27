@@ -1,53 +1,57 @@
 //====================================================================
 //
-// ビルボード処理 (billboard.h)
-// Author : 東村哲士
+// スパイク(フック地点)処理 (spike.h)
+// Author : 樋宮 匠
 //
 //====================================================================
-#ifndef _PLAYER_H_
-#define _PLAYER_H_
+#ifndef _SPIKE_H_
+#define _SPIKE_H_
 
 //================================================
 // インクルードファイル
 //================================================
 #include "main.h"
-#include "billboard.h"
+#include "polygon3d.h"
 #include "camera.h"
 #include "manager.h"
+#include "player_hook.h"
 
 //*****************************************************************************
 // マクロ定義
 //*****************************************************************************
-#define MOVE_SIZ 5.0f // プレイヤーの移動量
-#define PLAYER_SIZE D3DXVECTOR3(150.0f, 150.0f, 0.0f)
+#define SPIKE_SIZE D3DXVECTOR3(50.0f,50.0f,0.0f)
 
 //================================================
 // クラス宣言
 //================================================
 
 // ビルボードクラス
-class CPlayer : public CBillboard
+class CSpike : public CBillboard
 {
 public:
-	CPlayer();
-	~CPlayer();
+	CSpike();
+	~CSpike();
+
+	typedef enum
+	{
+		SPIKE_NONE = 0,
+		SPIKE_LOCK,
+		SPIKE_SHOOT,
+	}SPIKE_STATE;
+
 	HRESULT Init(void);
 	void Uninit(void);
 	void Update(void);
 	void Draw(void);
-	void CollisionDetection(void);
-
-	D3DXVECTOR3 GetPlayerPos(void) { return m_pos; }
-
-	static CPlayer *Create(D3DXVECTOR3 pos, D3DXVECTOR3 siz);
+	static void Load(void);
+	static void Unload(void);
+	static CSpike *Create(D3DXVECTOR3 pos);
 
 private:
 	D3DXVECTOR3 m_pos;
-	float m_move;
-
+	D3DXVECTOR3 m_rot;
 	static LPDIRECT3DTEXTURE9		m_pTexture;
-
-	CCamera *m_pCamera;
+	SPIKE_STATE wire;
 };
 
 #endif

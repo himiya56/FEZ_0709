@@ -19,6 +19,7 @@
 #include "player_hook.h"
 #include "player.h"
 #include "testObj.h"
+#include "spike.h"
 
 //*****************************************************************************
 // É}ÉNÉçíËã`
@@ -122,12 +123,15 @@ void CGameMode::InitCreate(void)
 //=============================================================================
 void CGameMode::InitStageCreate(void)
 {
+	CPlayerHook *pPlayerHook;
 	switch (m_Stage)
 	{
 	case STAGE_1:
 		CPlayer::Create(D3DXVECTOR3(0.0f, 170.0f, 0.0f), PLAYER_SIZE);
-		CPlayerHook::Create(D3DXVECTOR3(0.0f, 0.0f, 0.0f), PLAYER_SIZE);
+		pPlayerHook = CPlayerHook::Create(D3DXVECTOR3(100.0f, 50.0f, 0.0f), PLAYER_SIZE);
+		CManager::SetPlayerHook(pPlayerHook);
 		CTestObj::Create(D3DXVECTOR3(0.0f, 0.0f, 0.0f));
+		CSpike::Create(D3DXVECTOR3(200.0f, 50.0f, 0.0f));
 		break;
 	case STAGE_2:
 		break;

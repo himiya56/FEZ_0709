@@ -17,8 +17,9 @@
 // マクロ定義
 //*****************************************************************************
 #define TEST_HOOK_POS D3DXVECTOR3(300.0f, 300.0f, 0.0f)
-#define HOOK_SPD_RATE 5.0f
+#define HOOK_SPD_RATE 10.0f
 #define HOOK_STOP_SIZE 5.0f
+#define HOOK_MOVE_FRAME 60.0f
 
 //================================================
 // クラス宣言
@@ -30,6 +31,15 @@ class CPlayerHook : public CPlayer
 public:
 	CPlayerHook();
 	~CPlayerHook();
+
+	typedef struct 
+	{
+		D3DXVECTOR3 centerPos = DEFAULT_VECTOR;
+		D3DXVECTOR3 targetPos = DEFAULT_VECTOR;
+		float fRadius = 0.0f;
+		float fAngle = 0.0f;
+	}Circle;
+
 	HRESULT Init(void);
 	void Uninit(void);
 	void Update(void);
@@ -46,6 +56,7 @@ private:
 	D3DXVECTOR3 m_pos;
 	D3DXVECTOR3 m_move;
 	bool m_bHook;
+	Circle m_circle;
 
 	static LPDIRECT3DTEXTURE9		m_pTexture;
 };
