@@ -131,7 +131,8 @@ void CGameMode::InitStageCreate(void)
 		pPlayerHook = CPlayerHook::Create(D3DXVECTOR3(100.0f, 50.0f, 0.0f), PLAYER_SIZE);
 		CManager::SetPlayerHook(pPlayerHook);
 		CTestObj::Create(D3DXVECTOR3(0.0f, 0.0f, 0.0f));
-		CSpike::Create(D3DXVECTOR3(200.0f, 50.0f, 0.0f));
+		CSpike::Create(D3DXVECTOR3(200.0f, 50.0f, 500.0f));
+		CSpike::Create(D3DXVECTOR3(300.0f, 50.0f, 100.0f));
 		break;
 	case STAGE_2:
 		break;

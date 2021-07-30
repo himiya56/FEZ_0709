@@ -61,10 +61,11 @@ void CPlayerHook::Uninit(void)
 void CPlayerHook::Update(void)
 {
 	CInputKeyboard *pKeyboard = CManager::GetInput();
-	CObject *pObj;
+	D3DXVECTOR3 destPos;
 
 	m_pos = GetPos();
-	pObj = CObject::GetTopObj(CObject::OBJ_TYPE_SPIKE);
+	destPos = SortSpike();
+
 
 	if (pKeyboard->GetKeyboardTrigger(DIK_F) && m_bHook == false)
 	{
@@ -77,8 +78,8 @@ void CPlayerHook::Update(void)
 	if (m_bHook)
 	{
 		// 当たり判定オフ
-		// プレイヤーの向いている方向の一番近い場所にフックでの移動処理
-		MoveToHook(TEST_HOOK_POS);
+		// プレイヤーの一番近い場所にフックでの移動処理
+		MoveToHook(destPos);
 	}
 	else
 	{
@@ -93,6 +94,88 @@ void CPlayerHook::Update(void)
 void CPlayerHook::Draw(void)
 {
 	CPlayer::Draw();
+}
+
+//=============================================================================
+// フック地点ソート処理
+//=============================================================================
+D3DXVECTOR3 CPlayerHook::SortSpike(void)
+{
+
+	// 距離
+	float distHorizon = 0.0f;
+	float distVert = 0.0f;
+	float dist = 0.0f;
+	int nArrayCount = 0;
+
+	// フック地点
+	CObject *pObj;
+	pObj = CObject::GetTopObj(CObject::OBJ_TYPE_SPIKE);
+	D3DXVECTOR3 spikePos = DEFAULT_VECTOR;
+	D3DXVECTOR3 destPos = DEFAULT_VECTOR;
+	CSpike *pDestSpike = NULL;
+
+	// カメラの位置を取得
+	CCamera *pCamera;
+	pCamera = CManager::GetCamera();
+	CCamera::ORIENTATION Orientation = pCamera->GetOrientation();
+	SPIKE spike[50];
+
+	for (int nCntScene = 0; nCntScene < CObject::GetNumObj(CObject::OBJ_TYPE_SPIKE); nCntScene++)
+	{
+		// 中身があるなら
+		if (pObj != NULL)
+		{
+			// 次のシーンを記憶
+			CObject *pNextObj = pObj->GetNextObj();
+
+			// ブロックにキャスト
+			CSpike *pSpike = (CSpike*)pObj;
+
+			spikePos = pSpike->GetPos();
+			spike[nCntScene].pos = spikePos;
+
+			// 距離を計算
+			if (Orientation == CCamera::ORIENTATION_BACK || Orientation == CCamera::ORIENTATION_FRONT)
+			{
+				distHorizon = spikePos.x - m_pos.x;
+				distVert = spikePos.y - m_pos.y;
+			}
+			else if (Orientation == CCamera::ORIENTATION_LEFT || Orientation == CCamera::ORIENTATION_RIGHT)
+			{
+				distHorizon = spikePos.z - m_pos.z;
+				distVert = spikePos.y - m_pos.y;
+			}
+
+			spike[nCntScene].dist = sqrtf(distHorizon*distHorizon + distVert*distVert);
+
+			if (nCntScene == 0)
+			{
+				spike[0].pSpike = pSpike;
+			}
+			else if (spike[nCntScene].dist < spike[nArrayCount].dist)
+			{
+				nArrayCount = nCntScene;
+				spike[nArrayCount].pSpike = pSpike;
+				spike[0].pSpike->SetCol(D3DCOLOR_RGBA(255, 255, 255, 255));
+			}
+			else
+			{
+				pSpike->SetCol(D3DCOLOR_RGBA(255, 255, 255, 255));
+			}
+
+			spike[nArrayCount].pSpike->SetCol(D3DCOLOR_RGBA(255, 0, 0, 255));
+
+			// 次のシーンにする
+			pObj = pNextObj;
+		}
+		else
+		{
+			break;
+		}
+	}
+
+	return spike[nArrayCount].pos;
 }
 
 //=============================================================================
@@ -164,6 +247,7 @@ void CPlayerHook::MoveToHook(D3DXVECTOR3 pos)
 			fabsf(pos.y - m_pos.y) <= HOOK_STOP_SIZE)
 		{
 			m_bHook = false;
+			m_pos.z = pos.z;
 			m_circle.fAngle = 0.0f;
 		}
 	}
@@ -173,6 +257,7 @@ void CPlayerHook::MoveToHook(D3DXVECTOR3 pos)
 			fabsf(pos.y - m_pos.y) <= HOOK_STOP_SIZE)
 		{
 			m_bHook = false;
+			m_pos.x = pos.x;
 			m_circle.fAngle = 0.0f;
 		}
 	}

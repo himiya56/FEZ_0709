@@ -11,10 +11,9 @@
 // インクルードファイル
 //================================================
 #include "main.h"
-#include "polygon3d.h"
+#include "billboard.h"
 #include "camera.h"
 #include "manager.h"
-#include "player_hook.h"
 
 //*****************************************************************************
 // マクロ定義
@@ -51,7 +50,7 @@ private:
 	D3DXVECTOR3 m_pos;
 	D3DXVECTOR3 m_rot;
 	static LPDIRECT3DTEXTURE9		m_pTexture;
-	SPIKE_STATE wire;
+	SPIKE_STATE state;
 };
 
 #endif
