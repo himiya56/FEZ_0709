@@ -81,14 +81,7 @@ void CCamera::Uninit(void)
 //=============================================================================
 void CCamera::Update(void)
 {
-	// キーボードを取得
-	CInputKeyboard *pKeyboard = CManager::GetInput();
 	m_rotDirOld = m_rotDir;
-
-	DecisionRotate(pKeyboard);
-
-	RotateCamera(m_rotDir);
-	OrientationControl(m_rotDir);
 
 	// 目的地の計算(球面座標)
 	m_posVDest.x = m_fOffset * (sinf(m_fHorizontalAngle) * cosf(m_fVerticalAngle));
@@ -220,4 +213,7 @@ void CCamera::DecisionRotate(CInputKeyboard *pInputKeyboard) {
 			m_rotDir = ROTATE_LEFT;
 		}
 	}
+
+	RotateCamera(m_rotDir);
+	OrientationControl(m_rotDir);
 }

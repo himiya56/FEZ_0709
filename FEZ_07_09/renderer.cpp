@@ -12,13 +12,9 @@
 #include "object.h"
 
 #include "keyboard.h"
-
 #include "camera.h"
 #include "manager.h"
 #include "player.h"
-
-#include "fade.h"
-
 
 //*****************************************************************************
 // 静的メンバ変数宣言
@@ -111,7 +107,7 @@ HRESULT CRenderer::Init(HWND hWnd, bool bWindow)
 	m_pD3DDevice->SetRenderState(D3DRS_ZENABLE, TRUE);
 	m_pD3DDevice->SetRenderState(D3DRS_SRCBLEND, D3DBLEND_SRCALPHA);
 	m_pD3DDevice->SetRenderState(D3DRS_DESTBLEND, D3DBLEND_INVSRCALPHA);
-	m_pD3DDevice->SetRenderState(D3DRS_LIGHTING, TRUE);
+	m_pD3DDevice->SetRenderState(D3DRS_LIGHTING, FALSE);
 	m_pD3DDevice->SetRenderState(D3DRS_ALPHATESTENABLE, TRUE);
 	m_pD3DDevice->SetRenderState(D3DRS_ALPHAREF, 50);
 	m_pD3DDevice->SetRenderState(D3DRS_ALPHAFUNC, D3DCMP_GREATER);
@@ -125,8 +121,8 @@ HRESULT CRenderer::Init(HWND hWnd, bool bWindow)
 	// テクスチャステージステートの設定
 	// ステージ0の設定
 	m_pD3DDevice->SetTextureStageState(0, D3DTSS_COLORARG1, D3DTA_TEXTURE);
-	m_pD3DDevice->SetTextureStageState(0, D3DTSS_COLOROP, D3DTOP_SELECTARG1);
-	//m_pD3DDevice->SetTextureStageState(0, D3DTSS_COLORARG2, D3DTA_DIFFUSE);
+	m_pD3DDevice->SetTextureStageState(0, D3DTSS_COLOROP, D3DTOP_MODULATE);
+	m_pD3DDevice->SetTextureStageState(0, D3DTSS_COLORARG2, D3DTA_DIFFUSE);
 
 	m_pD3DDevice->SetTextureStageState(0, D3DTSS_ALPHAARG1, D3DTA_TEXTURE);
 	m_pD3DDevice->SetTextureStageState(0, D3DTSS_ALPHAOP, D3DTOP_MODULATE);
@@ -193,20 +189,13 @@ void CRenderer::Draw(void)
 {
 	// バックバッファ＆Ｚバッファのクリア
 	m_pD3DDevice->Clear(0, NULL, (D3DCLEAR_TARGET | D3DCLEAR_ZBUFFER | D3DCLEAR_STENCIL), D3DCOLOR_RGBA(169, 206, 236, 255), 1.0f, 0);
-	//フェードの取得
-	CFade * pFade = CManager::GetFade();
+
 	// Direct3Dによる描画の開始
 	if (SUCCEEDED(m_pD3DDevice->BeginScene()))
 	{
 		//g_pMask->Draw();
 
 		CObject::DrawAll();
-		//もしフェードがnullptrじゃない場合
-		if (pFade != nullptr)
-		{
-			//フェードの描画
-			pFade->Draw();
-		}
 
 #ifdef _DEBUG
 		// FPS表示
@@ -274,7 +263,7 @@ void CRenderer::DrawOrientation(void) {
 }
 
 void CRenderer::DrawPos(void) {
-	RECT rect = { 0, 350, SCREEN_WIDTH, SCREEN_HEIGHT };
+	RECT rect = { 0, 450, SCREEN_WIDTH, SCREEN_HEIGHT };
 	char str[256];
 	m_pPlayer = CManager::GetPlayer();
 	D3DXVECTOR3 pos = m_pPlayer->GetPos();
