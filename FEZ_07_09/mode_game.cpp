@@ -20,6 +20,7 @@
 #include "player.h"
 #include "testObj.h"
 #include "spike.h"
+#include "collisiondetection.h"
 
 //*****************************************************************************
 // É}ÉNÉçíËã`
@@ -127,12 +128,13 @@ void CGameMode::InitStageCreate(void)
 	switch (m_Stage)
 	{
 	case STAGE_1:
-		CPlayer::Create(D3DXVECTOR3(0.0f, 170.0f, 0.0f), PLAYER_SIZE);
-		pPlayerHook = CPlayerHook::Create(D3DXVECTOR3(100.0f, 50.0f, 0.0f), PLAYER_SIZE);
+		CPlayer::Create(D3DXVECTOR3(75.0f * -1.0f, 75.0f * 0.0f, 75.0f * -2.0f), PLAYER_SIZE);
+		pPlayerHook = CPlayerHook::Create(D3DXVECTOR3(75.0f * 1.0f, 75.0f * 0.0f, 75.0f * -2.0f), PLAYER_SIZE);
+
+		CCollisionDetection::Create(D3DXVECTOR3(75.0f * 2.0f, 75.0f * 0.0f, 75.0f * -2.0f), PLAYER_SIZE, CCollisionDetection::BLOCKTYPE_NONE);
+
 		CManager::SetPlayerHook(pPlayerHook);
-		CTestObj::Create(D3DXVECTOR3(0.0f, 0.0f, 0.0f));
-		CSpike::Create(D3DXVECTOR3(200.0f, 50.0f, 500.0f));
-		CSpike::Create(D3DXVECTOR3(300.0f, 50.0f, 100.0f));
+		
 		break;
 	case STAGE_2:
 		break;

@@ -103,8 +103,6 @@ HRESULT CManager::Init(HINSTANCE hInstance, HWND hWnd, bool bWindow)
 	//CTestObj::Create(D3DXVECTOR3(300.0f, 0.0f, -300.0f));
 	//CTestObj::Create(D3DXVECTOR3(-300.0f, 0.0f, 300.0f));
 
-	CCollisionDetection::Create(D3DXVECTOR3(100.0f, 170.0f, 0.0f), PLAYER_SIZE, CCamera::ORIENTATION_FRONT);
-
 	m_pPlayer = CPlayer::Create(D3DXVECTOR3(0.0f, 170.0f, 0.0f), PLAYER_SIZE);
 
 	// ÉÇÅ[ÉhÇÃê›íË

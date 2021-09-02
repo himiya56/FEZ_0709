@@ -202,7 +202,7 @@ void CPlayerHook::MoveToHook(D3DXVECTOR3 pos)
 	CCamera::ORIENTATION Orientation = pCamera->GetOrientation();
 
 	// プレイヤーのサイズ分目標座標をずらす
-	pos.z = pos.z += PLAYER_SIZE.z / 2;
+	pos.z += PLAYER_SIZE.z / 2.0f;
 
 	// 指定座標との距離を出す
 	if (Orientation == CCamera::ORIENTATION_BACK || Orientation == CCamera::ORIENTATION_FRONT)
