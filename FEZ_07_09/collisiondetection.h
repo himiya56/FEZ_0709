@@ -11,24 +11,31 @@
 // インクルードファイル
 //================================================
 #include "main.h"
-#include "polygon2d.h"
+#include "billboard.h"
 #include "camera.h"
+
+//================================================
+// マクロ定義
+//================================================
+#define BLOCK_SIZE D3DXVECTOR3(75.0f,75.0f,75.0f)
 
 //================================================
 // クラス宣言
 //================================================
 
 // ビルボードクラス
-class CCollisionDetection : public CPolygon2D
+class CCollisionDetection : public CBillboard
 {
 public:
 	typedef enum
 	{
 		BLOCKTYPE_NULL = 0,
 		BLOCKTYPE_NONE,
+		BLOCKTYPE_WALL,
 		BLOCKTYPE_HOOK,
 		BLOCKTYPE_BUTTON,
-		BLOCKTYPE_BUTTON_INCLUDED
+		BLOCKTYPE_BUTTON_INCLUDED,
+		BLOCK_TYPE_MAX
 	}BLOCKTYPE;
 
 	CCollisionDetection();
@@ -39,6 +46,9 @@ public:
 	void Draw(void);
 	void ReleaseAll(void);
 	void UpdateByType(BLOCKTYPE BlockType);
+	
+	static void Load(void);
+	static void Unload(void);
 
 	CCollisionDetection* GetNextScene(void) { return m_pNext; }
 	D3DXVECTOR3 GetSiz(void) { return m_siz; }
@@ -59,6 +69,8 @@ private:
 	D3DXVECTOR3 m_pos;
 	D3DXVECTOR3 m_siz;
 	BLOCKTYPE m_BlockType;
+
+	static LPDIRECT3DTEXTURE9		m_apTexture[BLOCK_TYPE_MAX];
 
 	bool m_bUse;
 
