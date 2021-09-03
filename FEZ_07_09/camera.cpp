@@ -12,6 +12,8 @@
 #include "manager.h"
 #include "renderer.h"
 #include "keyboard.h"
+#include "player.h"
+#include "player_hook.h"
 
 //*****************************************************************************
 // 静的メンバ変数宣言
@@ -81,19 +83,14 @@ void CCamera::Uninit(void)
 //=============================================================================
 void CCamera::Update(void)
 {
-	// キーボードを取得
-	CInputKeyboard *pKeyboard = CManager::GetInput();
 	m_rotDirOld = m_rotDir;
-
-	DecisionRotate(pKeyboard);
-
-	RotateCamera(m_rotDir);
-	OrientationControl(m_rotDir);
 
 	// 目的地の計算(球面座標)
 	m_posVDest.x = m_fOffset * (sinf(m_fHorizontalAngle) * cosf(m_fVerticalAngle));
-	m_posVDest.y = m_fOffset * cosf(m_fHorizontalAngle);
+	m_posVDest.y = m_fOffset * cosf(m_fHorizontalAngle) + 75.0f * 6.0f;
 	m_posVDest.z = m_fOffset * (sinf(m_fHorizontalAngle) * sinf(m_fVerticalAngle));
+
+	m_posRDest.y = 75.0f * 6.0f;
 
 	// 目的地に近づける
 	m_posR += (m_posRDest - m_posR) * 0.9f;
@@ -220,4 +217,7 @@ void CCamera::DecisionRotate(CInputKeyboard *pInputKeyboard) {
 			m_rotDir = ROTATE_LEFT;
 		}
 	}
+
+	RotateCamera(m_rotDir);
+	OrientationControl(m_rotDir);
 }

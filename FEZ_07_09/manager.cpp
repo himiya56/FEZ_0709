@@ -31,6 +31,7 @@
 #include "player.h"
 #include "collisiondetection.h"
 #include "player_hook.h"
+#include "spike.h"
 
 //*****************************************************************************
 // 静的メンバ変数宣言
@@ -41,6 +42,7 @@ CInputKeyboard *CManager::m_pInput = NULL;
 CCamera *CManager::m_pCamera = NULL;
 CLight *CManager::m_pLight = NULL;
 CPlayer *CManager::m_pPlayer = NULL;
+CPlayerHook *CManager::m_pPlayerHook = NULL;
 CManager::MODE  CManager::m_Mode = MODE_NONE;		//モード
 bool CManager::m_bUseFade = false;					//フェードの使用状態
 CSound * CManager::m_pSound = NULL;
@@ -101,8 +103,6 @@ HRESULT CManager::Init(HINSTANCE hInstance, HWND hWnd, bool bWindow)
 
 	//CTestObj::Create(D3DXVECTOR3(300.0f, 0.0f, -300.0f));
 	//CTestObj::Create(D3DXVECTOR3(-300.0f, 0.0f, 300.0f));
-
-	CCollisionDetection::Create(D3DXVECTOR3(100.0f, 170.0f, 0.0f), PLAYER_SIZE, CCamera::ORIENTATION_FRONT);
 
 	m_pPlayer = CPlayer::Create(D3DXVECTOR3(0.0f, 170.0f, 0.0f), PLAYER_SIZE);
 
@@ -268,6 +268,8 @@ void CManager::Load(void)
 	CStage1Button::TextureLoad();
 	CStage2Button::TextureLoad();
 	CStage3Button::TextureLoad();
+	CCollisionDetection::Load();
+	CSpike::Load();
 }
 
 //=============================================================================
@@ -284,4 +286,6 @@ void CManager::Unload(void)
 	CStage1Button::TextureUnload();
 	CStage2Button::TextureUnload();
 	CStage3Button::TextureUnload();
+	CCollisionDetection::Unload();
+	CSpike::Unload();
 }

@@ -27,6 +27,7 @@ class CBillboard : public CObject
 {
 public:
 	CBillboard();
+	CBillboard(OBJ_TYPE objtype);
 	virtual ~CBillboard();
 	virtual HRESULT Init(void);
 	virtual void Uninit(void);

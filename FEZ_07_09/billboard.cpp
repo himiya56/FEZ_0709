@@ -52,6 +52,23 @@ CBillboard::CBillboard()
 }
 
 //=============================================================================
+// オーバーライドされたコンストラクタ
+//=============================================================================
+CBillboard::CBillboard(OBJ_TYPE objtype) :CObject(objtype)
+{
+	m_pTexture = NULL;
+	m_pVtxBuff = NULL;
+	D3DXMatrixIdentity(&m_mtxWorld);
+	m_pos = D3DXVECTOR3(0.0f, 0.0f, 0.0f);
+	m_size = DEFAULT_VECTOR;
+	m_rot = D3DXVECTOR3(0.0f, 0.0f, 0.0f);
+	m_scale = D3DXVECTOR3(1.0f, 1.0f, 1.0f);
+	m_col = D3DXCOLOR(1.0f, 1.0f, 1.0f, 1.0f);
+	m_fTexX1 = 0.0f;
+	m_fTexX2 = 1.0f;
+}
+
+//=============================================================================
 // デストラクタ
 //=============================================================================
 CBillboard::~CBillboard()
