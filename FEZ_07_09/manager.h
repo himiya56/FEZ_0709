@@ -26,6 +26,7 @@ class CCollisionDetection;
 class CSound;
 class CGameMode;
 class CFade;
+class CPlayerHook;
 
 //*****************************************************************************
 // マネージャークラス定義
@@ -62,9 +63,12 @@ public:
 	static CCamera *GetCamera(void) { return m_pCamera; }
 
 	static CPlayer *GetPlayer(void) { return m_pPlayer; }
+	static CPlayerHook *GetPlayerHook(void) { return m_pPlayerHook; }
 	static CSound *GetSound(void) { return m_pSound; }
 	static CGameMode *GetGameMode(void) { return m_pGameMode; }
 	static CFade * GetFade(void) { return m_pFade; }
+
+	static void SetPlayerHook(CPlayerHook *pPlayerHook) { m_pPlayerHook = pPlayerHook; }
 private:
 	// メンバ変数
 	static MODE				 m_Mode;					  //モード
@@ -77,6 +81,7 @@ private:
 
 	static CLight			*m_pLight;		                     // ライトのポインタ
 	static CPlayer          *m_pPlayer;
+	static CPlayerHook		*m_pPlayerHook;
 	static CCollisionDetection *m_CollisionDetection;
 
 	static CGameMode		*m_pGameMode;				  // ゲームモードのポインタ

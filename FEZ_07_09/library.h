@@ -35,6 +35,16 @@
 #pragma comment(lib,"winmm.lib")
 
 //*****************************************************************************
+// ç\ë¢ëÃÇÃêÈåæ
+//*****************************************************************************
+typedef enum
+{
+	COLLISION_NONE = 0,
+	COLLISION_HEIGHT,
+	COLLISION_WIDTH
+}COLLISION;
+
+//*****************************************************************************
 // é©çÏä÷êî
 //*****************************************************************************
 void Delay(const int nSecond);
@@ -43,5 +53,5 @@ int Sum(int nValue, ...);
  char *NumberToChar(const int nNumber);
  char *NumberToChar(const float fNumber);
  float Vec3Length(D3DXVECTOR3 *pVec);
-bool CollisionDetection(D3DXVECTOR3 PlayerPos, D3DXVECTOR3 PlayerSiz, D3DXVECTOR3 BlockPos, D3DXVECTOR3 BlockSiz);
+ bool CollisionDetectionCalculation(D3DXVECTOR3 PlayerPosOld, D3DXVECTOR3 PlayerPos, D3DXVECTOR3 PlayerSiz, D3DXVECTOR3 ObjectPos, D3DXVECTOR3 ObjectSiz, COLLISION Collision);
 #endif

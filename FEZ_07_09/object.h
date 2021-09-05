@@ -26,7 +26,9 @@ public:
 	{
 		OBJ_TYPE_NONE = 0,
 		OBJ_TYPE_HOOK,
+		OBJ_TYPE_BLOCK,
 		OBJ_TYPE_BUTTON,
+		OBJ_TYPE_SPIKE,
 		OBJ_TYPE_MAX
 	}OBJ_TYPE;
 
@@ -43,6 +45,8 @@ public:
 	static  void UpdateAll(void);
 	static  void DrawAll(void);
 	static  void ReleaseAll(void);	// 全オブジェクト破棄関数
+
+	void SetType(OBJ_TYPE objType) { m_type = objType; }
 
 	static  int GetNumObj(OBJ_TYPE objType) {return m_nNumObj[objType]; }
 	static  CObject*GetTopObj(OBJ_TYPE objType) { return m_pTop[objType]; }
