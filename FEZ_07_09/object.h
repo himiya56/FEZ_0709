@@ -51,6 +51,7 @@ public:
 	static  int GetNumObj(OBJ_TYPE objType) {return m_nNumObj[objType]; }
 	static  CObject*GetTopObj(OBJ_TYPE objType) { return m_pTop[objType]; }
 	CObject* GetNextObj(void) { return m_pNext; }
+	OBJ_TYPE GetType(void) { return m_type; }
 protected:
 	void Release(void);		// オブジェクト破棄関数
 private:

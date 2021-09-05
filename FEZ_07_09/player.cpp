@@ -120,32 +120,33 @@ void CPlayer::Update(void) {
 
 void CPlayer::CollisionDetection(void) {
 	// ブロックとの当たり判定
-	CCollisionDetection *pCollisionDetection = CCollisionDetection::GetCollisionDetectionOrientation();
+	CObject *pObject = CObject::GetTopObj(OBJ_TYPE_BLOCK);
 	CCamera::ORIENTATION Orientation = m_pCamera->GetOrientation();
 
-	for (int nCntScene = 0; nCntScene < CCollisionDetection::GetNumAll(); nCntScene++) 
-	{
+	for (int nCntObj = 0; nCntObj < CObject::GetNumObj(OBJ_TYPE_BLOCK); nCntObj++) {
 		// 中身があるなら
-		if (pCollisionDetection != NULL) {
+		if (pObject != NULL) {
 			// 次のシーンを記憶
-			CCollisionDetection *pNextScene = pCollisionDetection->GetNextScene();
+			CObject *pNextObj = pObject->GetNextObj();
 
-			//ZかX軸が一致した場合
-			if (pCollisionDetection->GetPos().z == m_pos.z && Orientation == CCamera::ORIENTATION_FRONT || Orientation == CCamera::ORIENTATION_BACK ||
-				pCollisionDetection->GetPos().x == m_pos.x && Orientation == CCamera::ORIENTATION_LEFT || Orientation == CCamera::ORIENTATION_RIGHT) {
-				bool bCollisionDetectionJudge = CollisionDetectionCalculation(m_posold, m_pos, m_siz, pCollisionDetection->GetPos(), pCollisionDetection->GetSiz(), COLLISION::COLLISION_HEIGHT);
+			if (pObject->GetType() == CObject::OBJ_TYPE_BLOCK) {
+				CCollisionDetection *pCollisionDetection = (CCollisionDetection*)pObject;
 
-				if (bCollisionDetectionJudge == true) {
-					m_pos.y = pCollisionDetection->GetPos().y + ((pCollisionDetection->GetSiz().y / 2) + (m_siz.y / 2));
-					m_bJumpJudge = true;
+				//ZかX軸が一致した場合
+				if (pCollisionDetection->GetPos().z == m_pos.z && Orientation == CCamera::ORIENTATION_FRONT || Orientation == CCamera::ORIENTATION_BACK ||
+					pCollisionDetection->GetPos().x == m_pos.x && Orientation == CCamera::ORIENTATION_LEFT || Orientation == CCamera::ORIENTATION_RIGHT) {
+
+					if (CollisionDetectionCalculation(m_posold, m_pos, m_siz, pCollisionDetection->GetPos(), pCollisionDetection->GetSiz(), COLLISION::COLLISION_HEIGHT) == true) {
+						m_pos.y = pCollisionDetection->GetPos().y + ((pCollisionDetection->GetSiz().y / 2) + (m_siz.y / 2));
+						m_bJumpJudge = true;
+					}
 				}
 			}
 
 			// 次のシーンにする
-			pCollisionDetection = pNextScene;
+			pObject = pNextObj;
 		}
-		else 
-		{
+		else {
 			// 中身がないなら、そこで処理を終える
 			break;
 		}
