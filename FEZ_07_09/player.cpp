@@ -123,7 +123,8 @@ void CPlayer::CollisionDetection(void) {
 	CCollisionDetection *pCollisionDetection = CCollisionDetection::GetCollisionDetectionOrientation();
 	CCamera::ORIENTATION Orientation = m_pCamera->GetOrientation();
 
-	for (int nCntScene = 0; nCntScene < CCollisionDetection::GetNumAll(); nCntScene++) {
+	for (int nCntScene = 0; nCntScene < CCollisionDetection::GetNumAll(); nCntScene++) 
+	{
 		// 中身があるなら
 		if (pCollisionDetection != NULL) {
 			// 次のシーンを記憶
@@ -143,7 +144,8 @@ void CPlayer::CollisionDetection(void) {
 			// 次のシーンにする
 			pCollisionDetection = pNextScene;
 		}
-		else {
+		else 
+		{
 			// 中身がないなら、そこで処理を終える
 			break;
 		}

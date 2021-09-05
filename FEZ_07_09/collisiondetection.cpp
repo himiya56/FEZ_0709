@@ -3,6 +3,7 @@
 //========================
 #include "collisiondetection.h"
 #include "manager.h"
+#include "camera.h"
 
 //*****************************************************************************
 // Ã“Iƒƒ“ƒo•Ï”éŒ¾
@@ -33,8 +34,31 @@ void CCollisionDetection::Uninit(void) {
 }
 
 void CCollisionDetection::Update(void) {
+
+	CCamera *pCamera = CManager::GetCamera();
+	CCamera::ORIENTATION orientarion = pCamera->GetOrientation();
+	CCamera::ROTATE rotate = pCamera->GetRotake();
+
+	if (orientarion == CCamera::ORIENTATION_FRONT) {
+		m_pos = D3DXVECTOR3(m_pos.x, m_pos.y, CCamera::ORIENTATION_FRONT_POS);
+	}
+	if (orientarion == CCamera::ORIENTATION_BACK) {
+		m_pos = D3DXVECTOR3(m_pos.x, m_pos.y, CCamera::ORIENTATION_BACK_POS);
+	}
+	if (orientarion == CCamera::ORIENTATION_LEFT) {
+		m_pos = D3DXVECTOR3(CCamera::ORIENTATION_LEFT_POS, m_pos.y, m_pos.z);
+	}
+	if (orientarion == CCamera::ORIENTATION_RIGHT) {
+		m_pos = D3DXVECTOR3(CCamera::ORIENTATION_RIGHT_POS, m_pos.y, m_pos.z);
+	}
+	// ‰ñ“]’†‚ÍŠî€À•W‚É–ß‚·
+	if (rotate == CCamera::ROTATE_LEFT ||
+		rotate == CCamera::ROTATE_RIGHT) {
+		m_pos = m_defaultPos;
+	}
+
 	UpdateByType(m_BlockType);
-	CBillboard::SetPos(D3DXVECTOR3(m_pos));
+	CBillboard::SetPos(m_pos);
 	CBillboard::SetSize(m_siz);
 	CBillboard::SetCol(D3DXCOLOR(255, 255, 255, 255));
 	CBillboard::Update();
@@ -74,6 +98,7 @@ void CCollisionDetection::Unload(void)
 
 void CCollisionDetection::Draw(void) {
 	CBillboard::Draw();
+
 }
 
 CCollisionDetection *CCollisionDetection::Create(D3DXVECTOR3 pos, D3DXVECTOR3 siz, BLOCKTYPE BlockType) {
@@ -86,8 +111,12 @@ CCollisionDetection *CCollisionDetection::Create(D3DXVECTOR3 pos, D3DXVECTOR3 si
 	pCollisionDetection->SetType(CObject::OBJ_TYPE_BLOCK);
 
 	pCollisionDetection->m_pos = pos;
+	pCollisionDetection->m_defaultPos = pos;
 	pCollisionDetection->m_siz = siz;
 	pCollisionDetection->m_BlockType = BlockType;
+
+	CBlock::Create(pos);
+
 	return pCollisionDetection;
 }
 

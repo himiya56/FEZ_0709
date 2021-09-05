@@ -32,6 +32,7 @@
 #include "collisiondetection.h"
 #include "player_hook.h"
 #include "spike.h"
+#include "block.h"
 
 //*****************************************************************************
 // Ã“Iƒƒ“ƒo•Ï”éŒ¾
@@ -270,6 +271,7 @@ void CManager::Load(void)
 	CStage3Button::TextureLoad();
 	CCollisionDetection::Load();
 	CSpike::Load();
+	CBlock::Load();
 }
 
 //=============================================================================
@@ -288,4 +290,5 @@ void CManager::Unload(void)
 	CStage3Button::TextureUnload();
 	CCollisionDetection::Unload();
 	CSpike::Unload();
+	CBlock::Unload();
 }

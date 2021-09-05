@@ -13,6 +13,7 @@
 #include "main.h"
 #include "billboard.h"
 #include "camera.h"
+#include "block.h"
 
 //================================================
 // É}ÉNÉçíËã`
@@ -67,8 +68,10 @@ private:
 	CCollisionDetection *m_pNext;
 
 	D3DXVECTOR3 m_pos;
+	D3DXVECTOR3 m_defaultPos;
 	D3DXVECTOR3 m_siz;
 	BLOCKTYPE m_BlockType;
+	CBlock *m_pBlock;
 
 	static LPDIRECT3DTEXTURE9		m_apTexture[BLOCK_TYPE_MAX];
 

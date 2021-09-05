@@ -20,6 +20,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="billboard.h" />
+    <ClInclude Include="block.h" />
     <ClInclude Include="button.h" />
     <ClInclude Include="button_any.h" />
     <ClInclude Include="button_exit.h" />
@@ -56,6 +57,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="billboard.cpp" />
+    <ClCompile Include="block.cpp" />
     <ClCompile Include="button.cpp" />
     <ClCompile Include="button_any.cpp" />
     <ClCompile Include="button_exit.cpp" />
