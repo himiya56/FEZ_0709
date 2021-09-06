@@ -11,6 +11,7 @@
 // インクルードファイル
 //================================================
 #include "player.h"
+#include "camera.h"
 #include "keyboard.h"
 #include "spike.h"
 
@@ -35,7 +36,7 @@ public:
 	~CPlayerHook();
 
 	// 円
-	typedef struct 
+	typedef struct
 	{
 		D3DXVECTOR3 centerPos = DEFAULT_VECTOR;
 		D3DXVECTOR3 targetPos = DEFAULT_VECTOR;
@@ -58,7 +59,7 @@ public:
 	D3DXVECTOR3 SortSpike(void);
 	void ShotHook(D3DXVECTOR3 pos);
 	void MoveToHook(D3DXVECTOR3 pos);
-
+	bool GetPlayerHookJump(void) { return m_bJumpJudge; }
 
 	static CPlayerHook *Create(D3DXVECTOR3 pos, D3DXVECTOR3 siz);
 	static void Load(void);
@@ -68,9 +69,12 @@ private:
 	D3DXVECTOR3 m_pos;
 	D3DXVECTOR3 m_move;
 	bool m_bHook;
+	bool m_bJumpJudge;
 	Circle m_circle;
 
 	static LPDIRECT3DTEXTURE9		m_pTexture;
+
+	CCamera *m_pCamera;
 };
 
 #endif

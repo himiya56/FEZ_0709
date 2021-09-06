@@ -123,7 +123,8 @@ bool CollisionDetectionCalculation(D3DXVECTOR3 PlayerPosOld, D3DXVECTOR3 PlayerP
 	}
 	else if (bWidthJudge == true &&
 		PlayerPosOld.y >= PlayerPos.y &&
-		PlayerPos.y - (PlayerSiz.y / 2) <= ObjectPos.y + (ObjectSiz.y / 2)) {
+		PlayerPos.y - (PlayerSiz.y / 2) <= ObjectPos.y + (ObjectSiz.y / 2) &&
+		PlayerPos.y >= ObjectPos.y + (ObjectSiz.y / 2)) {
 		return true;
 	}
 

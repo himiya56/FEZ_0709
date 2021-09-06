@@ -15,7 +15,7 @@ CCollisionDetection *CCollisionDetection::m_CollisionDetectionListCur;
 LPDIRECT3DTEXTURE9 CCollisionDetection::m_apTexture[BLOCK_TYPE_MAX] = {};
 
 
-CCollisionDetection::CCollisionDetection() {
+CCollisionDetection::CCollisionDetection() :CBillboard(OBJ_TYPE::OBJ_TYPE_BLOCK){
 
 }
 
@@ -39,16 +39,20 @@ void CCollisionDetection::Update(void) {
 	CCamera::ORIENTATION orientarion = pCamera->GetOrientation();
 	CCamera::ROTATE rotate = pCamera->GetRotake();
 
-	if (orientarion == CCamera::ORIENTATION_FRONT) {
+	if (orientarion == CCamera::ORIENTATION_FRONT && 
+		m_pos.x <= -35.0f && m_pos.x >= 185.0f) {
 		m_pos = D3DXVECTOR3(m_pos.x, m_pos.y, CCamera::ORIENTATION_FRONT_POS);
 	}
-	if (orientarion == CCamera::ORIENTATION_BACK) {
+	if (orientarion == CCamera::ORIENTATION_BACK &&
+		m_pos.x <= -35.0f && m_pos.x >= 185.0f) {
 		m_pos = D3DXVECTOR3(m_pos.x, m_pos.y, CCamera::ORIENTATION_BACK_POS);
 	}
-	if (orientarion == CCamera::ORIENTATION_LEFT) {
+	if (orientarion == CCamera::ORIENTATION_LEFT &&
+		m_pos.z <= -185.0f && m_pos.z >= 35.0f) {
 		m_pos = D3DXVECTOR3(CCamera::ORIENTATION_LEFT_POS, m_pos.y, m_pos.z);
 	}
-	if (orientarion == CCamera::ORIENTATION_RIGHT) {
+	if (orientarion == CCamera::ORIENTATION_RIGHT &&
+		m_pos.z <= -185.0f && m_pos.z >= 35.0f) {
 		m_pos = D3DXVECTOR3(CCamera::ORIENTATION_RIGHT_POS, m_pos.y, m_pos.z);
 	}
 	// ‰ñ“]’†‚ÍŠî€À•W‚É–ß‚·
@@ -108,14 +112,13 @@ CCollisionDetection *CCollisionDetection::Create(D3DXVECTOR3 pos, D3DXVECTOR3 si
 	pCollisionDetection->SetPos(pos);
 	pCollisionDetection->SetSize(siz);
 	pCollisionDetection->BindTexture(m_apTexture[BlockType]);
-	pCollisionDetection->SetType(CObject::OBJ_TYPE_BLOCK);
 
 	pCollisionDetection->m_pos = pos;
 	pCollisionDetection->m_defaultPos = pos;
 	pCollisionDetection->m_siz = siz;
 	pCollisionDetection->m_BlockType = BlockType;
 
-	CBlock::Create(pos);
+	//CBlock::Create(pos);
 
 	return pCollisionDetection;
 }
