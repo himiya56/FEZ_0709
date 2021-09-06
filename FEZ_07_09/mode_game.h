@@ -19,6 +19,8 @@
 //*****************************************************************************
 // 前方宣言
 //*****************************************************************************
+class CPlayerHook;
+class CPlayerRotation;
 
 //*****************************************************************************
 // クラス定義
@@ -42,11 +44,17 @@ public:
 	void Draw(void);
 	void SetbCreatePause(bool bPouse) { m_bCreatePause = bPouse; }
 	bool GetbCreatePause(void) { return m_bCreatePause; }
+
+	static CPlayerHook* GetPlayerHook(void) { return m_pPlayerHook; }
+	static CPlayerRotation* GetPlayerRotation(void) { return m_pPlayerRotation; }
 private:
 	void InitCreate(void);
 	void InitStageCreate(void);
 	void Input(void);
 	bool m_bCreatePause;	//ポーズを生成してるか
 	STAGE m_Stage;			//ステージ
+
+	static CPlayerHook *m_pPlayerHook;
+	static CPlayerRotation *m_pPlayerRotation;
 };
 #endif

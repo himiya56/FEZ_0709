@@ -17,6 +17,7 @@
 //#include "joystick.h"
 #include "mode_game.h"
 #include "player_hook.h"
+#include "player_rotation.h"
 #include "player.h"
 #include "testObj.h"
 #include "spike.h"
@@ -27,8 +28,10 @@
 //*****************************************************************************
 
 //*****************************************************************************
-// 静的メンバ変数の初期化
+// 静的メンバ変数宣言
 //*****************************************************************************
+CPlayerHook *CGameMode::m_pPlayerHook = NULL;
+CPlayerRotation *CGameMode::m_pPlayerRotation = NULL;
 
 //=============================================================================
 // コンストラクタ
@@ -124,12 +127,12 @@ void CGameMode::InitCreate(void)
 //=============================================================================
 void CGameMode::InitStageCreate(void)
 {
-	CPlayerHook *pPlayerHook;
 	switch (m_Stage)
 	{
 	case STAGE_1:
-		CPlayer::Create(D3DXVECTOR3(75.0f * -1.0f, 75.0f * 1.0f, 75.0f * -2.0f), BLOCK_SIZE);
-		pPlayerHook = CPlayerHook::Create(D3DXVECTOR3(75.0f * 0.0f, 75.0f * 1.0f, 75.0f * -2.0f), BLOCK_SIZE);
+		// CPlayer::Create(D3DXVECTOR3(75.0f * -1.0f, 75.0f * 1.0f, 75.0f * -2.0f), BLOCK_SIZE);
+		m_pPlayerHook = CPlayerHook::Create(D3DXVECTOR3(75.0f * 0.0f, 75.0f * 1.0f, 75.0f * -2.0f), BLOCK_SIZE);
+		m_pPlayerRotation = CPlayerRotation::Create(D3DXVECTOR3(75.0f * 0.0f, 75.0f * 1.0f, 75.0f * -2.0f), BLOCK_SIZE);
 		
 		CCollisionDetection::Create(D3DXVECTOR3(75.0f / 2.0f, 1725.0f / 2.0f, -75.0f / 2.0f), D3DXVECTOR3(150.0f, 1800.0f, 0.0f), CCollisionDetection::BLOCKTYPE_WALL);
 
@@ -150,7 +153,7 @@ void CGameMode::InitStageCreate(void)
 		CCollisionDetection::Create(D3DXVECTOR3(75.0f * 2.0f, 75.0f * 9.0f, 75.0f * -4.0f), BLOCK_SIZE, CCollisionDetection::BLOCKTYPE_NONE);
 
 
-		CManager::SetPlayerHook(pPlayerHook);
+		// CManager::SetPlayerHook(pPlayerHook);
 		
 		break;
 	case STAGE_2:

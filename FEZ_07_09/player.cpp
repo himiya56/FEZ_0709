@@ -22,8 +22,6 @@ HRESULT CPlayer::Init(void) {
 
 	CBillboard::Init();
 	m_move = D3DXVECTOR3(MOVE_SIZ, 0, MOVE_SIZ);
-	D3DXCreateTextureFromFile(pDevice, "data/TEXTURE/Character1.1.png", &m_pTexture);
-	BindTexture(m_pTexture);
 
 	m_bJumpJudge = true;
 
@@ -36,11 +34,8 @@ void CPlayer::Uninit(void) {
 
 void CPlayer::Update(void) {
 	m_pCamera = CManager::GetCamera();
-	CInputKeyboard *pKeyboard = CManager::GetInput();
 	CCamera::ORIENTATION Orientation = m_pCamera->GetOrientation();
 	m_posold = m_pos;
-	m_pos = GetPos();
-	m_move.y -= GRAVITY_SIZ;
 
 	if (m_posold.y == 0) {
 		m_posold.y = -1.0f;
@@ -48,73 +43,10 @@ void CPlayer::Update(void) {
 
 	m_pos = RotationDifferentialShift(Orientation, m_pos, m_pCamera->GetRotake(), m_pCamera->GetRotakeOld());
 
-	// カメラの回転を呼び出す
-	m_pCamera->DecisionRotate(pKeyboard);
-
-	if (m_pCamera->GetRotake() == CCamera::ROTATE_NONE) {
-		switch (Orientation) {
-		case CCamera::ORIENTATION_BACK:
-			// ←キーで左移動
-			if (pKeyboard->GetKeyboardPress(DIK_LEFT)) {
-				m_pos.x += m_move.x;
-			}
-			// →キーで右移動
-			if (pKeyboard->GetKeyboardPress(DIK_RIGHT)) {
-				m_pos.x -= m_move.x;
-			}
-			break;
-
-		case CCamera::ORIENTATION_LEFT:
-			// ←キーで左移動
-			if (pKeyboard->GetKeyboardPress(DIK_LEFT)) {
-				m_pos.z += m_move.z;
-			}
-			// →キーで右移動
-			if (pKeyboard->GetKeyboardPress(DIK_RIGHT)) {
-				m_pos.z -= m_move.z;
-			}
-			break;
-
-		case CCamera::ORIENTATION_FRONT:
-			// ←キーで左移動
-			if (pKeyboard->GetKeyboardPress(DIK_LEFT)) {
-				m_pos.x -= m_move.x;
-			}
-			// →キーで右移動
-			if (pKeyboard->GetKeyboardPress(DIK_RIGHT)) {
-				m_pos.x += m_move.x;
-			}
-			break;
-
-		case CCamera::ORIENTATION_RIGHT:
-			// ←キーで左移動
-			if (pKeyboard->GetKeyboardPress(DIK_LEFT)) {
-				m_pos.z -= m_move.z;
-			}
-			// →キーで右移動
-			if (pKeyboard->GetKeyboardPress(DIK_RIGHT)) {
-				m_pos.z += m_move.z;
-			}
-			break;
-		}
-
-		// スペースキーでジャンプ
-		if (m_bJumpJudge == true && pKeyboard->GetKeyboardTrigger(DIK_UP)) {
-			m_bJumpJudge = false;
-			m_move.y = JUMP_SIZ;
-		}
-	}
-
-	m_pos.y += m_move.y;
-	if (m_pos.y <= 0) {
-		m_pos.y = 0;
-		m_bJumpJudge = true;
-	}
-
 	CollisionDetection();
 
 	SetCol(D3DXCOLOR(0, 0, 0, 255));
-	SetPos(m_pos);
+	CBillboard::SetPos(m_pos);
 	CBillboard::Update();
 }
 
@@ -172,15 +104,4 @@ D3DXVECTOR3 CPlayer::RotationDifferentialShift(CCamera::ORIENTATION Orientation,
 
 void CPlayer::Draw(void) {
 	CBillboard::Draw();
-}
-
-CPlayer *CPlayer::Create(D3DXVECTOR3 pos, D3DXVECTOR3 siz) {
-	CPlayer *pPlayer = NULL;
-	pPlayer = new CPlayer;
-	pPlayer->Init();
-	pPlayer->SetPos(pos);
-	pPlayer->SetSize(siz);
-	pPlayer->m_pos = pos;
-	pPlayer->m_siz = siz;
-	return pPlayer;
 }

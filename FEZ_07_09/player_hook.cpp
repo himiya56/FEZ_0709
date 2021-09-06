@@ -40,9 +40,15 @@ CPlayerHook::~CPlayerHook()
 //=============================================================================
 HRESULT CPlayerHook::Init(void)
 {
+	LPDIRECT3DDEVICE9 pDevice = CManager::GetRenderer()->GetDevice();
+
 	CPlayer::Init();
-	m_move = DEFAULT_VECTOR;
+	m_move = MOVE_SPECIFIED;
+	D3DXCreateTextureFromFile(pDevice, "data/TEXTURE/Player2.jpg", &m_pTexture);
 	BindTexture(m_pTexture);
+
+	m_bJumpJudge = true;
+
 	pWire = CWire::Create(D3DXVECTOR3(200.0f, 50.0f, 0.0f));
 	return S_OK;
 }
@@ -60,12 +66,14 @@ void CPlayerHook::Uninit(void)
 //=============================================================================
 void CPlayerHook::Update(void)
 {
+	m_pCamera = CManager::GetCamera();
+	CCamera::ORIENTATION Orientation = m_pCamera->GetOrientation();
 	CInputKeyboard *pKeyboard = CManager::GetInput();
 	D3DXVECTOR3 destPos;
 
 	m_pos = GetPos();
 	destPos = SortSpike();
-
+	m_move.y -= GRAVITY_SIZ;
 
 	if (pKeyboard->GetKeyboardTrigger(DIK_F) && m_bHook == false)
 	{
@@ -84,7 +92,69 @@ void CPlayerHook::Update(void)
 	else
 	{
 		// プレイヤー操作
+		if (m_pCamera->GetRotake() == CCamera::ROTATE_NONE) {
+			switch (Orientation) {
+			case CCamera::ORIENTATION_BACK:
+				// ←キーで左移動
+				if (pKeyboard->GetKeyboardPress(DIK_LEFT)) {
+					m_pos.x += m_move.x;
+				}
+				// →キーで右移動
+				if (pKeyboard->GetKeyboardPress(DIK_RIGHT)) {
+					m_pos.x -= m_move.x;
+				}
+				break;
+
+			case CCamera::ORIENTATION_LEFT:
+				// ←キーで左移動
+				if (pKeyboard->GetKeyboardPress(DIK_LEFT)) {
+					m_pos.z += m_move.z;
+				}
+				// →キーで右移動
+				if (pKeyboard->GetKeyboardPress(DIK_RIGHT)) {
+					m_pos.z -= m_move.z;
+				}
+				break;
+
+			case CCamera::ORIENTATION_FRONT:
+				// ←キーで左移動
+				if (pKeyboard->GetKeyboardPress(DIK_LEFT)) {
+					m_pos.x -= m_move.x;
+				}
+				// →キーで右移動
+				if (pKeyboard->GetKeyboardPress(DIK_RIGHT)) {
+					m_pos.x += m_move.x;
+				}
+				break;
+
+			case CCamera::ORIENTATION_RIGHT:
+				// ←キーで左移動
+				if (pKeyboard->GetKeyboardPress(DIK_LEFT)) {
+					m_pos.z -= m_move.z;
+				}
+				// →キーで右移動
+				if (pKeyboard->GetKeyboardPress(DIK_RIGHT)) {
+					m_pos.z += m_move.z;
+				}
+				break;
+			}
+
+			// スペースキーでジャンプ
+			if (m_bJumpJudge == true && pKeyboard->GetKeyboardTrigger(DIK_UP)) {
+				m_bJumpJudge = false;
+				m_move.y = JUMP_SIZ;
+			}
+		}
 	}
+
+	m_pos.y += m_move.y;
+	if (m_pos.y <= 0) {
+		m_pos.y = 0;
+		m_bJumpJudge = true;
+	}
+
+	SetCol(D3DXCOLOR(0, 0, 0, 255));
+	SetPos(m_pos);
 	CPlayer::Update();
 }
 

@@ -207,12 +207,12 @@ void CCamera::DecisionRotate(CInputKeyboard *pInputKeyboard) {
 	if (m_rotDir == ROTATE_NONE)
 	{
 		// Aキーで右回転
-		if (pInputKeyboard->GetKeyboardTrigger(DIK_A))
+		if (pInputKeyboard->GetKeyboardTrigger(DIK_Q))
 		{
 			m_rotDir = ROTATE_RIGHT;
 		}
 		// Dキーで左回転
-		if (pInputKeyboard->GetKeyboardTrigger(DIK_D))
+		if (pInputKeyboard->GetKeyboardTrigger(DIK_E))
 		{
 			m_rotDir = ROTATE_LEFT;
 		}

@@ -274,13 +274,13 @@ void CRenderer::DrawOrientation(void) {
 }
 
 void CRenderer::DrawPos(void) {
-	RECT rect = { 0, 350, SCREEN_WIDTH, SCREEN_HEIGHT };
-	char str[256];
-	m_pPlayer = CManager::GetPlayer();
-	D3DXVECTOR3 pos = m_pPlayer->GetPos();
+	//RECT rect = { 0, 350, SCREEN_WIDTH, SCREEN_HEIGHT };
+	//char str[256];
+	//m_pPlayer = CManager::GetPlayer();
+	//D3DXVECTOR3 pos = m_pPlayer->GetPos();
 
-	wsprintf(str, "%d, %d, %d", int(pos.x), int(pos.y), int(pos.z));
+	//wsprintf(str, "%d, %d, %d", int(pos.x), int(pos.y), int(pos.z));
 
-	//テキスト描画
-	m_pFont->DrawText(NULL, str, -1, &rect, DT_LEFT, D3DCOLOR_ARGB(0xff, 0xff, 0xff, 0xff));
+	////テキスト描画
+	//m_pFont->DrawText(NULL, str, -1, &rect, DT_LEFT, D3DCOLOR_ARGB(0xff, 0xff, 0xff, 0xff));
 }
