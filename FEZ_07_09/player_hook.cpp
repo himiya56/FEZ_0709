@@ -80,14 +80,16 @@ void CPlayerHook::Update(void)
 		// 周りにフックをかけれるか探索
 		// かけられるならフラグをtrueに
 		m_bHook = true;
-
 	}
 
 	if (m_bHook)
 	{
 		// 当たり判定オフ
 		// プレイヤーの一番近い場所にフックでの移動処理
-		MoveToHook(destPos);
+		if (destPos != DEFAULT_VECTOR)
+		{
+			MoveToHook(destPos);
+		}
 	}
 	else
 	{
@@ -153,7 +155,6 @@ void CPlayerHook::Update(void)
 		m_bJumpJudge = true;
 	}
 
-	SetCol(D3DXCOLOR(0, 0, 0, 255));
 	SetPos(m_pos);
 	CPlayer::Update();
 }
@@ -163,7 +164,7 @@ void CPlayerHook::Update(void)
 //=============================================================================
 void CPlayerHook::Draw(void)
 {
-	CPlayer::Draw();
+	//CPlayer::Draw();
 }
 
 //=============================================================================
@@ -333,6 +334,7 @@ void CPlayerHook::MoveToHook(D3DXVECTOR3 pos)
 	}
 
 	// 位置を更新
+	m_move = MOVE_SPECIFIED;
 	SetPos(m_pos);
 }
 

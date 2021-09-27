@@ -32,12 +32,10 @@
 #include "collisiondetection.h"
 #include "player_hook.h"
 #include "spike.h"
-#include "block.h"
 
 //*****************************************************************************
 // 静的メンバ変数宣言
 //*****************************************************************************
-
 CRenderer *CManager::m_pRenderer = NULL;
 CInputKeyboard *CManager::m_pInput = NULL;
 CCamera *CManager::m_pCamera = NULL;
@@ -105,7 +103,7 @@ HRESULT CManager::Init(HINSTANCE hInstance, HWND hWnd, bool bWindow)
 	//CTestObj::Create(D3DXVECTOR3(300.0f, 0.0f, -300.0f));
 	//CTestObj::Create(D3DXVECTOR3(-300.0f, 0.0f, 300.0f));
 
-	m_pPlayer = CPlayer::Create(D3DXVECTOR3(0.0f, 170.0f, 0.0f), PLAYER_SIZE);
+	//m_pPlayer = CPlayer::Create(D3DXVECTOR3(0.0f, 170.0f, 0.0f), PLAYER_SIZE);
 
 	// モードの設定
 	SetMode(MODE_TITLE);

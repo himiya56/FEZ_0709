@@ -130,9 +130,8 @@ void CGameMode::InitStageCreate(void)
 	switch (m_Stage)
 	{
 	case STAGE_1:
-		// CPlayer::Create(D3DXVECTOR3(75.0f * -1.0f, 75.0f * 1.0f, 75.0f * -2.0f), BLOCK_SIZE);
-		m_pPlayerHook = CPlayerHook::Create(D3DXVECTOR3(75.0f * 0.0f, 75.0f * 1.0f, 75.0f * -2.0f), BLOCK_SIZE);
-		m_pPlayerRotation = CPlayerRotation::Create(D3DXVECTOR3(75.0f * 0.0f, 75.0f * 1.0f, 75.0f * -2.0f), BLOCK_SIZE);
+		m_pPlayerHook = CPlayerHook::Create(D3DXVECTOR3(75.0f * -1.0f, 75.0f * 1.0f, 75.0f * -2.0f), BLOCK_SIZE);
+		m_pPlayerRotation = CPlayerRotation::Create(D3DXVECTOR3(75.0f * 2.0f, 75.0f * 2.0f + 70.0f, 75.0f * 0.0f), BLOCK_SIZE);
 
 		CCollisionDetection::Create(D3DXVECTOR3(75.0f / 2.0f, 1725.0f / 2.0f, -75.0f / 2.0f), D3DXVECTOR3(150.0f, 1800.0f, 0.0f), CCollisionDetection::BLOCKTYPE_WALL);
 
@@ -151,9 +150,6 @@ void CGameMode::InitStageCreate(void)
 		CCollisionDetection::Create(D3DXVECTOR3(75.0f * 0.0f, 75.0f * 7.0f, 75.0f * -2.0f), BLOCK_SIZE, CCollisionDetection::BLOCKTYPE_NONE);
 		CCollisionDetection::Create(D3DXVECTOR3(75.0f * 1.0f, 75.0f * 8.0f, 75.0f * -5.0f), BLOCK_SIZE, CCollisionDetection::BLOCKTYPE_NONE);
 		CCollisionDetection::Create(D3DXVECTOR3(75.0f * 2.0f, 75.0f * 9.0f, 75.0f * -4.0f), BLOCK_SIZE, CCollisionDetection::BLOCKTYPE_NONE);
-
-
-		// CManager::SetPlayerHook(pPlayerHook);
 
 		break;
 	case STAGE_2:

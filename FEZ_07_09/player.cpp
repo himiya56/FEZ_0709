@@ -35,45 +35,42 @@ void CPlayer::Uninit(void) {
 void CPlayer::Update(void) {
 	m_pCamera = CManager::GetCamera();
 	CCamera::ORIENTATION Orientation = m_pCamera->GetOrientation();
-	m_posold = m_pos;
-
-	if (m_posold.y == 0) {
-		m_posold.y = -1.0f;
-	}
-
-	m_pos = RotationDifferentialShift(Orientation, m_pos, m_pCamera->GetRotake(), m_pCamera->GetRotakeOld());
+	m_pos = GetPos();
+	//m_pos = RotationDifferentialShift(Orientation, m_pos, m_pCamera->GetRotake(), m_pCamera->GetRotakeOld());
 
 	CollisionDetection();
 
-	SetCol(D3DXCOLOR(0, 0, 0, 255));
-	CBillboard::SetPos(m_pos);
+	SetPos(m_pos);
+	m_posold = m_pos;
 	CBillboard::Update();
 }
 
 void CPlayer::CollisionDetection(void) {
 	// ブロックとの当たり判定
-	CCollisionDetection *pCollisionDetection = CCollisionDetection::GetCollisionDetectionOrientation();
+	CObject *pObj = CObject::GetTopObj(CObject::OBJ_TYPE_BLOCK);
 	CCamera::ORIENTATION Orientation = m_pCamera->GetOrientation();
 
-	for (int nCntScene = 0; nCntScene < CCollisionDetection::GetNumAll(); nCntScene++) {
+	for (int nCntScene = 0; nCntScene < CObject::GetNumObj(CObject::OBJ_TYPE_BLOCK); nCntScene++) {
 		// 中身があるなら
-		if (pCollisionDetection != NULL) {
+		if (pObj != NULL) {
 			// 次のシーンを記憶
-			CCollisionDetection *pNextScene = pCollisionDetection->GetNextScene();
+			CCollisionDetection *pCollisionDetection = (CCollisionDetection*)pObj;
+			D3DXVECTOR3 pos = pCollisionDetection->GetPos();
 
 			//ZかX軸が一致した場合
-			if (pCollisionDetection->GetPos().z == m_pos.z && Orientation == CCamera::ORIENTATION_FRONT || Orientation == CCamera::ORIENTATION_BACK ||
-				pCollisionDetection->GetPos().x == m_pos.x && Orientation == CCamera::ORIENTATION_LEFT || Orientation == CCamera::ORIENTATION_RIGHT) {
-				bool bCollisionDetectionJudge = CollisionDetectionCalculation(m_posold, m_pos, m_siz, pCollisionDetection->GetPos(), pCollisionDetection->GetSiz(), COLLISION::COLLISION_HEIGHT);
+			if (pos.z == m_pos.z && Orientation == CCamera::ORIENTATION_FRONT || Orientation == CCamera::ORIENTATION_BACK ||
+				pos.x == m_pos.x && Orientation == CCamera::ORIENTATION_LEFT || Orientation == CCamera::ORIENTATION_RIGHT) {
+				bool bCollisionDetectionJudge = CollisionDetectionCalculation(m_posold, m_pos, PLAYER_SIZE, pos, PLAYER_SIZE, COLLISION::COLLISION_HEIGHT);
 
-				if (bCollisionDetectionJudge == true) {
-					m_pos.y = pCollisionDetection->GetPos().y + ((pCollisionDetection->GetSiz().y / 2) + (m_siz.y / 2));
+				if (bCollisionDetectionJudge == true) 
+				{
+					m_pos.y = pos.y + PLAYER_SIZE.y;
 					m_bJumpJudge = true;
 				}
 			}
 
 			// 次のシーンにする
-			pCollisionDetection = pNextScene;
+			pObj = pObj->GetNextObj();
 		}
 		else {
 			// 中身がないなら、そこで処理を終える
@@ -82,9 +79,9 @@ void CPlayer::CollisionDetection(void) {
 	}
 }
 
-D3DXVECTOR3 CPlayer::RotationDifferentialShift(CCamera::ORIENTATION Orientation, D3DXVECTOR3 PlayerPos, CCamera::ROTATE Rotate, CCamera::ROTATE RotateOld) {
+D3DXVECTOR3 CPlayer::RotationDifferentialShift(CCamera::ORIENTATION Orientation, D3DXVECTOR3 PlayerPos, CCamera::ROTATE Rotate, CCamera::ROTATE RotateOld) 
+{
 	D3DXVECTOR3 Pos = PlayerPos;
-	D3DXVECTOR3 SavePlayerPos;
 
 	if (Orientation == CCamera::ORIENTATION_FRONT) {
 		Pos = D3DXVECTOR3(PlayerPos.x, PlayerPos.y, CCamera::ORIENTATION_FRONT_POS);
@@ -104,15 +101,4 @@ D3DXVECTOR3 CPlayer::RotationDifferentialShift(CCamera::ORIENTATION Orientation,
 
 void CPlayer::Draw(void) {
 	CBillboard::Draw();
-}
-
-CPlayer *CPlayer::Create(D3DXVECTOR3 pos, D3DXVECTOR3 siz) {
-	CPlayer *pPlayer = NULL;
-	pPlayer = new CPlayer;
-	pPlayer->Init();
-	pPlayer->SetPos(pos);
-	pPlayer->SetSize(siz);
-	pPlayer->m_pos = pos;
-	pPlayer->m_siz = siz;
-	return pPlayer;
 }

@@ -39,27 +39,32 @@ void CCollisionDetection::Update(void) {
 	CCamera::ORIENTATION orientarion = pCamera->GetOrientation();
 	CCamera::ROTATE rotate = pCamera->GetRotake();
 
-	if (orientarion == CCamera::ORIENTATION_FRONT && 
-		m_pos.x <= -35.0f && m_pos.x >= 185.0f) {
-		m_pos = D3DXVECTOR3(m_pos.x, m_pos.y, CCamera::ORIENTATION_FRONT_POS);
-	}
-	if (orientarion == CCamera::ORIENTATION_BACK &&
-		m_pos.x <= -35.0f && m_pos.x >= 185.0f) {
-		m_pos = D3DXVECTOR3(m_pos.x, m_pos.y, CCamera::ORIENTATION_BACK_POS);
-	}
-	if (orientarion == CCamera::ORIENTATION_LEFT &&
-		m_pos.z <= -185.0f && m_pos.z >= 35.0f) {
-		m_pos = D3DXVECTOR3(CCamera::ORIENTATION_LEFT_POS, m_pos.y, m_pos.z);
-	}
-	if (orientarion == CCamera::ORIENTATION_RIGHT &&
-		m_pos.z <= -185.0f && m_pos.z >= 35.0f) {
-		m_pos = D3DXVECTOR3(CCamera::ORIENTATION_RIGHT_POS, m_pos.y, m_pos.z);
-	}
 	// ‰ñ“]’†‚ÍŠî€À•W‚É–ß‚·
 	if (rotate == CCamera::ROTATE_LEFT ||
-		rotate == CCamera::ROTATE_RIGHT) {
+		rotate == CCamera::ROTATE_RIGHT)
+	{
 		m_pos = m_defaultPos;
 	}
+	//else if(m_BlockType == BLOCKTYPE_NONE)
+	//{
+	//	switch (orientarion)
+	//	{
+	//	case CCamera::ORIENTATION_FRONT:
+	//		m_pos = D3DXVECTOR3(m_pos.x, m_pos.y, CCamera::ORIENTATION_FRONT_POS);
+	//		break;
+	//	case CCamera::ORIENTATION_BACK:
+	//		m_pos = D3DXVECTOR3(m_pos.x, m_pos.y, CCamera::ORIENTATION_BACK_POS);
+	//		break;
+	//	case CCamera::ORIENTATION_LEFT:
+	//		m_pos = D3DXVECTOR3(CCamera::ORIENTATION_LEFT_POS, m_pos.y, m_pos.z);
+	//		break;
+	//	case CCamera::ORIENTATION_RIGHT:
+	//		m_pos = D3DXVECTOR3(CCamera::ORIENTATION_RIGHT_POS, m_pos.y, m_pos.z);
+	//		break;
+	//	default:
+	//		break;
+	//	}
+	//}
 
 	UpdateByType(m_BlockType);
 	CBillboard::SetPos(m_pos);
@@ -86,6 +91,7 @@ void CCollisionDetection::Load(void)
 	LPDIRECT3DDEVICE9 pDevice = CManager::GetRenderer()->GetDevice();
 
 	D3DXCreateTextureFromFile(pDevice, "./data/TEXTURE/block1_1.png", &m_apTexture[BLOCKTYPE_NONE]);
+	D3DXCreateTextureFromFile(pDevice, "./data/TEXTURE/jimmy-malachier-tile-metal-01.jpg", &m_apTexture[BLOCKTYPE_WALL]);
 }
 
 void CCollisionDetection::Unload(void)
@@ -118,7 +124,10 @@ CCollisionDetection *CCollisionDetection::Create(D3DXVECTOR3 pos, D3DXVECTOR3 si
 	pCollisionDetection->m_siz = siz;
 	pCollisionDetection->m_BlockType = BlockType;
 
-	//CBlock::Create(pos);
+	if (BlockType == BLOCKTYPE_NONE)
+	{
+		CBlock::Create(pos);
+	}
 
 	return pCollisionDetection;
 }

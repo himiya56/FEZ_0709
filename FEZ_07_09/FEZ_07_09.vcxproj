@@ -44,6 +44,7 @@
     <ClInclude Include="object.h" />
     <ClInclude Include="player.h" />
     <ClInclude Include="player_hook.h" />
+    <ClInclude Include="player_rotation.h" />
     <ClInclude Include="polygon2d.h" />
     <ClInclude Include="polygon3d.h" />
     <ClInclude Include="renderer.h" />
@@ -81,6 +82,7 @@
     <ClCompile Include="object.cpp" />
     <ClCompile Include="player.cpp" />
     <ClCompile Include="player_hook.cpp" />
+    <ClCompile Include="player_rotation.cpp" />
     <ClCompile Include="polygon2d.cpp" />
     <ClCompile Include="polygon3d.cpp" />
     <ClCompile Include="renderer.cpp" />

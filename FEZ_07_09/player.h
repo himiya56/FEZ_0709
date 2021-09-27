@@ -21,7 +21,7 @@
 #define JUMP_SIZ 10.0f
 #define GRAVITY_SIZ 0.27f
 #define MOVE_SPECIFIED D3DXVECTOR3(MOVE_SIZ, 0, MOVE_SIZ)
-#define PLAYER_SIZE D3DXVECTOR3(150.0f, 150.0f, 0.0f)
+#define PLAYER_SIZE D3DXVECTOR3(75.0f, 75.0f, 0.0f)
 
 //================================================
 // ÉNÉâÉXêÈåæ
@@ -40,7 +40,6 @@ public:
 	void CollisionDetection(void);
 
 	D3DXVECTOR3 CPlayer::RotationDifferentialShift(CCamera::ORIENTATION Orientation, D3DXVECTOR3 PlayerPos, CCamera::ROTATE Rotate, CCamera::ROTATE RotateOld);
-	static CPlayer *Create(D3DXVECTOR3 pos, D3DXVECTOR3 siz);
 
 private:
 	D3DXVECTOR3 m_pos;
