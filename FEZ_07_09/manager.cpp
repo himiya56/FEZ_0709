@@ -324,11 +324,9 @@ void CManager::Load(void)
 	CStage1Button::TextureLoad();
 	CStage2Button::TextureLoad();
 	CStage3Button::TextureLoad();
-<<<<<<< HEAD
 	CCollisionDetection::Load();
 	CSpike::Load();
 	CBlock::Load();
-=======
 	CStageSelectBG::TextureLoad();
 	CStageSelectButton::TextureLoad();
 	CBackToTitleButton::TextureLoad();
@@ -336,7 +334,6 @@ void CManager::Load(void)
 	CDotBG::TextureLoad();
 	CTitleBG::TextureLoad();
 	CTitleLogo::TextureLoad();
->>>>>>> remotes/origin/nikaido
 }
 
 //=============================================================================
@@ -352,12 +349,9 @@ void CManager::Unload(void)
 	CStage1Button::TextureUnload();
 	CStage2Button::TextureUnload();
 	CStage3Button::TextureUnload();
-<<<<<<< HEAD
 	CCollisionDetection::Unload();
 	CSpike::Unload();
 	CBlock::Unload();
-}
-=======
 	CStageSelectBG::TextureUnload();
 	CStageSelectButton::TextureUnload();
 	CBackToTitleButton::TextureUnload();
@@ -366,4 +360,3 @@ void CManager::Unload(void)
 	CTitleBG::TextureUnload();
 	CTitleLogo::TextureUnload();
 }
->>>>>>> remotes/origin/nikaido

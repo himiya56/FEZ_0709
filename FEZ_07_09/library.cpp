@@ -113,17 +113,20 @@ bool CollisionDetectionCalculation(D3DXVECTOR3 PlayerPosOld, D3DXVECTOR3 PlayerP
 		PlayerPos.x - (PlayerSiz.x / 2) <= ObjectPos.x + (ObjectSiz.x / 2) ||
 		PlayerPos.x == ObjectPos.x &&
 		PlayerPos.z + (PlayerSiz.z / 2) >= ObjectPos.z - (ObjectSiz.z / 2) &&
-		PlayerPos.z - (PlayerSiz.z / 2) <= ObjectPos.z + (ObjectSiz.z / 2)) {
+		PlayerPos.z - (PlayerSiz.z / 2) <= ObjectPos.z + (ObjectSiz.z / 2)) 
+	{
 
 		bWidthJudge = true;
 	}
 
-	if (Collision == COLLISION_WIDTH) {
+	if (Collision == COLLISION_WIDTH) 
+	{
 		return bWidthJudge;
 	}
 	else if (bWidthJudge == true &&
 		PlayerPos.y - (PlayerSiz.y / 2) <= ObjectPos.y + (ObjectSiz.y / 2) &&
-		PlayerPos.y >= ObjectPos.y + (ObjectSiz.y / 2)) {
+		PlayerPos.y >= ObjectPos.y + (ObjectSiz.y / 2)) 
+	{
 		return true;
 	}
 
