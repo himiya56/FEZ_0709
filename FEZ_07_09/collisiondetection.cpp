@@ -45,26 +45,42 @@ void CCollisionDetection::Update(void) {
 	{
 		m_pos = m_defaultPos;
 	}
-	//else if(m_BlockType == BLOCKTYPE_NONE)
-	//{
-	//	switch (orientarion)
-	//	{
-	//	case CCamera::ORIENTATION_FRONT:
-	//		m_pos = D3DXVECTOR3(m_pos.x, m_pos.y, CCamera::ORIENTATION_FRONT_POS);
-	//		break;
-	//	case CCamera::ORIENTATION_BACK:
-	//		m_pos = D3DXVECTOR3(m_pos.x, m_pos.y, CCamera::ORIENTATION_BACK_POS);
-	//		break;
-	//	case CCamera::ORIENTATION_LEFT:
-	//		m_pos = D3DXVECTOR3(CCamera::ORIENTATION_LEFT_POS, m_pos.y, m_pos.z);
-	//		break;
-	//	case CCamera::ORIENTATION_RIGHT:
-	//		m_pos = D3DXVECTOR3(CCamera::ORIENTATION_RIGHT_POS, m_pos.y, m_pos.z);
-	//		break;
-	//	default:
-	//		break;
-	//	}
-	//}
+	else if(m_BlockType == BLOCKTYPE_NONE)
+	{
+		switch (orientarion)
+		{
+		case CCamera::ORIENTATION_FRONT:
+			if (-75.0f > m_defaultPos.x ||
+				150.0f < m_defaultPos.x)
+			{
+				m_pos = D3DXVECTOR3(m_pos.x, m_pos.y, CCamera::ORIENTATION_FRONT_POS);
+			}
+			break;
+		case CCamera::ORIENTATION_BACK:
+			if (-75.0f > m_defaultPos.x ||
+				150.0f < m_defaultPos.x)
+			{
+				m_pos = D3DXVECTOR3(m_pos.x, m_pos.y, CCamera::ORIENTATION_BACK_POS);
+			}
+			break;
+		case CCamera::ORIENTATION_LEFT:
+			if (-150.0f > m_defaultPos.z ||
+				75.0f < m_defaultPos.z)
+			{
+				m_pos = D3DXVECTOR3(CCamera::ORIENTATION_LEFT_POS, m_pos.y, m_pos.z);
+			}
+			break;
+		case CCamera::ORIENTATION_RIGHT:
+			if (-150.0f > m_defaultPos.z ||
+				75.0f < m_defaultPos.z)
+			{
+				m_pos = D3DXVECTOR3(CCamera::ORIENTATION_RIGHT_POS, m_pos.y, m_pos.z);
+			}
+			break;
+		default:
+			break;
+		}
+	}
 
 	UpdateByType(m_BlockType);
 	CBillboard::SetPos(m_pos);

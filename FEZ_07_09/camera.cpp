@@ -14,6 +14,9 @@
 #include "keyboard.h"
 #include "player.h"
 #include "player_hook.h"
+#include "player_rotation.h"
+#include "billboard.h"
+#include "mode_game.h"
 
 //*****************************************************************************
 // 静的メンバ変数宣言
@@ -90,7 +93,33 @@ void CCamera::Update(void)
 	m_posVDest.y = m_fOffset * cosf(m_fHorizontalAngle) + 75.0f * 6.0f;
 	m_posVDest.z = m_fOffset * (sinf(m_fHorizontalAngle) * sinf(m_fVerticalAngle));
 
-	m_posRDest.y = 75.0f * 6.0f;
+
+	CPlayerRotation *pPlayerRotation = CGameMode::GetPlayerRotation();
+	CPlayerHook *pPlayerHook = CGameMode::GetPlayerHook();
+
+	if (pPlayerRotation != NULL &&
+		pPlayerHook != NULL)
+	{
+		D3DXVECTOR3 playerRotationPos = pPlayerRotation->GetPos();
+		D3DXVECTOR3 playerHookPos = pPlayerHook->GetPos();
+		float cameraHeight = 0.0f;
+
+		if (playerRotationPos.y > playerHookPos.y)
+		{
+			cameraHeight = playerHookPos.y + (playerRotationPos.y - playerHookPos.y) / 2.0f;
+		}
+		else if (playerHookPos.y > playerRotationPos.y)
+		{
+			cameraHeight = playerRotationPos.y + (playerHookPos.y - playerRotationPos.y) / 2.0f;
+		}
+
+		m_posRDest.y = cameraHeight;
+
+		if (m_posRDest.y <= 75.0f * 6.0f)
+		{
+			m_posRDest.y = 75.0f * 6.0f;
+		}
+	}
 
 	// 目的地に近づける
 	m_posR += (m_posRDest - m_posR) * 0.9f;
