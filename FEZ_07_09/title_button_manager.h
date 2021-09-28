@@ -46,7 +46,6 @@ private:
 	}BUTTON;
 	void Input(void);
 	void Select(void);
-	void CancelSound(void);
 	void InitCreateAll(void);
 	CButton * m_apButton[BUTTON_MAX];	//ボタンのポインタ
 	int m_nButton;						//ボタン

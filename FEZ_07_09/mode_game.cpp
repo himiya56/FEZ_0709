@@ -10,11 +10,10 @@
 //*****************************************************************************
 #include "main.h"
 #include "manager.h"
-//#include "sound.h"
+#include "sound.h"
 #include "light.h"
 #include "camera.h"
 #include "keyboard.h"
-//#include "joystick.h"
 #include "mode_game.h"
 #include "player_hook.h"
 #include "player.h"
@@ -76,14 +75,6 @@ HRESULT CGameMode::Init(void)
 	InitCreate();
 	//各ステージの生成
 	InitStageCreate();
-	////サウンドの取得
-	//CSound * pSound = CManager::GetSound();
-	////もしサウンドのポインタがnullptrではない場合
-	//if (pSound != nullptr)
-	//{
-	//	//名前入力のBGM停止 
-	//	pSound->StopSound(CSound::SOUND_LABEL_BGM_NAME);
-	//}
 	return S_OK;
 }
 
@@ -99,7 +90,7 @@ void CGameMode::Uninit(void)
 //=============================================================================
 void CGameMode::Update(void)
 {
-	//入力処理関数呼び出し
+	////入力処理関数呼び出し
 	//Input();
 }
 
@@ -122,19 +113,29 @@ void CGameMode::InitCreate(void)
 //=============================================================================
 void CGameMode::InitStageCreate(void)
 {
-	switch (m_Stage)
+	//サウンドの取得
+	CSound * pSound = CManager::GetSound();
+	//もしサウンドのポインタがNULLではない場合
+	if (pSound != NULL)
 	{
-	case STAGE_1:
-		CPlayer::Create(D3DXVECTOR3(0.0f, 170.0f, 0.0f), PLAYER_SIZE);
-		CPlayerHook::Create(D3DXVECTOR3(0.0f, 0.0f, 0.0f), PLAYER_SIZE);
-		CTestObj::Create(D3DXVECTOR3(0.0f, 0.0f, 0.0f));
-		break;
-	case STAGE_2:
-		break;
-	case STAGE_3:
-		break;
-	default:
-		break;
+		//サウンドの停止
+		pSound->StopSound();
+		switch (m_Stage)
+		{
+		case STAGE_1:
+			//ステージ1のBGMを再生
+			pSound->Play(CSound::SOUND_LABEL_BGM_STAGE1);
+			CPlayer::Create(D3DXVECTOR3(0.0f, 170.0f, 0.0f), PLAYER_SIZE);
+			CPlayerHook::Create(D3DXVECTOR3(0.0f, 0.0f, 0.0f), PLAYER_SIZE);
+			CTestObj::Create(D3DXVECTOR3(0.0f, 0.0f, 0.0f));
+			break;
+		case STAGE_2:
+			break;
+		case STAGE_3:
+			break;
+		default:
+			break;
+		}
 	}
 }
 

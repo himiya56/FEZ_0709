@@ -19,25 +19,33 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="bg_dot.h" />
+    <ClInclude Include="bg_stage_select.h" />
+    <ClInclude Include="bg_title.h" />
     <ClInclude Include="billboard.h" />
     <ClInclude Include="button.h" />
-    <ClInclude Include="button_any.h" />
+    <ClInclude Include="button_back_to_title.h" />
+    <ClInclude Include="button_cancel.h" />
     <ClInclude Include="button_exit.h" />
     <ClInclude Include="button_stage1.h" />
     <ClInclude Include="button_stage2.h" />
     <ClInclude Include="button_stage3.h" />
+    <ClInclude Include="button_stage_select.h" />
     <ClInclude Include="button_start.h" />
     <ClInclude Include="button_tutorial.h" />
     <ClInclude Include="camera.h" />
     <ClInclude Include="collisiondetection.h" />
     <ClInclude Include="fade.h" />
     <ClInclude Include="input.h" />
+    <ClInclude Include="joystick.h" />
     <ClInclude Include="keyboard.h" />
     <ClInclude Include="library.h" />
     <ClInclude Include="light.h" />
+    <ClInclude Include="logo_title.h" />
     <ClInclude Include="main.h" />
     <ClInclude Include="manager.h" />
     <ClInclude Include="mode_game.h" />
+    <ClInclude Include="mode_result.h" />
     <ClInclude Include="mode_stage_select.h" />
     <ClInclude Include="mode_title.h" />
     <ClInclude Include="object.h" />
@@ -45,6 +53,7 @@
     <ClInclude Include="player_hook.h" />
     <ClInclude Include="polygon2d.h" />
     <ClInclude Include="renderer.h" />
+    <ClInclude Include="result_button_manager.h" />
     <ClInclude Include="scene3d.h" />
     <ClInclude Include="sound.h" />
     <ClInclude Include="stage_select_button_manager.h" />
@@ -52,25 +61,33 @@
     <ClInclude Include="title_button_manager.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="bg_dot.cpp" />
+    <ClCompile Include="bg_stage_select.cpp" />
+    <ClCompile Include="bg_title.cpp" />
     <ClCompile Include="billboard.cpp" />
     <ClCompile Include="button.cpp" />
-    <ClCompile Include="button_any.cpp" />
+    <ClCompile Include="button_back_to_title.cpp" />
+    <ClCompile Include="button_cancel.cpp" />
     <ClCompile Include="button_exit.cpp" />
     <ClCompile Include="button_stage1.cpp" />
     <ClCompile Include="button_stage2.cpp" />
     <ClCompile Include="button_stage3.cpp" />
+    <ClCompile Include="button_stage_select.cpp" />
     <ClCompile Include="button_start.cpp" />
     <ClCompile Include="button_tutorial.cpp" />
     <ClCompile Include="camera.cpp" />
     <ClCompile Include="collisiondetection.cpp" />
     <ClCompile Include="fade.cpp" />
     <ClCompile Include="input.cpp" />
+    <ClCompile Include="joystick.cpp" />
     <ClCompile Include="keyboard.cpp" />
     <ClCompile Include="library.cpp" />
     <ClCompile Include="light.cpp" />
+    <ClCompile Include="logo_title.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="manager.cpp" />
     <ClCompile Include="mode_game.cpp" />
+    <ClCompile Include="mode_result.cpp" />
     <ClCompile Include="mode_stage_select.cpp" />
     <ClCompile Include="mode_title.cpp" />
     <ClCompile Include="object.cpp" />
@@ -78,6 +95,7 @@
     <ClCompile Include="player_hook.cpp" />
     <ClCompile Include="polygon2d.cpp" />
     <ClCompile Include="renderer.cpp" />
+    <ClCompile Include="result_button_manager.cpp" />
     <ClCompile Include="scene3d.cpp" />
     <ClCompile Include="sound.cpp" />
     <ClCompile Include="stage_select_button_manager.cpp" />
@@ -145,6 +163,8 @@
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LinkIncremental>false</LinkIncremental>
+    <IncludePath>C:\Program Files %28x86%29\Microsoft DirectX SDK %28June 2010%29\Include;$(IncludePath)</IncludePath>
+    <LibraryPath>C:\Program Files %28x86%29\Microsoft DirectX SDK %28June 2010%29\Lib\x86;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <LinkIncremental>false</LinkIncremental>

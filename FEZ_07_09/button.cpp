@@ -10,7 +10,7 @@
 //*****************************************************************************
 #include "main.h"
 #include "manager.h"
-//#include "sound.h"
+#include "sound.h"
 #include "button.h"
 
 //*****************************************************************************
@@ -18,7 +18,7 @@
 //*****************************************************************************
 #define SELECT_COLOR (D3DXCOLOR(1.0f,1.0f,1.0f,1.0f))		//選択時の色
 #define NOT_SELECT_COLOR (D3DXCOLOR(1.0f,1.0f,1.0f,0.5f))	//選択されていないときの色
-#define SIZE (D3DXVECTOR3(200.0f,700.0f,0.0f))				//サイズ
+#define SIZE (D3DXVECTOR3(200.0f,750.0f,0.0f))				//サイズ
 
 //*****************************************************************************
 // 静的メンバ変数の初期化
@@ -98,16 +98,33 @@ void CButton::SelectColor(void)
 }
 
 //=============================================================================
-// 選択時音再生処理関数
+// ボタンのSE再生処理関数
 //=============================================================================
-void CButton::SelectSound(void)
+void CButton::PlayButtonSE(BUTTON_SE PlayButtonSE)
 {
-	////サウンドの取得
-	//CSound * pSound = CManager::GetSound();
-	////もしサウンドのポインタがnullptrではない場合
-	//if (pSound != nullptr)
-	//{
-	//	//選択音の再生
-	//	pSound->PlaySoundA(CSound::SOUND_LABEL_SE_BUTTON_SELECT);
-	//}
+	// サウンドの取得
+	CSound * pSound = CManager::GetSound();
+	// ボタンSEの種類を設定
+	BUTTON_SE ButtonSE = PlayButtonSE;
+	// もしサウンドのポインタがNULLではない場合
+	if (pSound != NULL)
+	{
+		switch (ButtonSE)
+		{
+		case BUTTON_SE_SELECT:
+			// ボタン選択音の再生
+			pSound->Play(CSound::SOUND_LABEL_SE_BUTTON_SELECT);
+			break;
+		case BUTTON_SE_PUSH:
+			// ボタンを押す音の再生
+			pSound->Play(CSound::SOUND_LABEL_SE_BUTTON_PUSH);
+			break;
+		case BUTTON_SE_CANCEL:
+			// ボタンキャンセル音の再生
+			pSound->Play(CSound::SOUND_LABEL_SE_BUTTON_CANCEL);
+			break;
+		default:
+			break;
+		}
+	}
 }

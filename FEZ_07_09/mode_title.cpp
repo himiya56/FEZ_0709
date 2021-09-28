@@ -10,9 +10,11 @@
 //*****************************************************************************
 #include "main.h"
 #include "manager.h"
-//#include "sound.h"
+#include "sound.h"
 #include "mode_title.h"
-#include "button_any.h"
+#include "title_button_manager.h"
+#include "bg_title.h"
+#include "logo_title.h"
 
 //*****************************************************************************
 // マクロ定義
@@ -64,16 +66,16 @@ CTitleMode * CTitleMode::Create()
 //=============================================================================
 HRESULT CTitleMode::Init(void)
 {
-	////サウンドの取得
-	//CSound * pSound = CManager::GetSound();
-	////もしサウンドのポインタがNULLではない場合
-	//if (pSound != NULL)
-	//{
-	//	//サウンドの停止
-	//	pSound->StopSound();
-	//	//タイトルのBGMを再生
-	//	pSound->PlaySoundA(CSound::SOUND_LABEL_BGM_TITLE);
-	//}
+	//サウンドの取得
+	CSound * pSound = CManager::GetSound();
+	//もしサウンドのポインタがNULLではない場合
+	if (pSound != NULL)
+	{
+		//サウンドの停止
+		pSound->StopSound();
+		//タイトルのBGMを再生
+		pSound->Play(CSound::SOUND_LABEL_BGM_TITLE);
+	}
 	//初期全生成処理関数呼び出し
 	InitCreateAll();
 	return S_OK;
@@ -105,6 +107,10 @@ void CTitleMode::Draw(void)
 //=============================================================================
 void CTitleMode::InitCreateAll(void)
 {
-	//何かしらのボタン入力の生成
-	CAnyButton::Create();
+	//タイトル背景の生成
+	CTitleBG::Create();
+	//タイトルボタンマネージャーの生成
+	CTitleButtonManager::Create();
+	//タイトルロゴの生成
+	CTitleLogo::Create();
 }

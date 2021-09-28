@@ -10,22 +10,20 @@
 //*****************************************************************************
 #include "main.h"
 #include "manager.h"
-//#include "sound.h"
 #include "keyboard.h"
-//#include "joystick.h"
+#include "joystick.h"
 #include "title_button_manager.h"
 #include "button_start.h"
 #include "button_tutorial.h"
 #include "button_exit.h"
-#include "button_any.h"
 
 //*****************************************************************************
 // マクロ定義
 //*****************************************************************************
-#define START_BUTTON_POSITION (D3DXVECTOR3(SCREEN_WIDTH / 2, 750.0f, 0.0f))		//スタートボタンの位置
-#define TUTORIAL_BUTTON_POSITION (D3DXVECTOR3(SCREEN_WIDTH / 2, 840.0f, 0.0f))	//チュートリアルボタンの位置
-#define EXIT_BUTTON_POSITION (D3DXVECTOR3(SCREEN_WIDTH / 2, 930.0f, 0.0f))		//終了ボタンの位置
-#define INPUT_INTERVAL (10)														//入力間隔
+#define START_BUTTON_POSITION (D3DXVECTOR3(SCREEN_WIDTH / 4 + 200.0f, 600.0f - 20.0f, 0.0f))	//スタートボタンの位置
+#define TUTORIAL_BUTTON_POSITION (D3DXVECTOR3(SCREEN_WIDTH / 4 + 200.0f, 765.0f - 20.0f, 0.0f))	//チュートリアルボタンの位置
+#define EXIT_BUTTON_POSITION (D3DXVECTOR3(SCREEN_WIDTH / 4 + 100.0f, 930.0f - 20.0f, 0.0f))		//終了ボタンの位置
+#define INPUT_INTERVAL (10)																//入力間隔
 
 //*****************************************************************************
 // 静的メンバ変数の初期化
@@ -119,81 +117,64 @@ void CTitleButtonManager::Input(void)
 {
 	//キーボードの取得
 	CInputKeyboard * pKeyboard = CManager::GetInput();
-	////ジョイスティックの取得
-	//CJoystick * pJoystick = CManager::GetJoystick();
-	//LPDIRECTINPUTDEVICE8 lpDIDevice = CJoystick::GetDevice();
-	//DIJOYSTATE js;
-	////ジョイスティックの振動取得
-	//LPDIRECTINPUTEFFECT pDIEffect = CJoystick::GetEffect();
-	//if (lpDIDevice != NULL)
-	//{
-	//	lpDIDevice->Poll();
-	//	lpDIDevice->GetDeviceState(sizeof(DIJOYSTATE), &js);
-	//}
+	//ジョイスティックの取得
+	CJoystick * pJoystick = CManager::GetJoystick();
+	LPDIRECTINPUTDEVICE8 lpDIDevice = CJoystick::GetDevice(JOYSTICK_1P);
+	DIJOYSTATE js;
+	//ジョイスティックの振動取得
+	LPDIRECTINPUTEFFECT pDIEffect = CJoystick::GetEffect(JOYSTICK_1P);
+	if (lpDIDevice != NULL)
+	{
+		lpDIDevice->Poll();
+		lpDIDevice->GetDeviceState(sizeof(DIJOYSTATE), &js);
+	}
 	//上矢印キーが入力された場合
 	if (pKeyboard->GetKeyboardTrigger(DIK_UP))
 	{
 		//現在のボタンを減算する
 		m_nButton--;
 		//ボタンの選択時音再生処理関数呼び出し
-		m_apButton[m_nButton]->SelectSound();
+		m_apButton[m_nButton]->PlayButtonSE(CButton::BUTTON_SE_SELECT);
 	}
-	////上矢印ボタンか上スティックが入力された場合
-	//if (lpDIDevice != NULL &&js.rgdwPOV[0] == 0 || lpDIDevice != NULL &&js.lY == -1000)
-	//{
-	//	//入力間隔を加算する
-	//	m_nInputCount++;
-	//	if (m_nInputCount % INPUT_INTERVAL == 0)
-	//	{
-	//		//現在のボタンを減算する
-	//		m_nButton--;
-	//		//ボタンの選択時音再生処理関数呼び出し
-	//		m_apButton[m_nButton]->SelectSound();
-	//	}
-	//}
+	//上矢印ボタンか上スティックが入力された場合
+	if (lpDIDevice != NULL &&js.rgdwPOV[0] == 0 || lpDIDevice != NULL &&js.lY == -1000)
+	{
+		//入力間隔を加算する
+		m_nInputCount++;
+		if (m_nInputCount % INPUT_INTERVAL == 0)
+		{
+			//現在のボタンを減算する
+			m_nButton--;
+			//ボタンの選択時音再生処理関数呼び出し
+			m_apButton[m_nButton]->PlayButtonSE(CButton::BUTTON_SE_SELECT);
+		}
+	}
 	//下矢印キーが入力された場合
 	if (pKeyboard->GetKeyboardTrigger(DIK_DOWN))
 	{
 		//現在のボタンを減算する
 		m_nButton++;
 		//ボタンの選択時音再生処理関数呼び出し
-		m_apButton[m_nButton]->SelectSound();
+		m_apButton[m_nButton]->PlayButtonSE(CButton::BUTTON_SE_SELECT);
 	}
-	////下矢印ボタンか下スティックが入力された場合
-	//if (lpDIDevice != NULL &&js.rgdwPOV[0] == 18000 || lpDIDevice != NULL &&js.lY == 1000)
-	//{
-	//	//入力間隔を加算する
-	//	m_nInputCount++;
-	//	if (m_nInputCount % INPUT_INTERVAL == 0)
-	//	{
-	//		//現在のボタンを減算する
-	//		m_nButton++;
-	//		//ボタンの選択時音再生処理関数呼び出し
-	//		m_apButton[m_nButton]->SelectSound();
-	//	}
-	//}
+	//下矢印ボタンか下スティックが入力された場合
+	if (lpDIDevice != NULL &&js.rgdwPOV[0] == 18000 || lpDIDevice != NULL &&js.lY == 1000)
+	{
+		//入力間隔を加算する
+		m_nInputCount++;
+		if (m_nInputCount % INPUT_INTERVAL == 0)
+		{
+			//現在のボタンを減算する
+			m_nButton++;
+			//ボタンの選択時音再生処理関数呼び出し
+			m_apButton[m_nButton]->PlayButtonSE(CButton::BUTTON_SE_SELECT);
+		}
+	}
 	//もしENTERキー又はジョイスティックのAボタンを押されたら
-	if (pKeyboard->GetKeyboardTrigger(DIK_RETURN)/* || pJoystick->GetJoystickTrigger(JS_A)*/)
+	if (pKeyboard->GetKeyboardTrigger(DIK_RETURN) || pJoystick->GetJoystickTrigger(JS_A, JOYSTICK_1P))
 	{
 		//ボタンのプレス処理関数呼び出し
 		m_apButton[m_nButton]->Press();
-	}
-	//もしESCAPEキー又はジョイスティックのBボタンを押されたら
-	if (pKeyboard->GetKeyboardTrigger(DIK_ESCAPE)/* || pJoystick->GetJoystickTrigger(JS_B)*/)
-	{
-		//キャンセル時音再生処理関数呼び出し
-		CancelSound();
-		//何らかのボタン生成処理関数呼び出し
-		CAnyButton::Create();
-		//ボタンの最大数分回す
-		for (int nCount = 0; nCount < BUTTON_MAX; nCount++)
-		{
-			//各ボタンの終了処理関数呼び出し
-			m_apButton[nCount]->Uninit();
-		}
-		//終了処理関数呼び出し
-		Uninit();
-		return;
 	}
 }
 
@@ -222,21 +203,6 @@ void CTitleButtonManager::Select(void)
 	}
 	//ボタンの選択時色変更処理関数呼び出し
 	m_apButton[m_nButton]->SelectColor();
-}
-
-//=============================================================================
-// キャンセル時音再生処理関数
-//=============================================================================
-void CTitleButtonManager::CancelSound(void)
-{
-	////サウンドの取得
-	//CSound * pSound = CManager::GetSound();
-	////もしサウンドのポインタがnullptrではない場合
-	//if (pSound != nullptr)
-	//{
-	//	//キャンセル音の再生
-	//	pSound->PlaySoundA(CSound::SOUND_LABEL_SE_BUTTON_CANCEL);
-	//}
 }
 
 //=============================================================================

@@ -10,8 +10,10 @@
 //*****************************************************************************
 #include "manager.h"
 #include "renderer.h"
+#include "sound.h"
 #include "object.h"
 #include "input.h"
+#include "joystick.h"
 #include "Keyboard.h"
 #include "camera.h"
 #include "light.h"
@@ -19,13 +21,20 @@
 #include "mode_title.h"
 #include "mode_stage_select.h"
 #include "mode_game.h"
-#include "button_any.h"
+#include "mode_result.h"
 #include "button_exit.h"
 #include "button_start.h"
 #include "button_tutorial.h"
 #include "button_stage1.h"
 #include "button_stage2.h"
 #include "button_stage3.h"
+#include "button_stage_select.h"
+#include "button_back_to_title.h"
+#include "button_cancel.h"
+#include "bg_stage_select.h"
+#include "bg_dot.h"
+#include "bg_title.h"
+#include "logo_title.h"
 
 #include "testObj.h"
 #include "player.h"
@@ -35,9 +44,9 @@
 //*****************************************************************************
 // 静的メンバ変数宣言
 //*****************************************************************************
-
 CRenderer *CManager::m_pRenderer = NULL;
 CInputKeyboard *CManager::m_pInput = NULL;
+CJoystick * CManager::m_pJoystick = nullptr;			//ジョイスティックのポインタ
 CCamera *CManager::m_pCamera = NULL;
 CLight *CManager::m_pLight = NULL;
 CPlayer *CManager::m_pPlayer = NULL;
@@ -46,7 +55,6 @@ bool CManager::m_bUseFade = false;					//フェードの使用状態
 CSound * CManager::m_pSound = NULL;
 CGameMode * CManager::m_pGameMode = NULL;
 CFade * CManager::m_pFade = NULL;					//フェードへのポインタ
-
 
 //=============================================================================
 // コンストラクタ
@@ -79,7 +87,18 @@ HRESULT CManager::Init(HINSTANCE hInstance, HWND hWnd, bool bWindow)
 	{
 		return -1;
 	}
-
+	//もしジョイスティックのポインタがNULLの場合
+	if (m_pJoystick == NULL)
+	{
+		//ジョイスティックのメモリ確保
+		m_pJoystick = new CJoystick;
+		//もしジョイスティックのポインタがNULLではない場合
+		if (m_pJoystick != NULL)
+		{
+			//ジョイスティックの初期化処理関数呼び出し
+			m_pJoystick->Init(hInstance, hWnd);
+		}
+	}
 	// ライトの生成
 	m_pLight = new CLight;
 	if (FAILED(m_pLight->Init()))
@@ -93,6 +112,18 @@ HRESULT CManager::Init(HINSTANCE hInstance, HWND hWnd, bool bWindow)
 	{
 		//フェードの生成処理関数呼び出し
 		m_pFade = CFade::Create(m_Mode);
+	}
+	//もしサウンドのポインタがNULLの場合
+	if (m_pSound == NULL)
+	{
+		//サウンドのメモリ確保
+		m_pSound = new CSound;
+		//もしサウンドのポインタがnullptrではない場合
+		if (m_pSound != nullptr)
+		{
+			//サウンドの初期化処理関数呼び出し
+			m_pSound->Init(hWnd);
+		}
 	}
 	// テクスチャの読み込み
 	Load();
@@ -126,6 +157,22 @@ void CManager::Uninit(void)
 		//メモリ破棄
 		delete m_pInput;
 		m_pInput = NULL;
+	}
+	//もしジョイスティックのポインタがNULLではない場合
+	if (m_pJoystick != NULL)
+	{
+		//ジョイスティックの終了処理関数呼び出し
+		m_pJoystick->Uninit();
+		//ジョイスティックのメモリ破棄
+		delete m_pJoystick;
+		//ジョイスティックのポインタをnullptrにする
+		m_pJoystick = nullptr;
+	}
+	//もしサウンドのポインタがNULLではない場合
+	if (m_pSound != NULL)
+	{
+		//サウンドの停止
+		m_pSound->StopSound();
 	}
 	if (m_pRenderer != NULL)
 	{
@@ -163,6 +210,12 @@ void CManager::Update(void)
 	if (m_pInput != NULL)
 	{
 		m_pInput->Update();
+	}
+	//もしジョイスティックのポインタがNULLではない場合
+	if (m_pJoystick != NULL)
+	{
+		//ジョイスティックの更新処理関数呼び出し
+		m_pJoystick->Update();
 	}
 	if (m_pRenderer != NULL)
 	{
@@ -249,6 +302,10 @@ void CManager::SetMode(MODE Mode)
 		//ゲームモードの生成処理関数呼び出し
 		m_pGameMode = CGameMode::Create(CGameMode::STAGE_3);
 		break;
+	case MODE_RESULT:
+		//リザルトモードの生成処理関数呼び出し
+		CResultMode::Create();
+		break;
 	default:
 		break;
 	}
@@ -261,13 +318,19 @@ void CManager::Load(void)
 {
 	CTestObj::Load();
 	CPlayerHook::Load();
-	CAnyButton::TextureLoad();
 	CExitButton::TextureLoad();
 	CStartButton::TextureLoad();
 	CTutorialButton::TextureLoad();
 	CStage1Button::TextureLoad();
 	CStage2Button::TextureLoad();
 	CStage3Button::TextureLoad();
+	CStageSelectBG::TextureLoad();
+	CStageSelectButton::TextureLoad();
+	CBackToTitleButton::TextureLoad();
+	CCancelButton::TextureLoad();
+	CDotBG::TextureLoad();
+	CTitleBG::TextureLoad();
+	CTitleLogo::TextureLoad();
 }
 
 //=============================================================================
@@ -277,11 +340,17 @@ void CManager::Unload(void)
 {
 	CTestObj::Unload();
 	CPlayerHook::Unload();
-	CAnyButton::TextureUnload();
 	CExitButton::TextureUnload();
 	CStartButton::TextureUnload();
 	CTutorialButton::TextureUnload();
 	CStage1Button::TextureUnload();
 	CStage2Button::TextureUnload();
 	CStage3Button::TextureUnload();
+	CStageSelectBG::TextureUnload();
+	CStageSelectButton::TextureUnload();
+	CBackToTitleButton::TextureUnload();
+	CCancelButton::TextureUnload();
+	CDotBG::TextureUnload();
+	CTitleBG::TextureUnload();
+	CTitleLogo::TextureUnload();
 }

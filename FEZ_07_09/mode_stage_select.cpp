@@ -10,8 +10,10 @@
 //*****************************************************************************
 #include "main.h"
 #include "manager.h"
-//#include "sound.h"
+#include "sound.h"
 #include "mode_stage_select.h"
+#include "bg_stage_select.h"
+#include "bg_dot.h"
 #include "stage_select_button_manager.h"
 
 //*****************************************************************************
@@ -64,16 +66,16 @@ CStageSelectMode * CStageSelectMode::Create()
 //=============================================================================
 HRESULT CStageSelectMode::Init(void)
 {
-	////サウンドの取得
-	//CSound * pSound = CManager::GetSound();
-	////もしサウンドのポインタがnullptrではない場合
-	//if (pSound != nullptr)
-	//{
-	//	//サウンドの停止
-	//	pSound->StopSound();
-	//	//タイトルのBGMを再生
-	//	pSound->PlaySoundA(CSound::SOUND_LABEL_BGM_TITLE);
-	//}
+	//サウンドの取得
+	CSound * pSound = CManager::GetSound();
+	//もしサウンドのポインタがnullptrではない場合
+	if (pSound != nullptr)
+	{
+		//サウンドの停止
+		pSound->StopSound();
+		//ステージ選択BGMを再生
+		pSound->Play(CSound::SOUND_LABEL_BGM_STAGE_SELECT);
+	}
 	//初期全生成処理関数呼び出し
 	InitCreateAll();
 	return S_OK;
@@ -105,6 +107,10 @@ void CStageSelectMode::Draw(void)
 //=============================================================================
 void CStageSelectMode::InitCreateAll(void)
 {
+	//ステージ選択画面の背景生成
+	CStageSelectBG::Create();
+	//ドット背景の生成
+	CDotBG::Create();
 	//ステージ選択ボタンマネージャーの生成処理関数呼び出し
 	CStageSelectButtonManager::Create();
 }
