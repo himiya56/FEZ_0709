@@ -32,6 +32,18 @@ CInput::~CInput()
 }
 
 //=============================================================================
+// èâä˙âªèàóùä÷êî
+//=============================================================================
+HRESULT CInput::Init(HINSTANCE hInstance, HWND hWnd)
+{
+	if (FAILED(DirectInput8Create(hInstance, DIRECTINPUT_VERSION, IID_IDirectInput8, (void**)&m_pDInput, nullptr)))
+	{
+		return E_FAIL;
+	}
+	return S_OK;
+}
+
+//=============================================================================
 // èIóπèàóù
 //=============================================================================
 void CInput::Uninit(void)

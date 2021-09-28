@@ -10,6 +10,7 @@
 //*****************************************************************************
 #include "main.h"
 #include "manager.h"
+<<<<<<< HEAD
 //#include "sound.h"
 #include "light.h"
 #include "camera.h"
@@ -22,16 +23,31 @@
 #include "testObj.h"
 #include "spike.h"
 #include "collisiondetection.h"
+=======
+#include "sound.h"
+#include "light.h"
+#include "camera.h"
+#include "keyboard.h"
+#include "mode_game.h"
+#include "player_hook.h"
+#include "player.h"
+#include "testObj.h"
+>>>>>>> remotes/origin/nikaido
 
 //*****************************************************************************
 // マクロ定義
 //*****************************************************************************
 
 //*****************************************************************************
+<<<<<<< HEAD
 // 静的メンバ変数宣言
 //*****************************************************************************
 CPlayerHook *CGameMode::m_pPlayerHook = NULL;
 CPlayerRotation *CGameMode::m_pPlayerRotation = NULL;
+=======
+// 静的メンバ変数の初期化
+//*****************************************************************************
+>>>>>>> remotes/origin/nikaido
 
 //=============================================================================
 // コンストラクタ
@@ -64,7 +80,11 @@ CGameMode * CGameMode::Create(STAGE stage)
 		if (pGameMode != NULL)
 		{
 			pGameMode->m_Stage = stage;	//ステージの設定
+<<<<<<< HEAD
 										//ゲームモードの初期化関数呼び出し
+=======
+			//ゲームモードの初期化関数呼び出し
+>>>>>>> remotes/origin/nikaido
 			pGameMode->Init();
 		}
 	}
@@ -81,6 +101,7 @@ HRESULT CGameMode::Init(void)
 	InitCreate();
 	//各ステージの生成
 	InitStageCreate();
+<<<<<<< HEAD
 	////サウンドの取得
 	//CSound * pSound = CManager::GetSound();
 	////もしサウンドのポインタがnullptrではない場合
@@ -89,6 +110,8 @@ HRESULT CGameMode::Init(void)
 	//	//名前入力のBGM停止 
 	//	pSound->StopSound(CSound::SOUND_LABEL_BGM_NAME);
 	//}
+=======
+>>>>>>> remotes/origin/nikaido
 	return S_OK;
 }
 
@@ -104,7 +127,11 @@ void CGameMode::Uninit(void)
 //=============================================================================
 void CGameMode::Update(void)
 {
+<<<<<<< HEAD
 	//入力処理関数呼び出し
+=======
+	////入力処理関数呼び出し
+>>>>>>> remotes/origin/nikaido
 	//Input();
 }
 
@@ -127,6 +154,7 @@ void CGameMode::InitCreate(void)
 //=============================================================================
 void CGameMode::InitStageCreate(void)
 {
+<<<<<<< HEAD
 	switch (m_Stage)
 	{
 	case STAGE_1:
@@ -160,6 +188,31 @@ void CGameMode::InitStageCreate(void)
 		break;
 	default:
 		break;
+=======
+	//サウンドの取得
+	CSound * pSound = CManager::GetSound();
+	//もしサウンドのポインタがNULLではない場合
+	if (pSound != NULL)
+	{
+		//サウンドの停止
+		pSound->StopSound();
+		switch (m_Stage)
+		{
+		case STAGE_1:
+			//ステージ1のBGMを再生
+			pSound->Play(CSound::SOUND_LABEL_BGM_STAGE1);
+			CPlayer::Create(D3DXVECTOR3(0.0f, 170.0f, 0.0f), PLAYER_SIZE);
+			CPlayerHook::Create(D3DXVECTOR3(0.0f, 0.0f, 0.0f), PLAYER_SIZE);
+			CTestObj::Create(D3DXVECTOR3(0.0f, 0.0f, 0.0f));
+			break;
+		case STAGE_2:
+			break;
+		case STAGE_3:
+			break;
+		default:
+			break;
+		}
+>>>>>>> remotes/origin/nikaido
 	}
 }
 

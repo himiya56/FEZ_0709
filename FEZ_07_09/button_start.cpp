@@ -11,13 +11,12 @@
 #include "main.h"
 #include "manager.h"
 #include "renderer.h"
-//#include "sound.h"
 #include "button_start.h"
 
 //*****************************************************************************
 // マクロ定義
 //*****************************************************************************
-#define TEXTURE_PASS ("data/TEXTURE/Button_Start.png")	
+#define TEXTURE_PASS ("data/TEXTURE/GameStart_B.png")	
 
 //*****************************************************************************
 // 静的メンバ変数の初期化
@@ -140,14 +139,8 @@ void CStartButton::Draw(void)
 //=============================================================================
 void CStartButton::Press(void)
 {
-	////サウンドの取得
-	//CSound * pSound = CManager::GetSound();
-	////もしサウンドのポインタがNULLではない場合
-	//if (pSound != NULL)
-	//{
-	//	//決定音の再生
-	//	pSound->PlaySoundA(CSound::SOUND_LABEL_SE_BUTTON_PUSH);
-	//}
-	//ステージ選択モードに遷移する
-	CManager::StartFade(CManager::MODE_STAGE_SELECT);
+	//押したときのサウンド再生
+	PlayButtonSE(CButton::BUTTON_SE_PUSH);
+	//ステージ1に遷移する
+	CManager::StartFade(CManager::MODE_GAME_STAGE1);
 }

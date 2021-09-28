@@ -28,7 +28,7 @@ public:
 	// ÉÅÉìÉoä÷êî
 	CInput();
 	virtual ~CInput();
-	virtual HRESULT Init(HINSTANCE hInstance, HWND hWnd) = 0;
+	virtual HRESULT Init(HINSTANCE hInstance, HWND hWnd);
 	virtual void Uninit(void);
 	virtual void Update(void) = 0;
 protected:

@@ -11,7 +11,6 @@
 #include "main.h"
 #include "manager.h"
 #include "renderer.h"
-//#include "sound.h"
 #include "button_tutorial.h"
 
 //*****************************************************************************
@@ -140,14 +139,8 @@ void CTutorialButton::Draw(void)
 //=============================================================================
 void CTutorialButton::Press(void)
 {
-	////サウンドの取得
-	//CSound * pSound = CManager::GetSound();
-	////もしサウンドのポインタがNULLではない場合
-	//if (pSound != NULL)
-	//{
-	//	//決定音の再生
-	//	pSound->PlaySoundA(CSound::SOUND_LABEL_SE_BUTTON_PUSH);
-	//}
+	//押したときのサウンド再生
+	PlayButtonSE(CButton::BUTTON_SE_PUSH);
 	//ステージ1モードに遷移する
 	CManager::StartFade(CManager::MODE_GAME_STAGE1);
 }

@@ -42,11 +42,11 @@ private:
 		BUTTON_STAGE1,
 		BUTTON_STAGE2,
 		BUTTON_STAGE3,
+		BUTTON_CANCEL,
 		BUTTON_MAX
 	}BUTTON;
 	void Input(void);
 	void Select(void);
-	void CancelSound(void);
 	void InitCreateAll(void);
 	CButton * m_apButton[BUTTON_MAX];	//ボタンのポインタ
 	int m_nButton;						//ボタン

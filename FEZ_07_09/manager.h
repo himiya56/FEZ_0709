@@ -19,6 +19,7 @@
 //*****************************************************************************
 class CRenderer;
 class CInputKeyboard;
+class CJoystick;
 class CCamera;
 class CLight;
 class CPlayer;
@@ -42,6 +43,7 @@ public:
 		MODE_GAME_STAGE1,
 		MODE_GAME_STAGE2,
 		MODE_GAME_STAGE3,
+		MODE_RESULT,
 		MODE_MAX
 	}MODE;
 	// メンバ関数
@@ -60,6 +62,7 @@ public:
 	static MODE GetMode(void) { return m_Mode; }
 	static CRenderer *GetRenderer(void) { return m_pRenderer; }
 	static CInputKeyboard *GetInput(void) { return m_pInput; }
+	static CJoystick *GetJoystick(void) { return m_pJoystick; }
 	static CCamera *GetCamera(void) { return m_pCamera; }
 
 	static CPlayer *GetPlayer(void) { return m_pPlayer; }
@@ -77,6 +80,7 @@ private:
 	static CRenderer		*m_pRenderer;
 	static CSound           *m_pSound;
 	static CInputKeyboard   *m_pInput;
+	static CJoystick		*m_pJoystick;				//ジョイスティックのポインタ
 	static CCamera			*m_pCamera;
 
 	static CLight			*m_pLight;		                     // ライトのポインタ

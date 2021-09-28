@@ -15,12 +15,14 @@
 //*****************************************************************************
 CSound::PARAM CSound::m_aParam[SOUND_LABEL_MAX] =
 {
-	{ SOUND_PASS_SHOT, 0 },	// 弾発射音
-	{ SOUND_PASS_EXPLOSION, 0 },	// 爆発音
-	{ SOUND_PASS_GETITEM, 0 },	// アイテム取得音
-	{ BGM_TITLE , 1 },	// bgm
-	{ BGM_STAGE1, 1 },	// bgm
-	{ BGM_RESULT, 1 },	// bgm
+	{ SOUND_PASS_BUTTON_SELECT, 0 },	// ボタン選択音
+	{ SOUND_PASS_BUTTON_PUSH, 0 },		// ボタンを押したときの音
+	{ SOUND_PASS_BUTTON_CANCEL, 0 },	// ボタンキャンセル音
+	{ SOUND_PASS_BGM_TITLE, -1},		// タイトルBGM
+	{ SOUND_PASS_BGM_STAGE_SELECT, -1},	// ステージ選択BGM
+	{ SOUND_PASS_BGM_RESULT, -1},		// リザルトBGM
+	{ SOUND_PASS_BGM_STAGE1, -1},		// ステージ1BGM
+	{ SOUND_PASS_BGM_GOAL, -1}			// ゴールBGM
 };
 
 

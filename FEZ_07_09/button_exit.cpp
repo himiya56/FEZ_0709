@@ -11,13 +11,13 @@
 #include "main.h"
 #include "manager.h"
 #include "renderer.h"
-//#include "sound.h"
 #include "button_exit.h"
 
 //*****************************************************************************
 // マクロ定義
 //*****************************************************************************
 #define TEXTURE_PASS ("data/TEXTURE/Button_Exit.png")		//テクスチャのパス
+#define SIZE (D3DXVECTOR3(200.0f,550.0f,0.0f))				//サイズ
 
 //*****************************************************************************
 // 静的メンバ変数の初期化
@@ -70,7 +70,7 @@ void CExitButton::TextureUnload(void)
 }
 
 //=============================================================================
-// 生成処理関数呼び出し
+// 生成処理関数
 //=============================================================================
 CExitButton * CExitButton::Create(D3DXVECTOR3 Position)
 {
@@ -103,6 +103,8 @@ HRESULT CExitButton::Init(void)
 	CButton::Init();
 	//テクスチャの設定
 	SetTexUV(0.0f, 1.0f, 0.0f, 1.0f);
+	//サイズ設定
+	SetSize(SIZE.y,SIZE.x);
 	//テクスチャの割り当て
 	BindTexture(m_pTexture);
 	return S_OK;
@@ -140,14 +142,6 @@ void CExitButton::Draw(void)
 //=============================================================================
 void CExitButton::Press(void)
 {
-	////サウンドの取得
-	//CSound * pSound = CManager::GetSound();
-	////もしサウンドのポインタがNULLではない場合
-	//if (pSound != NULL)
-	//{
-	//	//決定音の再生
-	//	pSound->PlaySoundA(CSound::SOUND_LABEL_SE_BUTTON_PUSH);
-	//}
-	////終了させる
+	//終了させる
 	exit(0);
 }

@@ -10,13 +10,13 @@
 //*****************************************************************************
 #include "main.h"
 #include "manager.h"
-//#include "sound.h"
 #include "keyboard.h"
-//#include "joystick.h"
+#include "joystick.h"
 #include "stage_select_button_manager.h"
 #include "button_stage1.h"
 #include "button_stage2.h"
 #include "button_stage3.h"
+#include "button_cancel.h"
 
 //*****************************************************************************
 // マクロ定義
@@ -79,8 +79,12 @@ HRESULT CStageSelectButtonManager::Init(void)
 	InitCreateAll();
 	//ボタンの初期設定
 	m_nButton = BUTTON_STAGE1;
-	//ボタンの初期選択処理関数呼び出し
-	m_apButton[m_nButton]->SelectColor();
+	//全てのボタンを選択時の色にする
+	for (int nCount = 0; nCount < BUTTON_MAX; nCount++)
+	{
+		//ボタンの初期選択処理関数呼び出し
+		m_apButton[nCount]->SelectColor();
+	}
 	return S_OK;
 }
 
@@ -118,64 +122,70 @@ void CStageSelectButtonManager::Input(void)
 {
 	//キーボードの取得
 	CInputKeyboard * pKeyboard = CManager::GetInput();
-	////ジョイスティックの取得
-	//CJoystick * pJoystick = CManager::GetJoystick();
-	//LPDIRECTINPUTDEVICE8 lpDIDevice = CJoystick::GetDevice();
-	//DIJOYSTATE js;
-	////ジョイスティックの振動取得
-	//LPDIRECTINPUTEFFECT pDIEffect = CJoystick::GetEffect();
-	//if (lpDIDevice != NULL)
-	//{
-	//	lpDIDevice->Poll();
-	//	lpDIDevice->GetDeviceState(sizeof(DIJOYSTATE), &js);
-	//}
+	//ジョイスティックの取得
+	CJoystick * pJoystick = CManager::GetJoystick();
+	LPDIRECTINPUTDEVICE8 lpDIDevice = CJoystick::GetDevice(JOYSTICK_1P);
+	DIJOYSTATE js;
+	//ジョイスティックの振動取得
+	LPDIRECTINPUTEFFECT pDIEffect = CJoystick::GetEffect(JOYSTICK_1P);
+	if (lpDIDevice != NULL)
+	{
+		lpDIDevice->Poll();
+		lpDIDevice->GetDeviceState(sizeof(DIJOYSTATE), &js);
+	}
 	//左矢印キーが入力された場合
 	if (pKeyboard->GetKeyboardTrigger(DIK_LEFT))
 	{
 		//現在のボタンを減算する
 		m_nButton--;
 		//ボタンの選択時音再生処理関数呼び出し
-		m_apButton[m_nButton]->SelectSound();
+		m_apButton[m_nButton]->PlayButtonSE(CButton::BUTTON_SE_SELECT);
 	}
-	////上矢印ボタンか上スティックが入力された場合
-	//if (lpDIDevice != NULL &&js.rgdwPOV[0] == 0 || lpDIDevice != NULL &&js.lY == -1000)
-	//{
-	//	//入力間隔を加算する
-	//	m_nInputCount++;
-	//	if (m_nInputCount % INPUT_INTERVAL == 0)
-	//	{
-	//		//現在のボタンを減算する
-	//		m_nButton--;
-	//		//ボタンの選択時音再生処理関数呼び出し
-	//		m_apButton[m_nButton]->SelectSound();
-	//	}
-	//}
+	//上矢印ボタンか上スティックが入力された場合
+	if (lpDIDevice != NULL &&js.rgdwPOV[0] == 0 || lpDIDevice != NULL &&js.lY == -1000)
+	{
+		//入力間隔を加算する
+		m_nInputCount++;
+		if (m_nInputCount % INPUT_INTERVAL == 0)
+		{
+			//現在のボタンを減算する
+			m_nButton--;
+			//ボタンの選択時音再生処理関数呼び出し
+			m_apButton[m_nButton]->PlayButtonSE(CButton::BUTTON_SE_SELECT);
+		}
+	}
 	//右矢印キーが入力された場合
 	if (pKeyboard->GetKeyboardTrigger(DIK_RIGHT))
 	{
 		//現在のボタンを減算する
 		m_nButton++;
 		//ボタンの選択時音再生処理関数呼び出し
-		m_apButton[m_nButton]->SelectSound();
+		m_apButton[m_nButton]->PlayButtonSE(CButton::BUTTON_SE_SELECT);
 	}
-	////下矢印ボタンか下スティックが入力された場合
-	//if (lpDIDevice != NULL &&js.rgdwPOV[0] == 18000 || lpDIDevice != NULL &&js.lY == 1000)
-	//{
-	//	//入力間隔を加算する
-	//	m_nInputCount++;
-	//	if (m_nInputCount % INPUT_INTERVAL == 0)
-	//	{
-	//		//現在のボタンを減算する
-	//		m_nButton++;
-	//		//ボタンの選択時音再生処理関数呼び出し
-	//		m_apButton[m_nButton]->SelectSound();
-	//	}
-	//}
+	//下矢印ボタンか下スティックが入力された場合
+	if (lpDIDevice != NULL &&js.rgdwPOV[0] == 18000 || lpDIDevice != NULL &&js.lY == 1000)
+	{
+		//入力間隔を加算する
+		m_nInputCount++;
+		if (m_nInputCount % INPUT_INTERVAL == 0)
+		{
+			//現在のボタンを減算する
+			m_nButton++;
+			//ボタンの選択時音再生処理関数呼び出し
+			m_apButton[m_nButton]->PlayButtonSE(CButton::BUTTON_SE_SELECT);
+		}
+	}
 	//もしENTERキー又はジョイスティックのAボタンを押されたら
-	if (pKeyboard->GetKeyboardTrigger(DIK_RETURN)/* || pJoystick->GetJoystickTrigger(JS_A)*/)
+	if (pKeyboard->GetKeyboardTrigger(DIK_RETURN) || pJoystick->GetJoystickTrigger(JS_A, JOYSTICK_1P))
 	{
 		//ボタンのプレス処理関数呼び出し
 		m_apButton[m_nButton]->Press();
+	}
+	//もしキャンセルキーが入力されたら
+	if (pKeyboard->GetKeyboardTrigger(DIK_B))
+	{
+		//キャンセルボタンのプレス処理関数呼び出し
+		m_apButton[BUTTON_CANCEL]->Press();
 	}
 }
 
@@ -200,25 +210,10 @@ void CStageSelectButtonManager::Select(void)
 	for (int nCount = 0; nCount < BUTTON_MAX; nCount++)
 	{
 		//ボタンの選択されてない時の色変更処理関数呼び出し
-		m_apButton[nCount]->NotSelectColor();
+		m_apButton[nCount]->NotSelectShrink();
 	}
 	//ボタンの選択時色変更処理関数呼び出し
-	m_apButton[m_nButton]->SelectColor();
-}
-
-//=============================================================================
-// キャンセル時音再生処理関数
-//=============================================================================
-void CStageSelectButtonManager::CancelSound(void)
-{
-	////サウンドの取得
-	//CSound * pSound = CManager::GetSound();
-	////もしサウンドのポインタがnullptrではない場合
-	//if (pSound != nullptr)
-	//{
-	//	//キャンセル音の再生
-	//	pSound->PlaySoundA(CSound::SOUND_LABEL_SE_BUTTON_CANCEL);
-	//}
+	m_apButton[m_nButton]->SelectExpansion();
 }
 
 //=============================================================================
@@ -232,4 +227,6 @@ void CStageSelectButtonManager::InitCreateAll(void)
 	m_apButton[BUTTON_STAGE2] = CStage2Button::Create(STAGE2_BUTTON_POSITION);
 	//ステージ3ボタンの生成
 	m_apButton[BUTTON_STAGE3] = CStage3Button::Create(D3DXVECTOR3(STAGE2_BUTTON_POSITION.x + 500.0f, STAGE2_BUTTON_POSITION.y, STAGE2_BUTTON_POSITION.z));
+	//キャンセルボタンの生成
+	m_apButton[BUTTON_CANCEL] = CCancelButton::Create(D3DXVECTOR3(SCREEN_WIDTH / 12, SCREEN_HEIGHT - 100.0f, 0.0f));
 }

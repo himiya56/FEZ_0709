@@ -17,14 +17,14 @@
 //*****************************************************************************
 // マクロ定義
 //*****************************************************************************
-#define SOUND_PASS_SHOT			"./data/SE/shot001.wav"
-#define SOUND_PASS_EXPLOSION	"./data/SE/explosion001.wav"
-#define SOUND_PASS_GETITEM		"./data/SE/get_item.wav"
-
-#define	BGM_TITLE "./data/BGM/title.wav"
-#define	BGM_STAGE1 "./data/BGM/stage01.wav"
-#define	BGM_RESULT "./data/BGM/result.wav"
-
+#define SOUND_PASS_BUTTON_SELECT "data/SOUND/SE/se_button_select.wav"
+#define SOUND_PASS_BUTTON_PUSH "data/SOUND/SE/se_button_push.wav"
+#define SOUND_PASS_BUTTON_CANCEL "data/SOUND/SE/se_button_cancel.wav"
+#define SOUND_PASS_BGM_TITLE "data/SOUND/BGM/title.wav"
+#define SOUND_PASS_BGM_STAGE_SELECT "data/SOUND/BGM/stage_select.wav"
+#define SOUND_PASS_BGM_RESULT "data/SOUND/BGM/result.wav"
+#define SOUND_PASS_BGM_STAGE1 "data/SOUND/BGM/stage1.wav"
+#define SOUND_PASS_BGM_GOAL "data/SOUND/BGM/goal.wav"
 
 //*****************************************************************************
 // サウンドクラス
@@ -38,13 +38,15 @@ public:
 	// 列挙型宣言
 	typedef enum
 	{
-		SOUND_LABEL_SE_SHOT,		// 弾発射音
-		SOUND_LABEL_SE_EXPLOSION,	// 爆発音
-		SOUND_LABEL_SE_GETITEM,		// アイテム取得音
-		SOUND_LABEL_BGM_TITLE,
-		SOUND_LABEL_BGM_01,
-		SOUND_LABEL_BGM_RESULT,
-		SOUND_LABEL_MAX,
+		SOUND_LABEL_SE_BUTTON_SELECT,	// ボタン選択音
+		SOUND_LABEL_SE_BUTTON_PUSH,		// ボタンを押す音
+		SOUND_LABEL_SE_BUTTON_CANCEL,	// ボタンキャンセル音
+		SOUND_LABEL_BGM_TITLE,			// タイトルBGM
+		SOUND_LABEL_BGM_STAGE_SELECT,	// ステージ選択BGM
+		SOUND_LABEL_BGM_RESULT,			// リザルトBGM
+		SOUND_LABEL_BGM_STAGE1,			// ステージ1BGM
+		SOUND_LABEL_BGM_GOAL,			// ゴールBGM
+		SOUND_LABEL_MAX
 	} SOUND_LABEL;
 
 	HRESULT Init(HWND hWnd);

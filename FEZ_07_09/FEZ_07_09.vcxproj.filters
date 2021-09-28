@@ -39,9 +39,6 @@
     <ClInclude Include="button.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
-    <ClInclude Include="button_any.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
     <ClInclude Include="button_exit.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
@@ -108,6 +105,7 @@
     <ClInclude Include="polygon2d.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
+<<<<<<< HEAD
     <ClInclude Include="wire.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
@@ -121,6 +119,36 @@
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
     <ClInclude Include="player_rotation.h">
+=======
+    <ClInclude Include="bg_stage_select.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="button_stage_select.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="button_back_to_title.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="mode_result.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="result_button_manager.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="button_cancel.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="bg_dot.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="bg_title.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="logo_title.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="joystick.h">
+>>>>>>> remotes/origin/nikaido
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
   </ItemGroup>
@@ -129,9 +157,6 @@
       <Filter>ソース ファイル</Filter>
     </ClCompile>
     <ClCompile Include="button.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
-    <ClCompile Include="button_any.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
     <ClCompile Include="button_exit.cpp">
@@ -218,6 +243,7 @@
     <ClCompile Include="title_button_manager.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
+<<<<<<< HEAD
     <ClCompile Include="wire.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
@@ -231,6 +257,36 @@
       <Filter>ソース ファイル</Filter>
     </ClCompile>
     <ClCompile Include="player_rotation.cpp">
+=======
+    <ClCompile Include="bg_stage_select.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="button_stage_select.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="button_back_to_title.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="mode_result.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="result_button_manager.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="button_cancel.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="bg_dot.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="bg_title.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="logo_title.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="joystick.cpp">
+>>>>>>> remotes/origin/nikaido
       <Filter>ソース ファイル</Filter>
     </ClCompile>
   </ItemGroup>

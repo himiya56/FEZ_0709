@@ -11,13 +11,14 @@
 #include "main.h"
 #include "manager.h"
 #include "renderer.h"
-//#include "sound.h"
 #include "button_stage3.h"
 
 //*****************************************************************************
 // マクロ定義
 //*****************************************************************************
-#define TEXTURE_PASS ("data/TEXTURE/Button_Stage3.png")		//テクスチャのパス
+#define TEXTURE_PASS ("data/TEXTURE/stage3_Button.png")		//テクスチャのパス
+#define SIZE (D3DXVECTOR3(400.0f,400.0f,0.0f))				//サイズ
+#define ADD_SIZE (150.0f)									//サイズの加算量
 
 //*****************************************************************************
 // 静的メンバ変数の初期化
@@ -103,6 +104,8 @@ HRESULT CStage3Button::Init(void)
 	CButton::Init();
 	//テクスチャの設定
 	SetTexUV(0.0f, 1.0f, 0.0f, 1.0f);
+	//サイズ設定
+	SetSize(SIZE.y, SIZE.x);
 	//テクスチャの割り当て
 	BindTexture(m_pTexture);
 	return S_OK;
@@ -136,18 +139,28 @@ void CStage3Button::Draw(void)
 }
 
 //=============================================================================
+// 選択時拡大処理関数
+//=============================================================================
+void CStage3Button::SelectExpansion(void)
+{
+	SetSize(SIZE.y + ADD_SIZE, SIZE.x + ADD_SIZE);
+}
+
+//=============================================================================
+// 選択時縮小処理関数
+//=============================================================================
+void CStage3Button::NotSelectShrink(void)
+{
+	SetSize(SIZE.y, SIZE.x);
+}
+
+//=============================================================================
 // プレス処理関数
 //=============================================================================
 void CStage3Button::Press(void)
 {
-	////サウンドの取得
-	//CSound * pSound = CManager::GetSound();
-	////もしサウンドのポインタがNULLではない場合
-	//if (pSound != NULL)
-	//{
-	//	//決定音の再生
-	//	pSound->PlaySoundA(CSound::SOUND_LABEL_SE_BUTTON_PUSH);
-	//}
+	//押したときのサウンド再生
+	PlayButtonSE(CButton::BUTTON_SE_PUSH);
 	//ステージ3モードに遷移する
 	CManager::StartFade(CManager::MODE_GAME_STAGE3);
 }

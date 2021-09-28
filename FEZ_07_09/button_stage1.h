@@ -35,6 +35,8 @@ public:
 	void Uninit(void);
 	void Update(void);
 	void Draw(void);
+	void SelectExpansion(void);
+	void NotSelectShrink(void);
 	void Press(void);
 private:
 	static LPDIRECT3DTEXTURE9 m_pTexture;	//テクスチャのポインタ
