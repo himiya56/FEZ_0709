@@ -320,6 +320,7 @@ void CPlayerHook::MoveToHook(D3DXVECTOR3 pos)
 			m_bHook = false;
 			m_pos.z = pos.z;
 			m_circle.fAngle = 0.0f;
+			m_move = MOVE_SPECIFIED;
 		}
 	}
 	else if (Orientation == CCamera::ORIENTATION_LEFT || Orientation == CCamera::ORIENTATION_RIGHT)
@@ -330,6 +331,7 @@ void CPlayerHook::MoveToHook(D3DXVECTOR3 pos)
 			m_bHook = false;
 			m_pos.x = pos.x;
 			m_circle.fAngle = 0.0f;
+			m_move = MOVE_SPECIFIED;
 		}
 	}
 
