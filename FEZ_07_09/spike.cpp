@@ -13,7 +13,7 @@
 //========================================
 // 静的メンバ変数宣言
 //========================================
-LPDIRECT3DTEXTURE9 CSpike::m_pTexture = NULL;
+LPDIRECT3DTEXTURE9 CSpike::m_apTexture[SPIKE_MAX] = {};
 
 //=============================================================================
 // コンストラクタ
@@ -68,6 +68,10 @@ void CSpike::Draw(void)
 //=============================================================================
 void CSpike::Load(void)
 {
+	LPDIRECT3DDEVICE9 pDevice = CManager::GetRenderer()->GetDevice();
+
+	D3DXCreateTextureFromFile(pDevice, "./data/TEXTURE/Hook_object1.png", &m_apTexture[SPIKE_NONE]);
+	D3DXCreateTextureFromFile(pDevice, "./data/TEXTURE/Hook_object3.png", &m_apTexture[SPIKE_LOCK]);
 }
 
 //=============================================================================
@@ -75,10 +79,13 @@ void CSpike::Load(void)
 //=============================================================================
 void CSpike::Unload(void)
 {
-	if (m_pTexture != NULL)
+	for (int nCount = 0; nCount < SPIKE_MAX; nCount++)
 	{
-		m_pTexture->Release();
-		m_pTexture = NULL;
+		if (m_apTexture[nCount] != NULL)
+		{
+			m_apTexture[nCount]->Release();
+			m_apTexture[nCount] = NULL;
+		}
 	}
 }
 

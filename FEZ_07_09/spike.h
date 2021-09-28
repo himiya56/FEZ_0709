@@ -35,13 +35,14 @@ public:
 	{
 		SPIKE_NONE = 0,
 		SPIKE_LOCK,
-		SPIKE_SHOOT,
+		SPIKE_MAX,
 	}SPIKE_STATE;
 
 	HRESULT Init(void);
 	void Uninit(void);
 	void Update(void);
 	void Draw(void);
+	void SetTexture(SPIKE_STATE state) { BindTexture(m_apTexture[state]); }
 	static void Load(void);
 	static void Unload(void);
 	static CSpike *Create(D3DXVECTOR3 pos);
@@ -49,7 +50,7 @@ public:
 private:
 	D3DXVECTOR3 m_pos;
 	D3DXVECTOR3 m_rot;
-	static LPDIRECT3DTEXTURE9		m_pTexture;
+	static LPDIRECT3DTEXTURE9		m_apTexture[SPIKE_MAX];
 	SPIKE_STATE state;
 };
 

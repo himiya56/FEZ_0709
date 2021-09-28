@@ -75,13 +75,12 @@ void CPlayerHook::Update(void)
 	destPos = SortSpike();
 	m_move.y -= GRAVITY_SIZ;
 
-	if (pKeyboard->GetKeyboardTrigger(DIK_F) && m_bHook == false)
+	if (pKeyboard->GetKeyboardTrigger(DIK_F) && m_bHook == false && m_pCamera->GetRotake() == CCamera::ROTATE_NONE)
 	{
 		// 周りにフックをかけれるか探索
 		// かけられるならフラグをtrueに
 		m_bHook = true;
 	}
-
 	if (m_bHook)
 	{
 		// 当たり判定オフ
@@ -94,7 +93,9 @@ void CPlayerHook::Update(void)
 	else
 	{
 		// プレイヤー操作
-		if (m_pCamera->GetRotake() == CCamera::ROTATE_NONE) {
+		if (m_pCamera->GetRotake() == CCamera::ROTATE_NONE) 
+		{
+
 			switch (Orientation) {
 			case CCamera::ORIENTATION_BACK:
 				// ←キーで左移動
@@ -228,14 +229,14 @@ D3DXVECTOR3 CPlayerHook::SortSpike(void)
 			{
 				nArrayCount = nCntScene;
 				spike[nArrayCount].pSpike = pSpike;
-				spike[0].pSpike->SetCol(D3DCOLOR_RGBA(255, 255, 255, 255));
+				spike[0].pSpike->SetTexture(CSpike::SPIKE_NONE);
 			}
 			else
 			{
-				pSpike->SetCol(D3DCOLOR_RGBA(255, 255, 255, 255));
+				pSpike->SetTexture(CSpike::SPIKE_NONE);
 			}
 
-			spike[nArrayCount].pSpike->SetCol(D3DCOLOR_RGBA(255, 0, 0, 255));
+			spike[nArrayCount].pSpike->SetTexture(CSpike::SPIKE_LOCK);
 
 			// 次のシーンにする
 			pObj = pNextObj;

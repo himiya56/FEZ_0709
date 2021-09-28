@@ -40,6 +40,7 @@ void CPlayerRotation::Update(void) {
 	m_pCamera = CManager::GetCamera();
 	CInputKeyboard *pKeyboard = CManager::GetInput();
 	CCamera::ORIENTATION Orientation = m_pCamera->GetOrientation();
+	CPlayerHook *pHook = CGameMode::GetPlayerHook();
 	m_pos = GetPos();
 	m_move.y -= GRAVITY_SIZ;
 
@@ -47,7 +48,7 @@ void CPlayerRotation::Update(void) {
 		m_posold.y = -1.0f;
 	}
 
-	if (m_bJumpJudge == true && CGameMode::GetPlayerHook()->GetPlayerHookJump() == true) {
+	if (m_bJumpJudge == true && CGameMode::GetPlayerHook()->GetPlayerHookJump() == true && !pHook->GetHookState()) {
 		// ƒJƒƒ‰‚Ì‰ñ“]‚ðŒÄ‚Ño‚·
 		m_pCamera->DecisionRotate(pKeyboard);
 	}

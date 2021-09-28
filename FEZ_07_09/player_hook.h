@@ -60,6 +60,7 @@ public:
 	void ShotHook(D3DXVECTOR3 pos);
 	void MoveToHook(D3DXVECTOR3 pos);
 	bool GetPlayerHookJump(void) { return m_bJumpJudge; }
+	bool GetHookState(void) { return m_bHook; }
 
 	static CPlayerHook *Create(D3DXVECTOR3 pos, D3DXVECTOR3 siz);
 	static void Load(void);

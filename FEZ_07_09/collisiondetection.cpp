@@ -122,9 +122,12 @@ void CCollisionDetection::Unload(void)
 	}
 }
 
-void CCollisionDetection::Draw(void) {
-	CBillboard::Draw();
-
+void CCollisionDetection::Draw(void) 
+{
+	if (m_BlockType != BLOCKTYPE_NONE)
+	{
+		CBillboard::Draw();
+	}
 }
 
 CCollisionDetection *CCollisionDetection::Create(D3DXVECTOR3 pos, D3DXVECTOR3 siz, BLOCKTYPE BlockType) {
