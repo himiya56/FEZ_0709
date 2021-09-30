@@ -66,7 +66,7 @@ void CCollisionDetection::BlockShift(BLOCKTYPE BlockType, CCamera *pCamera, CCam
 		case CCamera::ORIENTATION_FRONT:
 			if (-75.0f >= m_defaultPos.x ||
 				150.0f <= m_defaultPos.x ||
-				-75.0f <= m_defaultPos.x && 150.0f >= m_defaultPos.x && -150.0f >= m_defaultPos.z)
+				-75.0f <= m_defaultPos.x && 150.0f >= m_defaultPos.x && -75.0f >= m_defaultPos.z)
 			{
 				m_pos = D3DXVECTOR3(m_pos.x, m_pos.y, CCamera::ORIENTATION_FRONT_POS);
 			}

@@ -85,7 +85,8 @@ void CPlayer::CollisionDetection(void) {
 					SetJumpJudge(true);
 					m_RidingBlockPos = pCollisionDetection->GetDefaultPos();
 
-					if (pCollisionDetection->GetBlockType() == CCollisionDetection::BLOCKTYPE_BUTTON) {
+					if (pCollisionDetection->GetBlockType() == CCollisionDetection::BLOCKTYPE_BUTTON) 
+					{
 						pCollisionDetection->BlockColorJudge(pCollisionDetection->GetButtonColorBlock().ButtonColor, true);
 						pCollisionDetection->SetTexture(CCollisionDetection::BLOCKTYPE_PUSH);
 						pCollisionDetection->SetJudge(false);
