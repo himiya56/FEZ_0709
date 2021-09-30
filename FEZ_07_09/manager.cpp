@@ -335,6 +335,7 @@ void CManager::Load(void)
 	CDotBG::TextureLoad();
 	CTitleBG::TextureLoad();
 	CTitleLogo::TextureLoad();
+	CGoal::Load();
 }
 
 //=============================================================================
@@ -360,4 +361,5 @@ void CManager::Unload(void)
 	CDotBG::TextureUnload();
 	CTitleBG::TextureUnload();
 	CTitleLogo::TextureUnload();
+	CGoal::Unload();
 }
