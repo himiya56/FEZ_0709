@@ -87,7 +87,7 @@ void CPlayerHook::Update(void)
 	destPos = SortSpike();
 	m_move.y -= GRAVITY_SIZ;
 
-	if (pKeyboard->GetKeyboardTrigger(DIK_F) && m_bHook == false && m_pCamera->GetRotake() == CCamera::ROTATE_NONE)
+	if (pKeyboard->GetKeyboardTrigger(DIK_RETURN) && m_bHook == false && m_pCamera->GetRotake() == CCamera::ROTATE_NONE)
 	{
 		// 周りにフックをかけれるか探索
 		// かけられるならフラグをtrueに
@@ -100,6 +100,10 @@ void CPlayerHook::Update(void)
 		if (destPos != DEFAULT_VECTOR)
 		{
 			MoveToHook(destPos);
+		}
+		else
+		{
+			m_bHook = false;
 		}
 	}
 	else
@@ -237,12 +241,12 @@ D3DXVECTOR3 CPlayerHook::SortSpike(void)
 
 			// 範囲外のspikeを除外
 			if (Orientation == CCamera::ORIENTATION_FRONT &&
-				-75.0f <= spikePos.x && 150.0f >= spikePos.x && -75.0f / 2 >= spikePos.z)
+				0.0f <= spikePos.x && 75.0f >= spikePos.x && -75.0f / 2 >= spikePos.z)
 			{
 				spike[nCntScene].dist = 10000.0f;
 			}
 			else if (Orientation == CCamera::ORIENTATION_BACK &&
-				-75.0f <= spikePos.x && 150.0f >= spikePos.x && -75.0f / 2 <= spikePos.z)
+				0.0f <= spikePos.x && 75.0f >= spikePos.x && -75.0f / 2 <= spikePos.z)
 			{
 				spike[nCntScene].dist = 10000.0f;
 			}
@@ -285,7 +289,15 @@ D3DXVECTOR3 CPlayerHook::SortSpike(void)
 
 	spike[nArrayCount].pos.y += 2.5f;
 
-	return spike[nArrayCount].pos;
+	if (spike[nArrayCount].dist <= 300.0f)
+	{
+		return spike[nArrayCount].pos;
+	}
+	else
+	{
+		return DEFAULT_VECTOR;
+	}
+
 }
 
 //=============================================================================

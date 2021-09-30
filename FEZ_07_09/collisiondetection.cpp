@@ -130,6 +130,7 @@ void CCollisionDetection::Load(void)
 	LPDIRECT3DDEVICE9 pDevice = CManager::GetRenderer()->GetDevice();
 
 	D3DXCreateTextureFromFile(pDevice, "./data/TEXTURE/block1_1.png", &m_apTexture[BLOCKTYPE_NONE]);
+	D3DXCreateTextureFromFile(pDevice, "./data/TEXTURE/block1_0.png", &m_apTexture[BLOCKTYPE_BUTTON_INCLUDED]);
 	D3DXCreateTextureFromFile(pDevice, "./data/TEXTURE/jimmy-malachier-tile-metal-01.jpg", &m_apTexture[BLOCKTYPE_WALL]);
 }
 
@@ -147,7 +148,8 @@ void CCollisionDetection::Unload(void)
 
 void CCollisionDetection::Draw(void) 
 {
-	if (m_BlockType != BLOCKTYPE_NULL && m_ButtonColorBlock.bJudge == true) {
+	if (m_BlockType != BLOCKTYPE_NULL /*&& m_ButtonColorBlock.bJudge == true*/) 
+	{
 		CBillboard::Draw();
 	}
 }

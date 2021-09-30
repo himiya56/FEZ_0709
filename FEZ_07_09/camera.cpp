@@ -114,15 +114,13 @@ void CCamera::Update(void)
 		{
 			cameraHeight = playerRotationPos.y + (playerHookPos.y - playerRotationPos.y) / 2.0f;
 		}
+		else if(playerHookPos.y == playerRotationPos.y)
+		{
+			cameraHeight = playerRotationPos.y;
+		}
 
 		m_posRDest.y = cameraHeight;
 		m_FollowPos.y = cameraHeight;
-
-		if (m_posRDest.y <= 75.0f * 6.0f)
-		{
-			m_posRDest.y = 75.0f * 6.0f;
-			m_FollowPos.y = 75.0f * 6.0f;
-		}
 	}
 
 	// –Ú“I’n‚É‹ß‚Ã‚¯‚é

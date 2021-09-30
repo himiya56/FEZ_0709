@@ -121,7 +121,7 @@ void CPlayerRotation::Update(void)
 		{
 			if (pKeyboard->GetKeyboardTrigger(DIK_W) || lpDIDevice != NULL && pJoystick->GetJoystickTrigger(JS_A, JOYSTICK_1P))
 			{
-				CPlayer::SetJumpJudge(false);
+				//CPlayer::SetJumpJudge(false);
 				m_move.y = JUMP_SIZ;
 			}
 		}
