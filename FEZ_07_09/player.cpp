@@ -65,7 +65,8 @@ void CPlayer::CollisionDetection(void) {
 			D3DXVECTOR3 pos = pCollisionDetection->GetPos();
 
 			//Z‚©XŽ²‚ªˆê’v‚µ‚½ê‡
-			if (pos.z == m_pos.z && Orientation == CCamera::ORIENTATION_FRONT || Orientation == CCamera::ORIENTATION_BACK ||
+			if (pCollisionDetection->GetButtonColorBlock().bJudge == true &&
+				pos.z == m_pos.z && Orientation == CCamera::ORIENTATION_FRONT || Orientation == CCamera::ORIENTATION_BACK ||
 				pos.x == m_pos.x && Orientation == CCamera::ORIENTATION_LEFT || Orientation == CCamera::ORIENTATION_RIGHT) {
 				m_bCollisionDetectionJudge = CollisionDetectionCalculation(m_posold, m_pos, PLAYER_SIZE, pos, PLAYER_SIZE, COLLISION::COLLISION_HEIGHT);
 
@@ -74,6 +75,10 @@ void CPlayer::CollisionDetection(void) {
 					m_pos.y = pos.y + PLAYER_SIZE.y;
 					SetJumpJudge(true);
 					m_RidingBlockPos = pos;
+
+					if (pCollisionDetection->GetBlockType() == CCollisionDetection::BLOCKTYPE_BUTTON) {
+						pCollisionDetection->BlockColorJudge(pCollisionDetection->GetButtonColorBlock().ButtonColor, true);
+					}
 				}
 			}
 

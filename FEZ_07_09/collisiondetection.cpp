@@ -97,14 +97,31 @@ void CCollisionDetection::BlockShift(BLOCKTYPE BlockType, CCamera *pCamera, CCam
 
 void CCollisionDetection::UpdateByType(BLOCKTYPE BlockType) {
 	switch (BlockType) {
-	case BLOCKTYPE_HOOK:
-		break;
-
 	case BLOCKTYPE_BUTTON:
 		break;
+	}
+}
 
-	case BLOCKTYPE_BUTTON_INCLUDED:
-		break;
+void CCollisionDetection::BlockColorJudge(CCollisionDetection::BUTTONCOLOR ButtonColor, bool Judge) {
+	CObject *pObj = CObject::GetTopObj(CObject::OBJ_TYPE_BLOCK);
+
+	for (int nCntScene = 0; nCntScene < CObject::GetNumObj(CObject::OBJ_TYPE_BLOCK); nCntScene++) {
+		// 中身があるなら
+		if (pObj != NULL) {
+			// 次のシーンを記憶
+			CCollisionDetection *pCollisionDetection = (CCollisionDetection*)pObj;
+
+			if (pCollisionDetection->m_ButtonColorBlock.ButtonColor == ButtonColor) {
+				pCollisionDetection->m_ButtonColorBlock.bJudge = Judge;
+			}
+
+			// 次のシーンにする
+			pObj = pObj->GetNextObj();
+		}
+		else {
+			// 中身がないなら、そこで処理を終える
+			break;
+		}
 	}
 }
 
@@ -130,13 +147,12 @@ void CCollisionDetection::Unload(void)
 
 void CCollisionDetection::Draw(void) 
 {
-	//if (m_BlockType != BLOCKTYPE_NONE)
-	//{
+	if (m_BlockType != BLOCKTYPE_NULL && m_ButtonColorBlock.bJudge == true) {
 		CBillboard::Draw();
-	//}
+	}
 }
 
-CCollisionDetection *CCollisionDetection::Create(D3DXVECTOR3 pos, D3DXVECTOR3 siz, BLOCKTYPE BlockType) {
+CCollisionDetection *CCollisionDetection::Create(D3DXVECTOR3 pos, D3DXVECTOR3 siz, BLOCKTYPE BlockType, BUTTONCOLOR ButtonColor) {
 	CCollisionDetection* pCollisionDetection = NULL;
 	pCollisionDetection = new CCollisionDetection;
 	pCollisionDetection->Init();
@@ -149,9 +165,20 @@ CCollisionDetection *CCollisionDetection::Create(D3DXVECTOR3 pos, D3DXVECTOR3 si
 	pCollisionDetection->m_siz = siz;
 	pCollisionDetection->m_BlockType = BlockType;
 
-	if (BlockType == BLOCKTYPE_NONE)
-	{
-		//CBlock::Create(pos);
+	switch (BlockType) {
+	case BLOCKTYPE_BUTTON_INCLUDED:
+		pCollisionDetection->m_ButtonColorBlock.ButtonColor = ButtonColor;
+		pCollisionDetection->m_ButtonColorBlock.bJudge = false;
+		break;
+
+	case BLOCKTYPE_BUTTON:
+		pCollisionDetection->m_ButtonColorBlock.ButtonColor = ButtonColor;
+		pCollisionDetection->m_ButtonColorBlock.bJudge = true;
+		break;
+
+	default:
+		pCollisionDetection->m_ButtonColorBlock.bJudge = true;
+		break;
 	}
 
 	return pCollisionDetection;

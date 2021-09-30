@@ -104,7 +104,7 @@ void CPlayerRotation::Update(void) {
 		// Wキーでジャンプ
 		if (CPlayer::GetJumpJudge() == true) {
 			if (pKeyboard->GetKeyboardTrigger(DIK_W)) {
-				//CPlayer::SetJumpJudge(false);
+				CPlayer::SetJumpJudge(false);
 				m_move.y = JUMP_SIZ;
 			}
 		}

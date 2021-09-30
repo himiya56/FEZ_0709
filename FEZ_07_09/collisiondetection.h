@@ -33,11 +33,24 @@ public:
 		BLOCKTYPE_NULL = 0,
 		BLOCKTYPE_NONE,
 		BLOCKTYPE_WALL,
-		BLOCKTYPE_HOOK,
 		BLOCKTYPE_BUTTON,
 		BLOCKTYPE_BUTTON_INCLUDED,
 		BLOCK_TYPE_MAX
 	}BLOCKTYPE;
+
+	typedef enum
+	{
+		BUTTONCOLOR_NULL = 0,
+		BUTTONCOLOR_RED,
+		BUTTONCOLOR_BLUE,
+		BUTTONCOLOR_YELLOW,
+		BUTTONCOLOR_MAX
+	}BUTTONCOLOR;
+
+	typedef struct {
+		bool bJudge;
+		BUTTONCOLOR ButtonColor;
+	}BUTTONCOLORBLOCK;
 
 	CCollisionDetection();
 	~CCollisionDetection();
@@ -48,17 +61,20 @@ public:
 	void ReleaseAll(void);
 	void UpdateByType(BLOCKTYPE BlockType);
 	void BlockShift(BLOCKTYPE BlockType, CCamera *pCamera, CCamera::ORIENTATION orientarion, CCamera::ROTATE rotate);
+	void BlockColorJudge(BUTTONCOLOR ButtonColor, bool Judge);
 	
 	static void Load(void);
 	static void Unload(void);
 
+	BUTTONCOLORBLOCK GetButtonColorBlock(void) { return m_ButtonColorBlock; }
+	BLOCKTYPE GetBlockType(void) { return m_BlockType; }
 	CCollisionDetection* GetNextScene(void) { return m_pNext; }
 	D3DXVECTOR3 GetSiz(void) { return m_siz; }
 	D3DXVECTOR3 GetPos(void) { return m_pos; }
 
 	static CCollisionDetection *GetCollisionDetectionOrientation(void) { return m_CollisionDetectionListTop; }
 	static int GetNumAll(void) { return m_nNum; }
-	static CCollisionDetection *Create(D3DXVECTOR3 pos, D3DXVECTOR3 siz, BLOCKTYPE BlockType);
+	static CCollisionDetection *Create(D3DXVECTOR3 pos, D3DXVECTOR3 siz, BLOCKTYPE BlockType, BUTTONCOLOR ButtonColor = BUTTONCOLOR_NULL);
 
 private:
 	static int m_nNum;
@@ -72,6 +88,7 @@ private:
 	D3DXVECTOR3 m_defaultPos;
 	D3DXVECTOR3 m_siz;
 	BLOCKTYPE m_BlockType;
+	BUTTONCOLORBLOCK m_ButtonColorBlock;
 	CBlock *m_pBlock;
 
 	static LPDIRECT3DTEXTURE9		m_apTexture[BLOCK_TYPE_MAX];
