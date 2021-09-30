@@ -51,15 +51,15 @@ public:
 	bool GetJoystickPress(int nKey,int nJoystick);
 	bool GetJoystickTrigger(int nKey, int nJoystick);
 	bool GetJoystickRelease(int nKey, int nJoystick);
-	BOOL CreateEffect(HWND);
+	//BOOL CreateEffect(HWND);
 	static BOOL CALLBACK EnumFFDevicesCallback(const DIDEVICEINSTANCE * pdidInstance, VOID * pContext);
 	static BOOL CALLBACK EnumJoysticksCallback(const DIDEVICEINSTANCE *pdidInstance, VOID *pContext);
 	static BOOL CALLBACK EnumAxesCallback(const DIDEVICEOBJECTINSTANCE *pdidoi, VOID *pContext);
 	static LPDIRECTINPUTDEVICE8 GetDevice(int nJoystick) { return m_pJDevice[nJoystick]; }
-	static LPDIRECTINPUTEFFECT GetEffect(int nJoystick) { return m_IpDIEffect[nJoystick]; }
+	//static LPDIRECTINPUTEFFECT GetEffect(int nJoystick) { return m_IpDIEffect[nJoystick]; }
 private:
 	static LPDIRECTINPUTDEVICE8 m_pJDevice[MAX_JOYSTICK];	// デバイス
-	static LPDIRECTINPUTEFFECT m_IpDIEffect[MAX_JOYSTICK];	// エフェクト
+	//static LPDIRECTINPUTEFFECT m_IpDIEffect[MAX_JOYSTICK];	// エフェクト
 	DIDEVCAPS	m_diDevCaps;								// Caps
 	DWORD m_dwNumForceFeedbackAxis;							// フォースフィードバック
 	DWORD m_rgdwAxes[2] = { DIJOFS_X , DIJOFS_Y };

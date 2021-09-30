@@ -8,6 +8,7 @@
 #include "keyboard.h"
 #include "collisiondetection.h"
 #include "polygon2d.h"
+#include "joystick.h"
 
 LPDIRECT3DTEXTURE9 CPlayerRotation::m_pTexture = NULL;
 
@@ -40,6 +41,17 @@ void CPlayerRotation::Update(void) {
 	m_pCamera = CManager::GetCamera();
 	CInputKeyboard *pKeyboard = CManager::GetInput();
 	CCamera::ORIENTATION Orientation = m_pCamera->GetOrientation();
+	//ジョイスティックの取得
+	CJoystick * pJoystick = CManager::GetJoystick();
+	LPDIRECTINPUTDEVICE8 lpDIDevice = CJoystick::GetDevice(JOYSTICK_1P);
+	DIJOYSTATE js;
+	//ジョイスティックの振動取得
+	//LPDIRECTINPUTEFFECT pDIEffect = CJoystick::GetEffect(JOYSTICK_1P);
+	if (lpDIDevice != NULL)
+	{
+		lpDIDevice->Poll();
+		lpDIDevice->GetDeviceState(sizeof(DIJOYSTATE), &js);
+	}
 	m_pos = GetPos();
 	m_move.y -= GRAVITY_SIZ;
 
@@ -49,7 +61,7 @@ void CPlayerRotation::Update(void) {
 
 	if (m_bJumpJudge == true && CGameMode::GetPlayerHook()->GetPlayerHookJump() == true) {
 		// カメラの回転を呼び出す
-		m_pCamera->DecisionRotate(pKeyboard);
+		m_pCamera->DecisionRotate(pKeyboard, pJoystick);
 	}
 
 	if (m_pCamera->GetRotake() == CCamera::ROTATE_NONE) {
@@ -59,44 +71,44 @@ void CPlayerRotation::Update(void) {
 		switch (Orientation) {
 		case CCamera::ORIENTATION_BACK:
 			// ←キーで左移動
-			if (pKeyboard->GetKeyboardPress(DIK_A)) {
+			if (pKeyboard->GetKeyboardPress(DIK_A) || lpDIDevice != NULL &&js.lX == -1000) {
 				m_pos.x += m_move.x;
 			}
 			// →キーで右移動
-			if (pKeyboard->GetKeyboardPress(DIK_D)) {
+			if (pKeyboard->GetKeyboardPress(DIK_D) || lpDIDevice != NULL &&js.lX == 1000) {
 				m_pos.x -= m_move.x;
 			}
 			break;
 
 		case CCamera::ORIENTATION_LEFT:
 			// ←キーで左移動
-			if (pKeyboard->GetKeyboardPress(DIK_A)) {
+			if (pKeyboard->GetKeyboardPress(DIK_A) || lpDIDevice != NULL &&js.lX == -1000) {
 				m_pos.z += m_move.z;
 			}
 			// →キーで右移動
-			if (pKeyboard->GetKeyboardPress(DIK_D)) {
+			if (pKeyboard->GetKeyboardPress(DIK_D) || lpDIDevice != NULL &&js.lX == 1000) {
 				m_pos.z -= m_move.z;
 			}
 			break;
 
 		case CCamera::ORIENTATION_FRONT:
 			// ←キーで左移動
-			if (pKeyboard->GetKeyboardPress(DIK_A)) {
+			if (pKeyboard->GetKeyboardPress(DIK_A) || lpDIDevice != NULL &&js.lX == -1000) {
 				m_pos.x -= m_move.x;
 			}
 			// →キーで右移動
-			if (pKeyboard->GetKeyboardPress(DIK_D)) {
+			if (pKeyboard->GetKeyboardPress(DIK_D) || lpDIDevice != NULL &&js.lX == 1000) {
 				m_pos.x += m_move.x;
 			}
 			break;
 
 		case CCamera::ORIENTATION_RIGHT:
 			// ←キーで左移動
-			if (pKeyboard->GetKeyboardPress(DIK_A)) {
+			if (pKeyboard->GetKeyboardPress(DIK_A) || lpDIDevice != NULL &&js.lX == -1000) {
 				m_pos.z -= m_move.z;
 			}
 			// →キーで右移動
-			if (pKeyboard->GetKeyboardPress(DIK_D)) {
+			if (pKeyboard->GetKeyboardPress(DIK_D) || lpDIDevice != NULL &&js.lX == 1000) {
 				m_pos.z += m_move.z;
 			}
 			break;
@@ -104,7 +116,7 @@ void CPlayerRotation::Update(void) {
 
 		// Wキーでジャンプ
 		if (m_bJumpJudge == true) {
-			if (pKeyboard->GetKeyboardTrigger(DIK_W)) {
+			if (pKeyboard->GetKeyboardTrigger(DIK_W) || lpDIDevice != NULL && pJoystick->GetJoystickTrigger(JS_A,JOYSTICK_1P)) {
 				m_bJumpJudge = false;
 				m_move.y = JUMP_SIZ;
 			}

@@ -12,6 +12,7 @@
 #include "manager.h"
 #include "renderer.h"
 #include "keyboard.h"
+#include "joystick.h"
 #include "player.h"
 #include "player_hook.h"
 #include "player_rotation.h"
@@ -232,16 +233,16 @@ CCamera *CCamera::Create(void)
 //=============================================================================
 // ‰ñ“]•ûŒü‚ðŒˆ’è
 //=============================================================================
-void CCamera::DecisionRotate(CInputKeyboard *pInputKeyboard) {
+void CCamera::DecisionRotate(CInputKeyboard *pInputKeyboard,CJoystick *pJoystick) {
 	if (m_rotDir == ROTATE_NONE)
 	{
 		// AƒL[‚Å‰E‰ñ“]
-		if (pInputKeyboard->GetKeyboardTrigger(DIK_Q))
+		if (pInputKeyboard->GetKeyboardTrigger(DIK_Q) || pJoystick->GetJoystickTrigger(JS_LB,JOYSTICK_1P))
 		{
 			m_rotDir = ROTATE_RIGHT;
 		}
 		// DƒL[‚Å¶‰ñ“]
-		if (pInputKeyboard->GetKeyboardTrigger(DIK_E))
+		if (pInputKeyboard->GetKeyboardTrigger(DIK_E) || pJoystick->GetJoystickTrigger(JS_RB,JOYSTICK_1P))
 		{
 			m_rotDir = ROTATE_LEFT;
 		}

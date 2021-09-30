@@ -19,6 +19,7 @@ CSound::PARAM CSound::m_aParam[SOUND_LABEL_MAX] =
 	{ SOUND_PASS_BUTTON_PUSH, 0 },		// ボタンを押したときの音
 	{ SOUND_PASS_BUTTON_CANCEL, 0 },	// ボタンキャンセル音
 	{ SOUND_PASS_BGM_TITLE, -1},		// タイトルBGM
+	{ SOUND_PASS_BGM_TUTORIAL, -1 },	// チュートリアルBGM
 	{ SOUND_PASS_BGM_STAGE_SELECT, -1},	// ステージ選択BGM
 	{ SOUND_PASS_BGM_RESULT, -1},		// リザルトBGM
 	{ SOUND_PASS_BGM_STAGE1, -1},		// ステージ1BGM

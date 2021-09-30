@@ -21,6 +21,7 @@
 #define SOUND_PASS_BUTTON_PUSH "data/SOUND/SE/se_button_push.wav"
 #define SOUND_PASS_BUTTON_CANCEL "data/SOUND/SE/se_button_cancel.wav"
 #define SOUND_PASS_BGM_TITLE "data/SOUND/BGM/title.wav"
+#define SOUND_PASS_BGM_TUTORIAL "data/SOUND/BGM/Tutorial.wav"
 #define SOUND_PASS_BGM_STAGE_SELECT "data/SOUND/BGM/stage_select.wav"
 #define SOUND_PASS_BGM_RESULT "data/SOUND/BGM/result.wav"
 #define SOUND_PASS_BGM_STAGE1 "data/SOUND/BGM/stage1.wav"
@@ -42,6 +43,7 @@ public:
 		SOUND_LABEL_SE_BUTTON_PUSH,		// ボタンを押す音
 		SOUND_LABEL_SE_BUTTON_CANCEL,	// ボタンキャンセル音
 		SOUND_LABEL_BGM_TITLE,			// タイトルBGM
+		SOUND_LABEL_BGM_TUTORIAL,		// チュートリアルBGM
 		SOUND_LABEL_BGM_STAGE_SELECT,	// ステージ選択BGM
 		SOUND_LABEL_BGM_RESULT,			// リザルトBGM
 		SOUND_LABEL_BGM_STAGE1,			// ステージ1BGM

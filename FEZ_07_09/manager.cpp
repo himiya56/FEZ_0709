@@ -19,6 +19,7 @@
 #include "light.h"
 #include "fade.h"
 #include "mode_title.h"
+#include "mode_tutorial.h"
 #include "mode_stage_select.h"
 #include "mode_game.h"
 #include "mode_result.h"
@@ -34,6 +35,9 @@
 #include "bg_stage_select.h"
 #include "bg_dot.h"
 #include "bg_title.h"
+#include "bg_tutorial.h"
+#include "bg_result.h"
+#include "number.h"
 #include "logo_title.h"
 
 #include "testObj.h"
@@ -286,6 +290,10 @@ void CManager::SetMode(MODE Mode)
 		//タイトルモードの生成処理関数呼び出し
 		CTitleMode::Create();
 		break;
+	case MODE_TUTORIAL:
+		//チュートリアルモードの生成処理関数呼び出し
+		CTutorialMode::Create();
+		break;
 	case MODE_STAGE_SELECT:
 		//ステージ選択モードの生成処理関数呼び出し
 		CStageSelectMode::Create();
@@ -324,19 +332,19 @@ void CManager::Load(void)
 	CStage1Button::TextureLoad();
 	CStage2Button::TextureLoad();
 	CStage3Button::TextureLoad();
-<<<<<<< HEAD
 	CCollisionDetection::Load();
 	CSpike::Load();
 	CBlock::Load();
-=======
 	CStageSelectBG::TextureLoad();
 	CStageSelectButton::TextureLoad();
 	CBackToTitleButton::TextureLoad();
 	CCancelButton::TextureLoad();
 	CDotBG::TextureLoad();
 	CTitleBG::TextureLoad();
+	CTutorialBG::TextureLoad();
+	CResultBG::TextureLoad();
+	CNumber::TextureLoad();
 	CTitleLogo::TextureLoad();
->>>>>>> remotes/origin/nikaido
 }
 
 //=============================================================================
@@ -352,18 +360,17 @@ void CManager::Unload(void)
 	CStage1Button::TextureUnload();
 	CStage2Button::TextureUnload();
 	CStage3Button::TextureUnload();
-<<<<<<< HEAD
 	CCollisionDetection::Unload();
 	CSpike::Unload();
 	CBlock::Unload();
-}
-=======
 	CStageSelectBG::TextureUnload();
 	CStageSelectButton::TextureUnload();
 	CBackToTitleButton::TextureUnload();
 	CCancelButton::TextureUnload();
 	CDotBG::TextureUnload();
 	CTitleBG::TextureUnload();
+	CTutorialBG::TextureUnload();
+	CResultBG::TextureUnload();
+	CNumber::TextureUnload();
 	CTitleLogo::TextureUnload();
 }
->>>>>>> remotes/origin/nikaido
