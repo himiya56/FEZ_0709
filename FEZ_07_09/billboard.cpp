@@ -196,6 +196,10 @@ void CBillboard::Draw(void)
 		mtxRot._42 = 0.0f;
 		mtxRot._43 = 0.0f;
 
+		mtxRot._21 = 0.0f;
+		mtxRot._22 = 1.0f;
+		mtxRot._23 = 0.0f;
+
 		D3DXMatrixMultiply(&m_mtxWorld, &m_mtxWorld, &mtxRot);
 
 		D3DXMatrixTranslation(&mtxTrans, m_pos.x, m_pos.y, m_pos.z);

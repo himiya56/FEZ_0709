@@ -165,6 +165,8 @@ CCollisionDetection *CCollisionDetection::Create(D3DXVECTOR3 pos, D3DXVECTOR3 si
 	pCollisionDetection->m_siz = siz;
 	pCollisionDetection->m_BlockType = BlockType;
 
+	//CBlock::Create(pos);
+
 	switch (BlockType) {
 	case BLOCKTYPE_BUTTON_INCLUDED:
 		pCollisionDetection->m_ButtonColorBlock.ButtonColor = ButtonColor;
