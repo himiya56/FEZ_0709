@@ -122,7 +122,7 @@ void CTitleButtonManager::Input(void)
 	LPDIRECTINPUTDEVICE8 lpDIDevice = CJoystick::GetDevice(JOYSTICK_1P);
 	DIJOYSTATE js;
 	//ジョイスティックの振動取得
-	LPDIRECTINPUTEFFECT pDIEffect = CJoystick::GetEffect(JOYSTICK_1P);
+	//LPDIRECTINPUTEFFECT pDIEffect = CJoystick::GetEffect(JOYSTICK_1P);
 	if (lpDIDevice != NULL)
 	{
 		lpDIDevice->Poll();

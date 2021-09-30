@@ -46,11 +46,20 @@
     <ClCompile Include="testObj.cpp" />
     <ClCompile Include="title_button_manager.cpp" />
     <ClCompile Include="wire.cpp" />
+<<<<<<< HEAD
     <ClCompile Include="goal.cpp" />
     <ClCompile Include="particle_coin.cpp" />
     <ClCompile Include="particle.cpp" />
     <ClCompile Include="item.cpp" />
     <ClCompile Include="item_coin.cpp" />
+=======
+    <ClCompile Include="bg_tutorial.cpp" />
+    <ClCompile Include="mode_tutorial.cpp" />
+    <ClCompile Include="bg_result.cpp" />
+    <ClCompile Include="number.cpp" />
+    <ClCompile Include="ui_coin.cpp" />
+    <ClCompile Include="ui_get_coin.cpp" />
+>>>>>>> remotes/origin/sinnikaido
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="bg_dot.h" />
@@ -98,10 +107,19 @@
     <ClInclude Include="testObj.h" />
     <ClInclude Include="title_button_manager.h" />
     <ClInclude Include="wire.h" />
+<<<<<<< HEAD
     <ClInclude Include="goal.h" />
     <ClInclude Include="particle.h" />
     <ClInclude Include="particle_coin.h" />
     <ClInclude Include="item.h" />
     <ClInclude Include="item_coin.h" />
+=======
+    <ClInclude Include="bg_tutorial.h" />
+    <ClInclude Include="mode_tutorial.h" />
+    <ClInclude Include="bg_result.h" />
+    <ClInclude Include="number.h" />
+    <ClInclude Include="ui_coin.h" />
+    <ClInclude Include="ui_get_coin.h" />
+>>>>>>> remotes/origin/sinnikaido
   </ItemGroup>
 </Project>

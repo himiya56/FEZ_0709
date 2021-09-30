@@ -141,6 +141,6 @@ void CTutorialButton::Press(void)
 {
 	//押したときのサウンド再生
 	PlayButtonSE(CButton::BUTTON_SE_PUSH);
-	//ステージ1モードに遷移する
-	CManager::StartFade(CManager::MODE_GAME_STAGE1);
+	//チュートリアルモードに遷移する
+	CManager::StartFade(CManager::MODE_TUTORIAL);
 }

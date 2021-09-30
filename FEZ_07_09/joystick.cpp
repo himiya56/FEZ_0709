@@ -20,7 +20,7 @@
 // 静的メンバ変数の初期化
 //*****************************************************************************
 LPDIRECTINPUTDEVICE8 CJoystick::m_pJDevice[MAX_JOYSTICK] = {};
-LPDIRECTINPUTEFFECT CJoystick::m_IpDIEffect[MAX_JOYSTICK] = {};
+//LPDIRECTINPUTEFFECT CJoystick::m_IpDIEffect[MAX_JOYSTICK] = {};
 
 //=============================================================================
 // コンストラクタ
@@ -89,10 +89,10 @@ HRESULT CJoystick::Init(HINSTANCE hInstance, HWND hWnd)
 				m_dwNumForceFeedbackAxis = 2;
 			}
 
-			if (!CreateEffect(hWnd)) {
+	/*		if (!CreateEffect(hWnd)) {
 				MessageBox(hWnd, "Can't create effect.", "Error", MB_OK);
 				return FALSE;
-			}
+			}*/
 
 			hr = m_pJDevice[nCount]->Poll();
 			if (FAILED(hr)) {
@@ -120,7 +120,7 @@ void CJoystick::Uninit(void)
 		{
 			//デバイス制御の停止
 			m_pJDevice[nJoystick]->Unacquire();
-			m_IpDIEffect[nJoystick]->Release();
+			//m_IpDIEffect[nJoystick]->Release();
 			m_pJDevice[nJoystick]->Release();
 			m_pJDevice[nJoystick] = NULL;
 		}
@@ -252,39 +252,39 @@ BOOL CALLBACK CJoystick::EnumAxesCallback(const DIDEVICEOBJECTINSTANCE * pdidoi,
 //=============================================================================
 // Create Effect.
 //=============================================================================
-BOOL CJoystick::CreateEffect(HWND hWnd)
-{
-	DWORD           rgdwAxes[2] = { DIJOFS_X , DIJOFS_Y };
-	LONG            rglDirection[2] = { 1 , 1 };
-	DICONSTANTFORCE cf;
-	DIEFFECT        eff;
-	HRESULT         hr;
-
-	ZeroMemory(&eff, sizeof(eff));
-	eff.dwSize = sizeof(DIEFFECT);
-	eff.dwFlags = DIEFF_CARTESIAN | DIEFF_OBJECTOFFSETS;
-	eff.dwDuration = INFINITE;
-	eff.dwSamplePeriod = 0;
-	eff.dwGain = DI_FFNOMINALMAX;
-	eff.dwTriggerButton = DIEB_NOTRIGGER;
-	eff.dwTriggerRepeatInterval = 0;
-	eff.cAxes = m_dwNumForceFeedbackAxis;
-	eff.rgdwAxes = rgdwAxes;
-	eff.rglDirection = rglDirection;
-	eff.lpEnvelope = 0;
-	eff.cbTypeSpecificParams = sizeof(DICONSTANTFORCE);
-	eff.lpvTypeSpecificParams = &cf;
-	eff.dwStartDelay = 0;
-	// 接続できるジョイスティックの最大数分回す
-	for (int nJoystick = 0; nJoystick < MAX_JOYSTICK; nJoystick++)
-	{
-		hr = m_pJDevice[nJoystick]->CreateEffect(GUID_ConstantForce, &eff,
-			&m_IpDIEffect[nJoystick], NULL);
-	}
-	if (FAILED(hr)) {
-		MessageBox(hWnd, "Can't create effect.", "Error", MB_OK);
-		return FALSE;
-	}
-
-	return TRUE;
-}
+//BOOL CJoystick::CreateEffect(HWND hWnd)
+//{
+//	DWORD           rgdwAxes[2] = { DIJOFS_X , DIJOFS_Y };
+//	LONG            rglDirection[2] = { 1 , 1 };
+//	DICONSTANTFORCE cf;
+//	DIEFFECT        eff;
+//	HRESULT         hr;
+//
+//	ZeroMemory(&eff, sizeof(eff));
+//	eff.dwSize = sizeof(DIEFFECT);
+//	eff.dwFlags = DIEFF_CARTESIAN | DIEFF_OBJECTOFFSETS;
+//	eff.dwDuration = INFINITE;
+//	eff.dwSamplePeriod = 0;
+//	eff.dwGain = DI_FFNOMINALMAX;
+//	eff.dwTriggerButton = DIEB_NOTRIGGER;
+//	eff.dwTriggerRepeatInterval = 0;
+//	eff.cAxes = m_dwNumForceFeedbackAxis;
+//	eff.rgdwAxes = rgdwAxes;
+//	eff.rglDirection = rglDirection;
+//	eff.lpEnvelope = 0;
+//	eff.cbTypeSpecificParams = sizeof(DICONSTANTFORCE);
+//	eff.lpvTypeSpecificParams = &cf;
+//	eff.dwStartDelay = 0;
+//	// 接続できるジョイスティックの最大数分回す
+//	for (int nJoystick = 0; nJoystick < MAX_JOYSTICK; nJoystick++)
+//	{
+//		hr = m_pJDevice[nJoystick]->CreateEffect(GUID_ConstantForce, &eff,
+//			&m_IpDIEffect[nJoystick], NULL);
+//	}
+//	if (FAILED(hr)) {
+//		MessageBox(hWnd, "Can't create effect.", "Error", MB_OK);
+//		return FALSE;
+//	}
+//
+//	return TRUE;
+//}

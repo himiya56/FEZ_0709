@@ -11,6 +11,7 @@
 #include "player_hook.h"
 #include "wire.h"
 #include "spike.h"
+#include "joystick.h"
 
 //========================================
 // 静的メンバ変数宣言
@@ -69,6 +70,17 @@ void CPlayerHook::Update(void)
 	m_pCamera = CManager::GetCamera();
 	CCamera::ORIENTATION Orientation = m_pCamera->GetOrientation();
 	CInputKeyboard *pKeyboard = CManager::GetInput();
+	//ジョイスティックの取得
+	CJoystick * pJoystick = CManager::GetJoystick();
+	LPDIRECTINPUTDEVICE8 lpDIDevice = CJoystick::GetDevice(JOYSTICK_2P);
+	DIJOYSTATE js;
+	//ジョイスティックの振動取得
+	//LPDIRECTINPUTEFFECT pDIEffect = CJoystick::GetEffect(JOYSTICK_2P);
+	if (lpDIDevice != NULL)
+	{
+		lpDIDevice->Poll();
+		lpDIDevice->GetDeviceState(sizeof(DIJOYSTATE), &js);
+	}
 	D3DXVECTOR3 destPos;
 
 	m_pos = GetPos();
@@ -99,52 +111,56 @@ void CPlayerHook::Update(void)
 			switch (Orientation) {
 			case CCamera::ORIENTATION_BACK:
 				// ←キーで左移動
-				if (pKeyboard->GetKeyboardPress(DIK_LEFT)) {
+				if (pKeyboard->GetKeyboardPress(DIK_LEFT) || lpDIDevice != NULL &&js.lX == -1000) {
 					m_pos.x += m_move.x;
 				}
 				// →キーで右移動
-				if (pKeyboard->GetKeyboardPress(DIK_RIGHT)) {
+				if (pKeyboard->GetKeyboardPress(DIK_RIGHT) || lpDIDevice != NULL &&js.lX == 1000) {
 					m_pos.x -= m_move.x;
 				}
 				break;
 
 			case CCamera::ORIENTATION_LEFT:
 				// ←キーで左移動
-				if (pKeyboard->GetKeyboardPress(DIK_LEFT)) {
+				if (pKeyboard->GetKeyboardPress(DIK_LEFT) || lpDIDevice != NULL &&js.lX == -1000) {
 					m_pos.z += m_move.z;
 				}
 				// →キーで右移動
-				if (pKeyboard->GetKeyboardPress(DIK_RIGHT)) {
+				if (pKeyboard->GetKeyboardPress(DIK_RIGHT) || lpDIDevice != NULL &&js.lX == 1000) {
 					m_pos.z -= m_move.z;
 				}
 				break;
 
 			case CCamera::ORIENTATION_FRONT:
 				// ←キーで左移動
-				if (pKeyboard->GetKeyboardPress(DIK_LEFT)) {
+				if (pKeyboard->GetKeyboardPress(DIK_LEFT) || lpDIDevice != NULL &&js.lX == -1000) {
 					m_pos.x -= m_move.x;
 				}
 				// →キーで右移動
-				if (pKeyboard->GetKeyboardPress(DIK_RIGHT)) {
+				if (pKeyboard->GetKeyboardPress(DIK_RIGHT) || lpDIDevice != NULL &&js.lX == 1000) {
 					m_pos.x += m_move.x;
 				}
 				break;
 
 			case CCamera::ORIENTATION_RIGHT:
 				// ←キーで左移動
-				if (pKeyboard->GetKeyboardPress(DIK_LEFT)) {
+				if (pKeyboard->GetKeyboardPress(DIK_LEFT) || lpDIDevice != NULL &&js.lX == -1000) {
 					m_pos.z -= m_move.z;
 				}
 				// →キーで右移動
-				if (pKeyboard->GetKeyboardPress(DIK_RIGHT)) {
+				if (pKeyboard->GetKeyboardPress(DIK_RIGHT) || lpDIDevice != NULL &&js.lX == 1000) {
 					m_pos.z += m_move.z;
 				}
 				break;
 			}
 
 			// スペースキーでジャンプ
+<<<<<<< HEAD
 			if (CPlayer::GetJumpJudge() == true && pKeyboard->GetKeyboardTrigger(DIK_UP)) {
 				CPlayer::SetJumpJudge(false);
+=======
+			if (m_bJumpJudge == true && pKeyboard->GetKeyboardTrigger(DIK_UP) || lpDIDevice != NULL && pJoystick->GetJoystickTrigger(JS_A,JOYSTICK_2P)) {
+>>>>>>> remotes/origin/sinnikaido
 				m_bJumpJudge = false;
 				m_move.y = JUMP_SIZ;
 			}

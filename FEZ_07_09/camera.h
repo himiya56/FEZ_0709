@@ -25,6 +25,7 @@
 // 前方宣言
 //*****************************************************************************
 class CInputKeyboard;
+class CJoystick;
 
 //================================================
 // ライトクラス宣言
@@ -67,7 +68,7 @@ public:
 	void SetTargetPos(D3DXVECTOR3 pos) { m_posR = pos; }	// 注視点設定
 	void SetPos(D3DXVECTOR3 pos) { m_posV = pos; }			// 座標設定
 	void SetFOV(float fFOV) { m_fFOV = fFOV; }				// 視野角設定
-	void DecisionRotate(CInputKeyboard *pInputKeyboard);
+	void DecisionRotate(CInputKeyboard *pInputKeyboard,CJoystick *pJoystick);
 
 	static CCamera *Create(void);
 
