@@ -85,6 +85,8 @@ void CPlayer::CollisionDetection(void) {
 				}
 			}
 
+			m_RidingBlockPos = D3DXVECTOR3(-431602080, -431602080, -431602080);
+
 			// ŽŸ‚ÌƒV[ƒ“‚É‚·‚é
 			pObj = pObj->GetNextObj();
 		}
@@ -98,6 +100,9 @@ void CPlayer::CollisionDetection(void) {
 D3DXVECTOR3 CPlayer::RotationDifferentialShift(CCamera::ORIENTATION Orientation) 
 {
 	D3DXVECTOR3 Pos;
+	if (m_RidingBlockPos == D3DXVECTOR3(-431602080, -431602080, -431602080)) {
+		m_RidingBlockPos = m_pos;
+	}
 
 	if (Orientation == CCamera::ORIENTATION_FRONT) {
 		Pos = D3DXVECTOR3(m_RidingBlockPos.x, m_pos.y + 0.01f, CCamera::ORIENTATION_FRONT_POS);

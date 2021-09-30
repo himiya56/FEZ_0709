@@ -364,7 +364,6 @@ void CPlayerHook::MoveToHook(D3DXVECTOR3 pos)
 			fabsf(pos.y - m_pos.y) <= HOOK_STOP_SIZE)
 		{
 			m_bHook = false;
-			m_pos.z = pos.z;
 			m_circle.fAngle = 0.0f;
 			m_move = MOVE_SPECIFIED;
 		}
@@ -375,7 +374,6 @@ void CPlayerHook::MoveToHook(D3DXVECTOR3 pos)
 			fabsf(pos.y - m_pos.y) <= HOOK_STOP_SIZE)
 		{
 			m_bHook = false;
-			m_pos.x = pos.x;
 			m_circle.fAngle = 0.0f;
 			m_move = MOVE_SPECIFIED;
 		}

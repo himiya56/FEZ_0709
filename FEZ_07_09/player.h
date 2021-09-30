@@ -18,7 +18,7 @@
 // É}ÉNÉçíËã`
 //*****************************************************************************
 #define MOVE_SIZ 7.0f
-#define JUMP_SIZ 10.0f
+#define JUMP_SIZ 7.0f
 #define GRAVITY_SIZ 0.27f
 #define MOVE_SPECIFIED D3DXVECTOR3(MOVE_SIZ, 0, MOVE_SIZ)
 #define PLAYER_SIZE D3DXVECTOR3(75.0f, 75.0f, 0.0f)
