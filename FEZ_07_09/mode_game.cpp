@@ -25,6 +25,8 @@
 #include "player.h"
 #include "goal.h"
 #include "testObj.h"
+#include "Stage.h"
+#include "sky.h"
 
 //*****************************************************************************
 // É}ÉNÉçíËã`
@@ -148,7 +150,10 @@ void CGameMode::InitStageCreate(void)
 			m_pPlayerHook = CPlayerHook::Create(D3DXVECTOR3(75.0f * -1.0f, 75.0f * 1.0f, 75.0f * -2.0f), BLOCK_SIZE);
 			m_pPlayerRotation = CPlayerRotation::Create(D3DXVECTOR3(75.0f * 2.0f, 75.0f * 2.0f + 70.0f, 75.0f * 0.0f), BLOCK_SIZE);
 
-			CCollisionDetection::Create(D3DXVECTOR3(75.0f / 2.0f, (75.0f * 23) / 2.0f, -75.0f / 2.0f), D3DXVECTOR3(150.0f, 1800.0f, 0.0f), CCollisionDetection::BLOCKTYPE_WALL);
+			//75.0f * 27.0f, 75.0f * 30.0f
+
+			CStage::Create(D3DXVECTOR3(75.0f / 2.0f, 75.0f * -2.2f, -75.0f / 2.0f));
+			CSky::Create(D3DXVECTOR3(0.0f, 75.0f * 15.0f, 75.0f * 13.5f), D3DXVECTOR2(0.0f, 0.25f));
 
 			CCollisionDetection::Create(D3DXVECTOR3(75.0f * 2.0f, 75.0f * 0.0f, 75.0f * -2.0f), BLOCK_SIZE, CCollisionDetection::BLOCKTYPE_NONE);
 			CCollisionDetection::Create(D3DXVECTOR3(75.0f * 3.0f, 75.0f * 1.0f, 75.0f * -1.0f), BLOCK_SIZE, CCollisionDetection::BLOCKTYPE_NONE);

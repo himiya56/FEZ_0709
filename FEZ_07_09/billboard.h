@@ -41,8 +41,10 @@ public:
 	void SetSize(D3DXVECTOR3 size) { m_size = size; }
 	void SetCol(D3DXCOLOR col) { m_col = col; }
 	void SetTexUVX(float x1, float x2) { m_fTexX1 = x1; m_fTexX2 = x2; }
+	void SetTexDir(int nDir) { m_nDir = nDir; }
 
 	D3DXVECTOR3 GetPos(void) { return m_pos; }
+	D3DXVECTOR2 GetTexUVX(void) { return D3DXVECTOR2(m_fTexX1, m_fTexX2); }
 
 	static void SetAdditiveSynthesis(void) { m_bAdditiveSynthesis = true; }                              // â¡éZçáê¨Ç…Ç∑ÇÈ
 	static void SetLay(void) { m_bLay = true; }                              // â°Ç…Ç∑ÇÈ
@@ -58,6 +60,7 @@ private:
 	D3DXVECTOR3				m_rot;			// âÒì]
 	D3DXVECTOR3				m_scale;		// ägëÂó¶
 	D3DXCOLOR				m_col;
+	int						m_nDir;
 	float					m_fTexX1;
 	float					m_fTexX2;
 };

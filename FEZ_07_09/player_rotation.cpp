@@ -25,8 +25,10 @@ HRESULT CPlayerRotation::Init(void) {
 
 	CPlayer::Init();
 	m_move = MOVE_SPECIFIED;
-	D3DXCreateTextureFromFile(pDevice, "./data/TEXTURE/Character1.png", &m_pTexture);
+	D3DXCreateTextureFromFile(pDevice, "./data/TEXTURE/Character1_Animation.png", &m_pTexture);
 	BindTexture(m_pTexture);
+	m_nAnimCount = 0.0f;
+	SetTexUVX(0.8f, 1.0f);
 
 	return S_OK;
 }
@@ -53,6 +55,7 @@ void CPlayerRotation::Update(void)
 		lpDIDevice->GetDeviceState(sizeof(DIJOYSTATE), &js);
 	}
 	m_pos = GetPos();
+	D3DXVECTOR2 texUV = GetTexUVX();
 
 	if (m_posold.y == 0) {
 		m_posold.y = -1.0f;
@@ -75,10 +78,14 @@ void CPlayerRotation::Update(void)
 			// ←キーで左移動
 			if (pKeyboard->GetKeyboardPress(DIK_A) || lpDIDevice != NULL &&js.lX == -1000) {
 				m_pos.x += m_move.x;
+				m_nAnimCount++;
+				SetTexDir(1);
 			}
 			// →キーで右移動
 			if (pKeyboard->GetKeyboardPress(DIK_D) || lpDIDevice != NULL &&js.lX == 1000) {
 				m_pos.x -= m_move.x;
+				m_nAnimCount++;
+				SetTexDir(0);
 			}
 			break;
 
@@ -86,10 +93,14 @@ void CPlayerRotation::Update(void)
 			// ←キーで左移動
 			if (pKeyboard->GetKeyboardPress(DIK_A) || lpDIDevice != NULL &&js.lX == -1000) {
 				m_pos.z += m_move.z;
+				m_nAnimCount++;
+				SetTexDir(1);
 			}
 			// →キーで右移動
 			if (pKeyboard->GetKeyboardPress(DIK_D) || lpDIDevice != NULL &&js.lX == 1000) {
 				m_pos.z -= m_move.z;
+				m_nAnimCount++;
+				SetTexDir(0);
 			}
 			break;
 
@@ -97,10 +108,14 @@ void CPlayerRotation::Update(void)
 			// ←キーで左移動
 			if (pKeyboard->GetKeyboardPress(DIK_A) || lpDIDevice != NULL &&js.lX == -1000) {
 				m_pos.x -= m_move.x;
+				m_nAnimCount++;
+				SetTexDir(1);
 			}
 			// →キーで右移動
 			if (pKeyboard->GetKeyboardPress(DIK_D) || lpDIDevice != NULL &&js.lX == 1000) {
 				m_pos.x += m_move.x;
+				m_nAnimCount++;
+				SetTexDir(0);
 			}
 			break;
 
@@ -108,11 +123,19 @@ void CPlayerRotation::Update(void)
 			// ←キーで左移動
 			if (pKeyboard->GetKeyboardPress(DIK_A) || lpDIDevice != NULL &&js.lX == -1000) {
 				m_pos.z -= m_move.z;
+				m_nAnimCount++;
+				SetTexDir(1);
 			}
 			// →キーで右移動
 			if (pKeyboard->GetKeyboardPress(DIK_D) || lpDIDevice != NULL &&js.lX == 1000) {
 				m_pos.z += m_move.z;
+				m_nAnimCount++;
+				SetTexDir(0);
 			}
+			break;
+		default:
+			texUV = D3DXVECTOR2(0.8f, 1.0f);
+			m_nAnimCount = 0;
 			break;
 		}
 
@@ -121,14 +144,29 @@ void CPlayerRotation::Update(void)
 		{
 			if (pKeyboard->GetKeyboardTrigger(DIK_W) || lpDIDevice != NULL && pJoystick->GetJoystickTrigger(JS_A, JOYSTICK_1P))
 			{
-				//CPlayer::SetJumpJudge(false);
+				CPlayer::SetJumpJudge(false);
 				m_move.y = JUMP_SIZ;
+				texUV = D3DXVECTOR2(0.8f, 1.0f);
+				m_nAnimCount = 0;
 			}
 		}
 	}
 
 	m_pos.y += m_move.y;
 
+	if (m_nAnimCount >= ANIM_RATE)
+	{
+		texUV.x += 0.2f;
+		texUV.y += 0.2f;
+		if (texUV.y >= 1.0f)
+		{
+			texUV.x = 0.0f;
+			texUV.y = 0.2f;
+		}
+		m_nAnimCount = 0;
+	}
+
+	SetTexUVX(texUV.x, texUV.y);
 	SetPos(m_pos);
 	CPlayer::Update();
 }

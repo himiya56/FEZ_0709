@@ -47,6 +47,14 @@ void CPlayer::Update(void) {
 		SetJumpJudge(true);
 	}
 
+	if (m_pos.x <= -75.0f * 12.0f ||
+		m_pos.x >= 75.0f * 12.0f || 
+		m_pos.z <= -75.0f * 12.0f || 
+		m_pos.z >= 75.0f * 12.0f)
+	{
+		m_pos = m_posold;
+	}
+
 	SetPos(m_pos);
 	m_posold = m_pos;
 	CBillboard::Update();

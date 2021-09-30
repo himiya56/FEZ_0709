@@ -22,6 +22,7 @@
 #define GRAVITY_SIZ 0.27f
 #define MOVE_SPECIFIED D3DXVECTOR3(MOVE_SIZ, 0, MOVE_SIZ)
 #define PLAYER_SIZE D3DXVECTOR3(75.0f, 75.0f, 0.0f)
+#define ANIM_RATE 8
 
 //================================================
 // ÉNÉâÉXêÈåæ

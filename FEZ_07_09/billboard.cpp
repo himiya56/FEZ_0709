@@ -49,6 +49,7 @@ CBillboard::CBillboard()
 	m_col = D3DXCOLOR(1.0f, 1.0f, 1.0f, 1.0f);
 	m_fTexX1 = 0.0f;
 	m_fTexX2 = 1.0f;
+	m_nDir = 0.0f;
 }
 
 //=============================================================================
@@ -84,6 +85,7 @@ HRESULT CBillboard::Init(void)
 
 	m_scale = D3DXVECTOR3(1.0f, 1.0f, 1.0f);
 	m_col = D3DXCOLOR(1.0f, 1.0f, 1.0f, 1.0f);
+	m_nDir = 0;
 
 	pDevice->CreateVertexBuffer(sizeof(VERTEX_3D)*NUM_VERTEX, D3DUSAGE_WRITEONLY, FVF_VERTEX_3D, D3DPOOL_MANAGED, &m_pVtxBuff, NULL);
 	pDevice->SetTransform(D3DTS_WORLD, &m_mtxWorld);
@@ -141,10 +143,10 @@ void CBillboard::Update(void)
 	pVtx[2].pos = D3DXVECTOR3(-m_size.x / 2, -m_size.y / 2, 0.0f);
 	pVtx[3].pos = D3DXVECTOR3(+m_size.x / 2, -m_size.y / 2, 0.0f);
 
-	pVtx[0].tex = D3DXVECTOR2(m_fTexX1, 0.0f);
-	pVtx[1].tex = D3DXVECTOR2(m_fTexX2, 0.0f);
-	pVtx[2].tex = D3DXVECTOR2(m_fTexX1, 1.0f);
-	pVtx[3].tex = D3DXVECTOR2(m_fTexX2, 1.0f);
+	pVtx[0 + m_nDir].tex = D3DXVECTOR2(m_fTexX1, 0.0f);
+	pVtx[1 - m_nDir].tex = D3DXVECTOR2(m_fTexX2, 0.0f);
+	pVtx[2 + m_nDir].tex = D3DXVECTOR2(m_fTexX1, 1.0f);
+	pVtx[3 - m_nDir].tex = D3DXVECTOR2(m_fTexX2, 1.0f);
 
 	for (int nCount = 0; nCount < NUM_VERTEX; nCount++)
 	{

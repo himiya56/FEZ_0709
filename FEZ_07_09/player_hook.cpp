@@ -45,12 +45,13 @@ HRESULT CPlayerHook::Init(void)
 
 	CPlayer::Init();
 	m_move = MOVE_SPECIFIED;
-	D3DXCreateTextureFromFile(pDevice, "data/TEXTURE/Player2.jpg", &m_pTexture);
 	BindTexture(m_pTexture);
 
 	m_bJumpJudge = true;
+	m_nAnimCount = 0.0f;
 
 	pWire = CWire::Create(D3DXVECTOR3(200.0f, 50.0f, 0.0f));
+	SetTexUVX(0.8f,1.0f);
 	return S_OK;
 }
 
@@ -82,6 +83,7 @@ void CPlayerHook::Update(void)
 		lpDIDevice->GetDeviceState(sizeof(DIJOYSTATE), &js);
 	}
 	D3DXVECTOR3 destPos;
+	D3DXVECTOR2 texUV = GetTexUVX();
 
 	m_pos = GetPos();
 	destPos = SortSpike();
@@ -100,6 +102,7 @@ void CPlayerHook::Update(void)
 		if (destPos != DEFAULT_VECTOR)
 		{
 			MoveToHook(destPos);
+			texUV = D3DXVECTOR2(0.8f, 1.0f);
 		}
 		else
 		{
@@ -117,10 +120,14 @@ void CPlayerHook::Update(void)
 				// ←キーで左移動
 				if (pKeyboard->GetKeyboardPress(DIK_LEFT) || lpDIDevice != NULL &&js.lX == -1000) {
 					m_pos.x += m_move.x;
+					m_nAnimCount++;
+					SetTexDir(1);
 				}
 				// →キーで右移動
 				if (pKeyboard->GetKeyboardPress(DIK_RIGHT) || lpDIDevice != NULL &&js.lX == 1000) {
 					m_pos.x -= m_move.x;
+					m_nAnimCount++;
+					SetTexDir(0);
 				}
 				break;
 
@@ -128,10 +135,14 @@ void CPlayerHook::Update(void)
 				// ←キーで左移動
 				if (pKeyboard->GetKeyboardPress(DIK_LEFT) || lpDIDevice != NULL &&js.lX == -1000) {
 					m_pos.z += m_move.z;
+					m_nAnimCount++;
+					SetTexDir(1);
 				}
 				// →キーで右移動
 				if (pKeyboard->GetKeyboardPress(DIK_RIGHT) || lpDIDevice != NULL &&js.lX == 1000) {
 					m_pos.z -= m_move.z;
+					m_nAnimCount++;
+					SetTexDir(0);
 				}
 				break;
 
@@ -139,10 +150,14 @@ void CPlayerHook::Update(void)
 				// ←キーで左移動
 				if (pKeyboard->GetKeyboardPress(DIK_LEFT) || lpDIDevice != NULL &&js.lX == -1000) {
 					m_pos.x -= m_move.x;
+					m_nAnimCount++;
+					SetTexDir(1);
 				}
 				// →キーで右移動
 				if (pKeyboard->GetKeyboardPress(DIK_RIGHT) || lpDIDevice != NULL &&js.lX == 1000) {
 					m_pos.x += m_move.x;
+					m_nAnimCount++;
+					SetTexDir(0);
 				}
 				break;
 
@@ -150,11 +165,19 @@ void CPlayerHook::Update(void)
 				// ←キーで左移動
 				if (pKeyboard->GetKeyboardPress(DIK_LEFT) || lpDIDevice != NULL &&js.lX == -1000) {
 					m_pos.z -= m_move.z;
+					m_nAnimCount++;
+					SetTexDir(1);
 				}
 				// →キーで右移動
 				if (pKeyboard->GetKeyboardPress(DIK_RIGHT) || lpDIDevice != NULL &&js.lX == 1000) {
 					m_pos.z += m_move.z;
+					m_nAnimCount++;
+					SetTexDir(0);
 				}
+				break;
+			default:
+				texUV = D3DXVECTOR2(0.8f, 1.0f);
+				m_nAnimCount = 0;
 				break;
 			}
 
@@ -165,15 +188,29 @@ void CPlayerHook::Update(void)
 				{
 					CPlayer::SetJumpJudge(false);
 					m_move.y = JUMP_SIZ;
+					texUV = D3DXVECTOR2(0.8f, 1.0f);
+					m_nAnimCount = 0;
 				}
 			}
 		}
 	}
 
 	m_pos.y += m_move.y;
+	if (m_nAnimCount >=  ANIM_RATE)
+	{
+		texUV.x += 0.2f;
+		texUV.y += 0.2f;
+		if (texUV.y >= 1.0f)
+		{
+			texUV.x = 0.0f;
+			texUV.y = 0.2f;
+		}
+		m_nAnimCount = 0;
+	}
 
 	m_bJumpJudge = CPlayer::GetJumpJudge();
 
+	SetTexUVX(texUV.x, texUV.y);
 	SetPos(m_pos);
 	CPlayer::Update();
 }
@@ -411,7 +448,7 @@ void CPlayerHook::Load(void)
 {
 	LPDIRECT3DDEVICE9 pDevice = CManager::GetRenderer()->GetDevice();
 
-	D3DXCreateTextureFromFile(pDevice, "./data/TEXTURE/Player2.jpg", &m_pTexture);
+	D3DXCreateTextureFromFile(pDevice, "./data/TEXTURE/Character2_Animation.png", &m_pTexture);
 }
 
 //=============================================================================

@@ -1,51 +1,47 @@
 //====================================================================
 //
-// ビルボード処理 (billboard.h)
-// Author : 東村哲士
+// スパイク(フック地点)処理 (spike.h)
+// Author : 樋宮 匠
 //
 //====================================================================
-#ifndef _PLAYER_ROTATION_H_
-#define _PLAYER_ROTATION_H_
+#ifndef _SKY_H_
+#define _SKY_H_
 
 //================================================
 // インクルードファイル
 //================================================
-#include "player.h"
-#include "camera.h"
-#include "keyboard.h"
+#include "main.h"
+#include "polygon3d.h"
+#include "manager.h"
 
 //*****************************************************************************
 // マクロ定義
 //*****************************************************************************
+#define SKY_SIZE D3DXVECTOR3(75.0f * 27.0f, 75.0f * 30.0f, 0.0f)
 
 //================================================
 // クラス宣言
 //================================================
 
 // ビルボードクラス
-class CPlayerRotation : public CPlayer
+class CSky : public CPolygon3D
 {
 public:
-	CPlayerRotation();
-	~CPlayerRotation();
+	CSky();
+	~CSky();
+
 	HRESULT Init(void);
 	void Uninit(void);
 	void Update(void);
 	void Draw(void);
-
-	static CPlayerRotation *Create(D3DXVECTOR3 pos, D3DXVECTOR3 siz);
+	static void Load(void);
+	static void Unload(void);
+	static CSky *Create(D3DXVECTOR3 pos, D3DXVECTOR2 texUv);
 
 private:
 	D3DXVECTOR3 m_pos;
-	D3DXVECTOR3 m_posold;
-	D3DXVECTOR3 m_siz;
-	D3DXVECTOR3 m_move;
-	D3DXVECTOR3 m_RidingBlockPos;
-
+	D3DXVECTOR3 m_rot;
 	static LPDIRECT3DTEXTURE9		m_pTexture;
-	int m_nAnimCount;
-
-	CCamera *m_pCamera;
 };
 
 #endif

@@ -48,6 +48,8 @@
 #include "goal.h"
 #include "particle_coin.h"
 #include "item_coin.h"
+#include "Stage.h"
+#include "sky.h"
 
 //*****************************************************************************
 // Ã“Iƒƒ“ƒo•Ï”éŒ¾
@@ -351,6 +353,8 @@ void CManager::Load(void)
 	CGoal::Load();
 	CItem_coin::Load();
 	CParticle_Coin::Load();
+	CStage::Load();
+	CSky::Load();
 }
 
 //=============================================================================
@@ -382,4 +386,6 @@ void CManager::Unload(void)
 	CGoal::Unload();
 	CItem_coin::Unload();
 	CParticle_Coin::Unload();
+	CStage::Unload();
+	CSky::Unload();
 }
