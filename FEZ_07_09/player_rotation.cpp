@@ -35,13 +35,12 @@ void CPlayerRotation::Uninit(void) {
 	CPlayer::Uninit();
 }
 
-void CPlayerRotation::Update(void) {
+void CPlayerRotation::Update(void) 
+{
 	m_pCamera = CManager::GetCamera();
 	CInputKeyboard *pKeyboard = CManager::GetInput();
 	CCamera::ORIENTATION Orientation = m_pCamera->GetOrientation();
-<<<<<<< HEAD
 	CPlayerHook *pHook = CGameMode::GetPlayerHook();
-=======
 	//ジョイスティックの取得
 	CJoystick * pJoystick = CManager::GetJoystick();
 	LPDIRECTINPUTDEVICE8 lpDIDevice = CJoystick::GetDevice(JOYSTICK_1P);
@@ -53,7 +52,6 @@ void CPlayerRotation::Update(void) {
 		lpDIDevice->Poll();
 		lpDIDevice->GetDeviceState(sizeof(DIJOYSTATE), &js);
 	}
->>>>>>> remotes/origin/sinnikaido
 	m_pos = GetPos();
 
 	if (m_posold.y == 0) {
@@ -65,12 +63,14 @@ void CPlayerRotation::Update(void) {
 		m_pCamera->DecisionRotate(pKeyboard, pJoystick);
 	}
 
-	if (m_pCamera->GetRotake() == CCamera::ROTATE_NONE) {
+	if (m_pCamera->GetRotake() == CCamera::ROTATE_NONE)
+	{
 		m_move.y -= GRAVITY_SIZ;
 
 		m_pos = RotationDifferentialShift(Orientation, m_pos, m_pCamera->GetRotake(), m_pCamera->GetRotakeOld());
 
-		switch (Orientation) {
+		switch (Orientation)
+		{
 		case CCamera::ORIENTATION_BACK:
 			// ←キーで左移動
 			if (pKeyboard->GetKeyboardPress(DIK_A) || lpDIDevice != NULL &&js.lX == -1000) {
@@ -117,15 +117,11 @@ void CPlayerRotation::Update(void) {
 		}
 
 		// Wキーでジャンプ
-<<<<<<< HEAD
-		if (CPlayer::GetJumpJudge() == true) {
-			if (pKeyboard->GetKeyboardTrigger(DIK_W)) {
+		if (CPlayer::GetJumpJudge() == true)
+		{
+			if (pKeyboard->GetKeyboardTrigger(DIK_W) || lpDIDevice != NULL && pJoystick->GetJoystickTrigger(JS_A, JOYSTICK_1P))
+			{
 				CPlayer::SetJumpJudge(false);
-=======
-		if (m_bJumpJudge == true) {
-			if (pKeyboard->GetKeyboardTrigger(DIK_W) || lpDIDevice != NULL && pJoystick->GetJoystickTrigger(JS_A,JOYSTICK_1P)) {
-				m_bJumpJudge = false;
->>>>>>> remotes/origin/sinnikaido
 				m_move.y = JUMP_SIZ;
 			}
 		}
@@ -137,7 +133,8 @@ void CPlayerRotation::Update(void) {
 	CPlayer::Update();
 }
 
-void CPlayerRotation::Draw(void) {
+void CPlayerRotation::Draw(void) 
+{
 	CPlayer::Draw();
 }
 

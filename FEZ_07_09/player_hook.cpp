@@ -154,15 +154,14 @@ void CPlayerHook::Update(void)
 				break;
 			}
 
-			// スペースキーでジャンプ
-<<<<<<< HEAD
-			if (CPlayer::GetJumpJudge() == true && pKeyboard->GetKeyboardTrigger(DIK_UP)) {
-				CPlayer::SetJumpJudge(false);
-=======
-			if (m_bJumpJudge == true && pKeyboard->GetKeyboardTrigger(DIK_UP) || lpDIDevice != NULL && pJoystick->GetJoystickTrigger(JS_A,JOYSTICK_2P)) {
->>>>>>> remotes/origin/sinnikaido
-				m_bJumpJudge = false;
-				m_move.y = JUMP_SIZ;
+			// Wキーでジャンプ
+			if (CPlayer::GetJumpJudge() == true)
+			{
+				if (pKeyboard->GetKeyboardTrigger(DIK_UP) || lpDIDevice != NULL && pJoystick->GetJoystickTrigger(JS_A, JOYSTICK_1P))
+				{
+					CPlayer::SetJumpJudge(false);
+					m_move.y = JUMP_SIZ;
+				}
 			}
 		}
 	}

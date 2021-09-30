@@ -10,10 +10,7 @@
 //*****************************************************************************
 #include "main.h"
 #include "manager.h"
-<<<<<<< HEAD
-=======
 //#include "sound.h"
->>>>>>> remotes/origin/sinnikaido
 #include "light.h"
 #include "camera.h"
 #include "keyboard.h"
@@ -27,11 +24,8 @@
 #include "collisiondetection.h"
 #include "sound.h"
 #include "player.h"
-<<<<<<< HEAD
 #include "goal.h"
-=======
 #include "testObj.h"
->>>>>>> remotes/origin/sinnikaido
 
 //*****************************************************************************
 // マクロ定義
@@ -42,11 +36,6 @@
 //*****************************************************************************
 CPlayerHook *CGameMode::m_pPlayerHook = NULL;
 CPlayerRotation *CGameMode::m_pPlayerRotation = NULL;
-<<<<<<< HEAD
-=======
-// 静的メンバ変数の初期化
-//*****************************************************************************
->>>>>>> remotes/origin/sinnikaido
 
 //=============================================================================
 // コンストラクタ
@@ -79,11 +68,7 @@ CGameMode * CGameMode::Create(STAGE stage)
 		if (pGameMode != NULL)
 		{
 			pGameMode->m_Stage = stage;	//ステージの設定
-<<<<<<< HEAD
 
-=======
-										//ゲームモードの初期化関数呼び出し
->>>>>>> remotes/origin/sinnikaido
 			//ゲームモードの初期化関数呼び出し
 			pGameMode->Init();
 		}
@@ -125,11 +110,8 @@ void CGameMode::Uninit(void)
 //=============================================================================
 void CGameMode::Update(void)
 {
-<<<<<<< HEAD
 	////入力処理関数呼び出し
 	//Input();
-=======
->>>>>>> remotes/origin/sinnikaido
 }
 
 //=============================================================================
@@ -163,18 +145,11 @@ void CGameMode::InitStageCreate(void)
 		case STAGE_1:
 			//ステージ1のBGMを再生
 			pSound->Play(CSound::SOUND_LABEL_BGM_STAGE1);
-<<<<<<< HEAD
 
 			m_pPlayerHook = CPlayerHook::Create(D3DXVECTOR3(75.0f * -1.0f, 75.0f * 1.0f, 75.0f * -2.0f), BLOCK_SIZE);
 			m_pPlayerRotation = CPlayerRotation::Create(D3DXVECTOR3(75.0f * 2.0f, 75.0f * 2.0f + 70.0f, 75.0f * 0.0f), BLOCK_SIZE);
 
 			CCollisionDetection::Create(D3DXVECTOR3(75.0f / 2.0f, (75.0f * 23) / 2.0f, -75.0f / 2.0f), D3DXVECTOR3(150.0f, 1800.0f, 0.0f), CCollisionDetection::BLOCKTYPE_WALL);
-=======
-			m_pPlayerHook = CPlayerHook::Create(D3DXVECTOR3(75.0f * -1.0f, 75.0f * 1.0f, 75.0f * -2.0f), BLOCK_SIZE);
-			m_pPlayerRotation = CPlayerRotation::Create(D3DXVECTOR3(75.0f * 2.0f, 75.0f * 2.0f + 70.0f, 75.0f * 0.0f), BLOCK_SIZE);
-
-			CCollisionDetection::Create(D3DXVECTOR3(75.0f / 2.0f, 1725.0f / 2.0f, -75.0f / 2.0f), D3DXVECTOR3(150.0f, 1800.0f, 0.0f), CCollisionDetection::BLOCKTYPE_WALL);
->>>>>>> remotes/origin/sinnikaido
 
 			CCollisionDetection::Create(D3DXVECTOR3(75.0f * 2.0f, 75.0f * 0.0f, 75.0f * -2.0f), BLOCK_SIZE, CCollisionDetection::BLOCKTYPE_NONE);
 			CCollisionDetection::Create(D3DXVECTOR3(75.0f * 3.0f, 75.0f * 1.0f, 75.0f * -1.0f), BLOCK_SIZE, CCollisionDetection::BLOCKTYPE_NONE);
@@ -187,12 +162,9 @@ void CGameMode::InitStageCreate(void)
 			CCollisionDetection::Create(D3DXVECTOR3(75.0f * 0.0f, 75.0f * 4.0f, 75.0f * 1.0f), BLOCK_SIZE, CCollisionDetection::BLOCKTYPE_NONE);
 
 			CCollisionDetection::Create(D3DXVECTOR3(75.0f * -1.0f, 75.0f * 4.0f, 75.0f * 1.0f), BLOCK_SIZE, CCollisionDetection::BLOCKTYPE_NONE);
-<<<<<<< HEAD
 
 			CSpike::Create(D3DXVECTOR3(75.0f * -1.0f, 75.0f * 5.0f, 75.0f * 1.0f));
 
-=======
->>>>>>> remotes/origin/sinnikaido
 			CCollisionDetection::Create(D3DXVECTOR3(75.0f * -2.0f, 75.0f * 5.0f, 75.0f * 0.0f), BLOCK_SIZE, CCollisionDetection::BLOCKTYPE_NONE);
 			CCollisionDetection::Create(D3DXVECTOR3(75.0f * -1.0f, 75.0f * 6.0f, 75.0f * -1.0f), BLOCK_SIZE, CCollisionDetection::BLOCKTYPE_NONE);
 
@@ -200,10 +172,7 @@ void CGameMode::InitStageCreate(void)
 			CCollisionDetection::Create(D3DXVECTOR3(75.0f * 1.0f, 75.0f * 8.0f, 75.0f * -5.0f), BLOCK_SIZE, CCollisionDetection::BLOCKTYPE_NONE);
 			CCollisionDetection::Create(D3DXVECTOR3(75.0f * 2.0f, 75.0f * 9.0f, 75.0f * -4.0f), BLOCK_SIZE, CCollisionDetection::BLOCKTYPE_NONE);
 
-<<<<<<< HEAD
 			CGoal::Create(D3DXVECTOR3(75.0f * -2.0f, 75.0f * 3.0f, 75.0f * -2.0f));
-=======
->>>>>>> remotes/origin/sinnikaido
 			break;
 		case STAGE_2:
 			break;

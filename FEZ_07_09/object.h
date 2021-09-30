@@ -29,11 +29,8 @@ public:
 		OBJ_TYPE_BLOCK,
 		OBJ_TYPE_BUTTON,
 		OBJ_TYPE_SPIKE,
-<<<<<<< HEAD
 		OBJ_TYPE_PLAYER,
-=======
 		OBJ_TYPE_UI,
->>>>>>> remotes/origin/sinnikaido
 		OBJ_TYPE_MAX
 	}OBJ_TYPE;
 

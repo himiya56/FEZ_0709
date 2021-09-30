@@ -348,12 +348,9 @@ void CManager::Load(void)
 	CResultBG::TextureLoad();
 	CNumber::TextureLoad();
 	CTitleLogo::TextureLoad();
-<<<<<<< HEAD
 	CGoal::Load();
 	CItem_coin::Load();
 	CParticle_Coin::Load();
-=======
->>>>>>> remotes/origin/sinnikaido
 }
 
 //=============================================================================
