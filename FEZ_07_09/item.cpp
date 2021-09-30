@@ -41,9 +41,9 @@ CItem::~CItem()
 HRESULT CItem::Init(void)
 {
 	// ‰Šú‰»ˆ—
-	CScene3D::Init();
+	CBillboard::Init();
 
-	BindMesh(m_pMesh, m_pBuffMat, m_nNumMat);
+	//BindMesh(m_pMesh, m_pBuffMat, m_nNumMat);
 	BindTexture(m_pTexture);
 
 	// Œü‚«‚Ì‰Šú‰»
@@ -58,7 +58,7 @@ HRESULT CItem::Init(void)
 void CItem::Uninit(void)
 {
 	// I—¹ˆ—
-	CScene3D::Uninit();
+	CBillboard::Uninit();
 }
 
 //=============================================================================
@@ -67,7 +67,7 @@ void CItem::Uninit(void)
 void CItem::Update(void)
 {
 	// XVˆ—
-	CScene3D::Update();
+	CBillboard::Update();
 
 }
 
@@ -77,7 +77,7 @@ void CItem::Update(void)
 void CItem::Draw(void)
 {
 	// •`‰æˆ—
-	CScene3D::Draw();
+	CBillboard::Draw();
 }
 
 void CItem::AddCreateCoin(void)

@@ -335,7 +335,7 @@ D3DXVECTOR3 CPlayerHook::SortSpike(void)
 		}
 	}
 
-	spike[nArrayCount].pos.y += 2.5f;
+	spike[nArrayCount].pos.y += 3.5f;
 
 	if (spike[nArrayCount].dist <= 500.0f)
 	{

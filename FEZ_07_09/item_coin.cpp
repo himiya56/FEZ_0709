@@ -104,7 +104,7 @@ HRESULT CItem_coin::Init(void)
 	AddCreateCoin();
 	// ‰Šú‰»ˆ—
 	CItem::Init();
-	BindMesh(m_pMesh, m_pBuffMat, m_nNumMat);
+	//BindMesh(m_pMesh, m_pBuffMat, m_nNumMat);
 	BindTexture(m_pTexture);
 
 	// Œü‚«‚Ì‰Šú‰»
