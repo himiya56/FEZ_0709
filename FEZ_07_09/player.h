@@ -44,15 +44,11 @@ public:
 	bool GetJumpJudge(void) { return m_bJumpJudge; }
 	bool GetCollisionDetectionJudge(void) { return m_bCollisionDetectionJudge; }
 	D3DXVECTOR3 GetRidingBlockPos(void) { return m_RidingBlockPos; }
-
-<<<<<<< HEAD
 	D3DXVECTOR3 CPlayer::RotationDifferentialShift(CCamera::ORIENTATION Orientation, D3DXVECTOR3 PlayerPos, CCamera::ROTATE Rotate, CCamera::ROTATE RotateOld);
 	void AddCoin(int nValue) { m_nCoin += nValue; }
 	int GetCoin(void) { return m_nCoin; }
-=======
 	D3DXVECTOR3 CPlayer::RotationDifferentialShift(CCamera::ORIENTATION Orientation);
 
->>>>>>> remotes/origin/new
 private:
 	D3DXVECTOR3 m_pos;
 	D3DXVECTOR3 m_posold;
