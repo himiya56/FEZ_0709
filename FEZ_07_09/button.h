@@ -34,6 +34,7 @@ public:
 		BUTTON_SE_CANCEL,
 		BUTTON_SE_MAX
 	}BUTTON_SE;
+
 	CButton(OBJ_TYPE ObjectType = OBJ_TYPE_BUTTON);
 	~CButton();
 	HRESULT Init(void);
