@@ -220,6 +220,28 @@ D3DXVECTOR3 CPlayerHook::SortSpike(void)
 
 			spike[nCntScene].dist = sqrtf(distHorizon*distHorizon + distVert*distVert);
 
+			// ”ÍˆÍŠO‚Ìspike‚ğœŠO
+			if (Orientation == CCamera::ORIENTATION_FRONT &&
+				-75.0f <= spikePos.x && 150.0f >= spikePos.x && -75.0f / 2 >= spikePos.z)
+			{
+				spike[nCntScene].dist = 10000.0f;
+			}
+			else if (Orientation == CCamera::ORIENTATION_BACK &&
+				-75.0f <= spikePos.x && 150.0f >= spikePos.x && -75.0f / 2 <= spikePos.z)
+			{
+				spike[nCntScene].dist = 10000.0f;
+			}
+			else if (Orientation == CCamera::ORIENTATION_RIGHT &&
+				-150.0f <= spikePos.z && 75.0f >= spikePos.z && 150.0f >= spikePos.x)
+			{
+				spike[nCntScene].dist = 10000.0f;
+			}
+			else if (Orientation == CCamera::ORIENTATION_LEFT &&
+				-150.0f <= spikePos.z && 75.0f >= spikePos.z && 0.0f <= spikePos.x)
+			{
+				spike[nCntScene].dist = 10000.0f;
+			}
+
 			if (nCntScene == 0)
 			{
 				spike[0].pSpike = pSpike;
