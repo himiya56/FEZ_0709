@@ -39,6 +39,8 @@
     <ClInclude Include="fade.h" />
     <ClInclude Include="goal.h" />
     <ClInclude Include="input.h" />
+    <ClInclude Include="item.h" />
+    <ClInclude Include="item_coin.h" />
     <ClInclude Include="joystick.h" />
     <ClInclude Include="keyboard.h" />
     <ClInclude Include="library.h" />
@@ -51,6 +53,8 @@
     <ClInclude Include="mode_stage_select.h" />
     <ClInclude Include="mode_title.h" />
     <ClInclude Include="object.h" />
+    <ClInclude Include="particle.h" />
+    <ClInclude Include="particle_coin.h" />
     <ClInclude Include="player.h" />
     <ClInclude Include="player_hook.h" />
     <ClInclude Include="player_rotation.h" />
@@ -87,6 +91,8 @@
     <ClCompile Include="fade.cpp" />
     <ClCompile Include="goal.cpp" />
     <ClCompile Include="input.cpp" />
+    <ClCompile Include="item.cpp" />
+    <ClCompile Include="item_coin.cpp" />
     <ClCompile Include="joystick.cpp" />
     <ClCompile Include="keyboard.cpp" />
     <ClCompile Include="library.cpp" />
@@ -99,6 +105,8 @@
     <ClCompile Include="mode_stage_select.cpp" />
     <ClCompile Include="mode_title.cpp" />
     <ClCompile Include="object.cpp" />
+    <ClCompile Include="particle.cpp" />
+    <ClCompile Include="particle_coin.cpp" />
     <ClCompile Include="player.cpp" />
     <ClCompile Include="player_hook.cpp" />
     <ClCompile Include="player_rotation.cpp" />

@@ -42,6 +42,8 @@
 #include "player_hook.h"
 #include "spike.h"
 #include "goal.h"
+#include "particle_coin.h"
+#include "item_coin.h"
 
 //*****************************************************************************
 // Ã“Iƒƒ“ƒo•Ï”éŒ¾
@@ -336,6 +338,8 @@ void CManager::Load(void)
 	CTitleBG::TextureLoad();
 	CTitleLogo::TextureLoad();
 	CGoal::Load();
+	CItem_coin::Load();
+	CParticle_Coin::Load();
 }
 
 //=============================================================================
@@ -362,4 +366,6 @@ void CManager::Unload(void)
 	CTitleBG::TextureUnload();
 	CTitleLogo::TextureUnload();
 	CGoal::Unload();
+	CItem_coin::Unload();
+	CParticle_Coin::Unload();
 }

@@ -47,6 +47,10 @@
     <ClCompile Include="title_button_manager.cpp" />
     <ClCompile Include="wire.cpp" />
     <ClCompile Include="goal.cpp" />
+    <ClCompile Include="particle_coin.cpp" />
+    <ClCompile Include="particle.cpp" />
+    <ClCompile Include="item.cpp" />
+    <ClCompile Include="item_coin.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="bg_dot.h" />
@@ -95,5 +99,9 @@
     <ClInclude Include="title_button_manager.h" />
     <ClInclude Include="wire.h" />
     <ClInclude Include="goal.h" />
+    <ClInclude Include="particle.h" />
+    <ClInclude Include="particle_coin.h" />
+    <ClInclude Include="item.h" />
+    <ClInclude Include="item_coin.h" />
   </ItemGroup>
 </Project>
