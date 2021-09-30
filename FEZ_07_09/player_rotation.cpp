@@ -54,21 +54,17 @@ void CPlayerRotation::Update(void)
 	}
 	m_pos = GetPos();
 
-	if (m_posold.y == 0) {
-		m_posold.y = -1.0f;
-	}
-
 	if (CPlayer::GetJumpJudge() == true && CGameMode::GetPlayerHook()->GetPlayerHookJump() == true && !pHook->GetHookState()) {
 		// カメラの回転を呼び出す
 		m_pCamera->DecisionRotate(pKeyboard, pJoystick);
 	}
 
+	if (CPlayer::GetCollisionDetectionJudge() == true ||
+		m_pCamera->GetRotake() != CCamera::ROTATE_NONE) {
+		m_move.y = 0.0f;
+	}
 	if (m_pCamera->GetRotake() == CCamera::ROTATE_NONE)
 	{
-		m_move.y -= GRAVITY_SIZ;
-
-		m_pos = RotationDifferentialShift(Orientation, m_pos, m_pCamera->GetRotake(), m_pCamera->GetRotakeOld());
-
 		switch (Orientation)
 		{
 		case CCamera::ORIENTATION_BACK:
@@ -116,8 +112,12 @@ void CPlayerRotation::Update(void)
 			break;
 		}
 
+		if (CPlayer::GetCollisionDetectionJudge() == false || m_pCamera->GetRotake() == CCamera::ROTATE_NONE) {
+			m_move.y -= GRAVITY_SIZ;
+		}
+
 		// Wキーでジャンプ
-		if (CPlayer::GetJumpJudge() == true)
+		if (CPlayer::GetJumpJudge() == true && CPlayer::GetCollisionDetectionJudge() == true)
 		{
 			if (pKeyboard->GetKeyboardTrigger(DIK_W) || lpDIDevice != NULL && pJoystick->GetJoystickTrigger(JS_A, JOYSTICK_1P))
 			{

@@ -44,7 +44,7 @@ public:
 	bool GetCollisionDetectionJudge(void) { return m_bCollisionDetectionJudge; }
 	D3DXVECTOR3 GetRidingBlockPos(void) { return m_RidingBlockPos; }
 
-	D3DXVECTOR3 CPlayer::RotationDifferentialShift(CCamera::ORIENTATION Orientation, D3DXVECTOR3 PlayerPos, CCamera::ROTATE Rotate, CCamera::ROTATE RotateOld);
+	D3DXVECTOR3 CPlayer::RotationDifferentialShift(CCamera::ORIENTATION Orientation);
 
 private:
 	D3DXVECTOR3 m_pos;

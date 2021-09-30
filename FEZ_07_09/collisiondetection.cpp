@@ -60,7 +60,7 @@ void CCollisionDetection::BlockShift(BLOCKTYPE BlockType, CCamera *pCamera, CCam
 		case CCamera::ORIENTATION_FRONT:
 			if (-75.0f >= m_defaultPos.x ||
 				150.0f <= m_defaultPos.x ||
-				-75.0f <= m_defaultPos.x && 150.0f >= m_defaultPos.x && -75.0f / 2 >= m_defaultPos.z)
+				-75.0f <= m_defaultPos.x && 150.0f >= m_defaultPos.x && -150.0f >= m_defaultPos.z)
 			{
 				m_pos = D3DXVECTOR3(m_pos.x, m_pos.y, CCamera::ORIENTATION_FRONT_POS);
 			}
@@ -68,7 +68,7 @@ void CCollisionDetection::BlockShift(BLOCKTYPE BlockType, CCamera *pCamera, CCam
 		case CCamera::ORIENTATION_BACK:
 			if (-75.0f >= m_defaultPos.x ||
 				150.0f <= m_defaultPos.x ||
-				-75.0f <= m_defaultPos.x && 150.0f >= m_defaultPos.x && -75.0f / 2 <= m_defaultPos.z)
+				-75.0f <= m_defaultPos.x && 150.0f >= m_defaultPos.x && 0.0f <= m_defaultPos.z)
 			{
 				m_pos = D3DXVECTOR3(m_pos.x, m_pos.y, CCamera::ORIENTATION_BACK_POS);
 			}
@@ -147,7 +147,7 @@ void CCollisionDetection::Unload(void)
 
 void CCollisionDetection::Draw(void) 
 {
-	if (m_BlockType != BLOCKTYPE_NULL && m_ButtonColorBlock.bJudge == true) {
+	if (m_BlockType != BLOCKTYPE_NULL) {
 		CBillboard::Draw();
 	}
 }

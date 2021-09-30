@@ -85,7 +85,6 @@ void CPlayerHook::Update(void)
 
 	m_pos = GetPos();
 	destPos = SortSpike();
-	m_move.y -= GRAVITY_SIZ;
 
 	if (pKeyboard->GetKeyboardTrigger(DIK_F) && m_bHook == false && m_pCamera->GetRotake() == CCamera::ROTATE_NONE)
 	{
@@ -104,6 +103,10 @@ void CPlayerHook::Update(void)
 	}
 	else
 	{
+		if (CPlayer::GetCollisionDetectionJudge() == true ||
+			m_pCamera->GetRotake() != CCamera::ROTATE_NONE) {
+			m_move.y = 0.0f;
+		}
 		// プレイヤー操作
 		if (m_pCamera->GetRotake() == CCamera::ROTATE_NONE) 
 		{
@@ -154,8 +157,12 @@ void CPlayerHook::Update(void)
 				break;
 			}
 
+			if (CPlayer::GetCollisionDetectionJudge() == false || m_pCamera->GetRotake() == CCamera::ROTATE_NONE) {
+				m_move.y -= GRAVITY_SIZ;
+			}
+
 			// Wキーでジャンプ
-			if (CPlayer::GetJumpJudge() == true)
+			if (CPlayer::GetJumpJudge() == true && CPlayer::GetCollisionDetectionJudge() == true)
 			{
 				if (pKeyboard->GetKeyboardTrigger(DIK_UP) || lpDIDevice != NULL && pJoystick->GetJoystickTrigger(JS_A, JOYSTICK_1P))
 				{

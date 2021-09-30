@@ -62,7 +62,7 @@ public:
 	void UpdateByType(BLOCKTYPE BlockType);
 	void BlockShift(BLOCKTYPE BlockType, CCamera *pCamera, CCamera::ORIENTATION orientarion, CCamera::ROTATE rotate);
 	void BlockColorJudge(BUTTONCOLOR ButtonColor, bool Judge);
-	
+
 	static void Load(void);
 	static void Unload(void);
 
@@ -71,6 +71,7 @@ public:
 	CCollisionDetection* GetNextScene(void) { return m_pNext; }
 	D3DXVECTOR3 GetSiz(void) { return m_siz; }
 	D3DXVECTOR3 GetPos(void) { return m_pos; }
+	D3DXVECTOR3 GetDefaultPos(void) { return m_defaultPos; }
 
 	static CCollisionDetection *GetCollisionDetectionOrientation(void) { return m_CollisionDetectionListTop; }
 	static int GetNumAll(void) { return m_nNum; }

@@ -11,6 +11,9 @@
 #include "goal.h"
 #include "manager.h"
 #include "renderer.h"
+#include "mode_game.h"
+
+#include "keyboard.h"
 
 //========================
 // Ã“Iƒƒ“ƒo•Ï”éŒ¾
@@ -71,6 +74,8 @@ void CGoal::Uninit(void)
 //=============================================================================
 void CGoal::Update(void)
 {
+	CInputKeyboard *pKeyboard = CManager::GetInput();
+
 	// ‚Ó‚í‚Ó‚í‚³‚¹‚é
 	m_fAngle += D3DXToRadian(1);
 
@@ -93,6 +98,10 @@ void CGoal::Update(void)
 	if (m_rot.x >= D3DXToRadian(360))
 	{
 		m_rot.x = 0.0f;
+	}
+
+	if (pKeyboard->GetKeyboardTrigger(DIK_SPACE)) {
+		CManager::StartFade(CManager::MODE_RESULT);
 	}
 
 	SetPos(pos);
