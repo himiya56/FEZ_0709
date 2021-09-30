@@ -297,6 +297,10 @@ D3DXVECTOR3 CPlayerHook::SortSpike(void)
 			{
 				spike[nCntScene].dist = 10000.0f;
 			}
+			else if (m_pos.y > spikePos.y)
+			{
+				spike[nCntScene].dist = 10000.0f;
+			}
 
 			if (nCntScene == 0)
 			{
@@ -326,7 +330,7 @@ D3DXVECTOR3 CPlayerHook::SortSpike(void)
 
 	spike[nArrayCount].pos.y += 2.5f;
 
-	if (spike[nArrayCount].dist <= 300.0f)
+	if (spike[nArrayCount].dist <= 500.0f)
 	{
 		return spike[nArrayCount].pos;
 	}

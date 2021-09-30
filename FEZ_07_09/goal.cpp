@@ -11,6 +11,10 @@
 #include "goal.h"
 #include "manager.h"
 #include "renderer.h"
+#include "mode_game.h"
+#include "player_hook.h"
+#include "player_rotation.h"
+#include "camera.h"
 
 //========================
 // Ã“Iƒƒ“ƒo•Ï”éŒ¾
@@ -71,6 +75,9 @@ void CGoal::Uninit(void)
 //=============================================================================
 void CGoal::Update(void)
 {
+	CPlayerHook *pHook = CGameMode::GetPlayerHook();
+	CPlayerRotation *pRot = CGameMode::GetPlayerRotation();
+
 	// ‚Ó‚í‚Ó‚í‚³‚¹‚é
 	m_fAngle += D3DXToRadian(1);
 
@@ -99,6 +106,39 @@ void CGoal::Update(void)
 	SetRot(m_rot);
 
 	CScene3D::Update();
+	
+	CCamera *pCamera;
+	pCamera = CManager::GetCamera();
+
+	D3DXVECTOR3 hookPos = pHook->GetPos();
+	D3DXVECTOR3 rotPos = pHook->GetPos();
+
+	CCamera::ORIENTATION Orientation = pCamera->GetOrientation();
+
+	if (Orientation == CCamera::ORIENTATION_FRONT &&
+		0.0f <= hookPos.x && 75.0f >= hookPos.x && 75.0f * 24.0f <= hookPos.y &&
+		0.0f <= rotPos.x && 75.0f >= rotPos.x && 75.0f * 24.0f <= rotPos.y)
+	{
+		CManager::StartFade(CManager::MODE_RESULT);
+	}
+	else if (Orientation == CCamera::ORIENTATION_BACK &&
+		0.0f <= hookPos.x && 75.0f >= hookPos.x && 75.0f * 24.0f <= hookPos.y &&
+		0.0f <= rotPos.x && 75.0f >= rotPos.x && 75.0f * 24.0f <= rotPos.y)
+	{
+		CManager::StartFade(CManager::MODE_RESULT);
+	}
+	else if (Orientation == CCamera::ORIENTATION_RIGHT &&
+		-150.0f <= hookPos.z && 75.0f >= hookPos.z && 75.0f * 24.0f <= hookPos.y &&
+		- 150.0f <= rotPos.z && 75.0f >= rotPos.z && 75.0f * 24.0f <= rotPos.y)
+	{
+		CManager::StartFade(CManager::MODE_RESULT);
+	}
+	else if (Orientation == CCamera::ORIENTATION_LEFT &&
+		-150.0f <= hookPos.z && 75.0f >= hookPos.z && 75.0f * 24.0f <= hookPos.y &&
+		-150.0f <= rotPos.z && 75.0f >= rotPos.z && 75.0f * 24.0f <= rotPos.y)
+	{
+		CManager::StartFade(CManager::MODE_RESULT);
+	}
 }
 
 //=============================================================================

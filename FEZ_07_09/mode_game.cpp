@@ -27,13 +27,10 @@
 #include "player.h"
 #include "goal.h"
 #include "testObj.h"
-<<<<<<< HEAD
 #include "Stage.h"
 #include "sky.h"
-=======
 #include "item.h"
 #include "item_coin.h"
->>>>>>> remotes/origin/coin
 
 //*****************************************************************************
 // É}ÉNÉçíËã`
@@ -179,7 +176,6 @@ void CGameMode::InitStageCreate(void)
 			CCollisionDetection::Create(D3DXVECTOR3(75.0f * 1.0f, 75.0f * 8.0f, 75.0f * -5.0f), BLOCK_SIZE, CCollisionDetection::BLOCKTYPE_NONE);
 			CCollisionDetection::Create(D3DXVECTOR3(75.0f * 2.0f, 75.0f * 9.0f, 75.0f * -4.0f), BLOCK_SIZE, CCollisionDetection::BLOCKTYPE_NONE);
 
-<<<<<<< HEAD
 			CCollisionDetection::Create(D3DXVECTOR3(75.0f * 1.0f, 75.0f * 10.0f, 75.0f * -2.0f), BLOCK_SIZE, CCollisionDetection::BLOCKTYPE_NONE);
 			CCollisionDetection::Create(D3DXVECTOR3(75.0f * 0.0f, 75.0f * 10.0f, 75.0f * -2.0f), BLOCK_SIZE, CCollisionDetection::BLOCKTYPE_NONE);
 			CCollisionDetection::Create(D3DXVECTOR3(75.0f * -1.0f, 75.0f * 10.0f, 75.0f * -2.0f), BLOCK_SIZE, CCollisionDetection::BLOCKTYPE_NONE);
@@ -190,15 +186,21 @@ void CGameMode::InitStageCreate(void)
 			CCollisionDetection::Create(D3DXVECTOR3(75.0f * 1.0f, 75.0f * 10.0f, 75.0f * 1.0f), BLOCK_SIZE, CCollisionDetection::BLOCKTYPE_NONE);
 
 			CCollisionDetection::Create(D3DXVECTOR3(75.0f * 2.0f, 75.0f * 11.0f, 75.0f * 0.0f), BLOCK_SIZE, CCollisionDetection::BLOCKTYPE_BUTTON_INCLUDED, CCollisionDetection::BUTTONCOLOR_RED);
+			//m_pCoin = CItem_coin::Create(D3DXVECTOR3(75.0f * 2.0f, 75.0f * 12.0f, 75.0f * 0.0f));
 			CCollisionDetection::Create(D3DXVECTOR3(75.0f * 2.0f, 75.0f * 12.0f, 75.0f * -1.0f), BLOCK_SIZE, CCollisionDetection::BLOCKTYPE_BUTTON_INCLUDED, CCollisionDetection::BUTTONCOLOR_RED);
+			//m_pCoin = CItem_coin::Create(D3DXVECTOR3(75.0f * 2.0f, 75.0f * 13.0f, 75.0f * -1.0f));
 
 			CCollisionDetection::Create(D3DXVECTOR3(75.0f * 2.0f, 75.0f * 13.0f, 75.0f * -3.0f), BLOCK_SIZE, CCollisionDetection::BLOCKTYPE_NONE);
 			CCollisionDetection::Create(D3DXVECTOR3(75.0f * 2.0f, 75.0f * 14.0f, 75.0f * -3.0f), BLOCK_SIZE, CCollisionDetection::BLOCKTYPE_BUTTON, CCollisionDetection::BUTTONCOLOR_RED);
+			//m_pCoin = CItem_coin::Create(D3DXVECTOR3(75.0f * 2.0f, 75.0f * 15.0f, 75.0f * -3.0f));
 			CCollisionDetection::Create(D3DXVECTOR3(75.0f * 2.0f, 75.0f * 13.0f, 75.0f * -2.0f), BLOCK_SIZE, CCollisionDetection::BLOCKTYPE_NONE);
 			CSpike::Create(D3DXVECTOR3(75.0f * 2.0f, 75.0f * 14.0f, 75.0f * -2.0f));
+			//m_pCoin = CItem_coin::Create(D3DXVECTOR3(75.0f * 2.0f, 75.0f * 15.0f, 75.0f * -2.0f));
 
 			CCollisionDetection::Create(D3DXVECTOR3(75.0f * 2.0f, 75.0f * 14.0f, 75.0f * -1.0f), BLOCK_SIZE, CCollisionDetection::BLOCKTYPE_BUTTON_INCLUDED, CCollisionDetection::BUTTONCOLOR_RED);
+			//m_pCoin = CItem_coin::Create(D3DXVECTOR3(75.0f * 2.0f, 75.0f * 15.0f, 75.0f * -1.0f));
 			CCollisionDetection::Create(D3DXVECTOR3(75.0f * 2.0f, 75.0f * 15.0f, 75.0f * 0.0f), BLOCK_SIZE, CCollisionDetection::BLOCKTYPE_BUTTON_INCLUDED, CCollisionDetection::BUTTONCOLOR_RED);
+			//m_pCoin = CItem_coin::Create(D3DXVECTOR3(75.0f * 2.0f, 75.0f * 16.0f, 75.0f * 0.0f));
 
 			CCollisionDetection::Create(D3DXVECTOR3(75.0f * 1.0f, 75.0f * 16.0f, 75.0f * -2.0f), BLOCK_SIZE, CCollisionDetection::BLOCKTYPE_NONE);
 			CCollisionDetection::Create(D3DXVECTOR3(75.0f * 0.0f, 75.0f * 16.0f, 75.0f * -2.0f), BLOCK_SIZE, CCollisionDetection::BLOCKTYPE_NONE);
@@ -212,18 +214,25 @@ void CGameMode::InitStageCreate(void)
 			CCollisionDetection::Create(D3DXVECTOR3(75.0f * 2.0f, 75.0f * 17.0f, 75.0f * 1.0f), BLOCK_SIZE, CCollisionDetection::BLOCKTYPE_NONE);
 
 			CCollisionDetection::Create(D3DXVECTOR3(75.0f * 1.0f, 75.0f * 18.0f, 75.0f * -1.0f), BLOCK_SIZE, CCollisionDetection::BLOCKTYPE_BUTTON_INCLUDED, CCollisionDetection::BUTTONCOLOR_BLUE);
+			//m_pCoin = CItem_coin::Create(D3DXVECTOR3(75.0f * 1.0f, 75.0f * 19.0f, 75.0f * -1.0f));
 			CCollisionDetection::Create(D3DXVECTOR3(75.0f * 0.0f, 75.0f * 19.0f, 75.0f * -1.0f), BLOCK_SIZE, CCollisionDetection::BLOCKTYPE_BUTTON_INCLUDED, CCollisionDetection::BUTTONCOLOR_BLUE);
+			//m_pCoin = CItem_coin::Create(D3DXVECTOR3(75.0f * 0.0f, 75.0f * 20.0f, 75.0f * -1.0f));
 
 			CCollisionDetection::Create(D3DXVECTOR3(75.0f * 3.0f, 75.0f * 19.0f, 75.0f * -1.0f), BLOCK_SIZE, CCollisionDetection::BLOCKTYPE_NONE);
 			CCollisionDetection::Create(D3DXVECTOR3(75.0f * 4.0f, 75.0f * 19.0f, 75.0f * -1.0f), BLOCK_SIZE, CCollisionDetection::BLOCKTYPE_NONE);
 			CSpike::Create(D3DXVECTOR3(75.0f * 3.0f, 75.0f * 20.0f, 75.0f * -1.0f));
+			//m_pCoin = CItem_coin::Create(D3DXVECTOR3(75.0f * 3.0f, 75.0f * 21.0f, 75.0f * -1.0f));
 			CCollisionDetection::Create(D3DXVECTOR3(75.0f * 4.0f, 75.0f * 20.0f, 75.0f * -1.0f), BLOCK_SIZE, CCollisionDetection::BLOCKTYPE_BUTTON, CCollisionDetection::BUTTONCOLOR_BLUE);
+			//m_pCoin = CItem_coin::Create(D3DXVECTOR3(75.0f * 4.0f, 75.0f * 21.0f, 75.0f * -1.0f));
 
 			CCollisionDetection::Create(D3DXVECTOR3(75.0f * -1.0f, 75.0f * 19.0f, 75.0f * -1.0f), BLOCK_SIZE, CCollisionDetection::BLOCKTYPE_NONE);
 			CCollisionDetection::Create(D3DXVECTOR3(75.0f * -1.0f, 75.0f * 20.0f, 75.0f * -1.0f), BLOCK_SIZE, CCollisionDetection::BLOCKTYPE_BUTTON, CCollisionDetection::BUTTONCOLOR_YELLOW);
+			//m_pCoin = CItem_coin::Create(D3DXVECTOR3(75.0f * -1.0f, 75.0f * 21.0f, 75.0f * -1.0f));
 
 			CCollisionDetection::Create(D3DXVECTOR3(75.0f * 1.0f, 75.0f * 20.0f, 75.0f * -1.0f), BLOCK_SIZE, CCollisionDetection::BLOCKTYPE_BUTTON_INCLUDED, CCollisionDetection::BUTTONCOLOR_YELLOW);
+			//m_pCoin = CItem_coin::Create(D3DXVECTOR3(75.0f * 1.0f, 75.0f * 21.0f, 75.0f * -1.0f));
 			CCollisionDetection::Create(D3DXVECTOR3(75.0f * 2.0f, 75.0f * 21.0f, 75.0f * -1.0f), BLOCK_SIZE, CCollisionDetection::BLOCKTYPE_BUTTON_INCLUDED, CCollisionDetection::BUTTONCOLOR_YELLOW);
+			//m_pCoin = CItem_coin::Create(D3DXVECTOR3(75.0f * 2.0f, 75.0f * 22.0f, 75.0f * -1.0f));
 
 			CCollisionDetection::Create(D3DXVECTOR3(75.0f * 3.0f, 75.0f * 22.0f, 75.0f * 1.0f), BLOCK_SIZE, CCollisionDetection::BLOCKTYPE_NONE);
 
@@ -237,17 +246,8 @@ void CGameMode::InitStageCreate(void)
 			CCollisionDetection::Create(D3DXVECTOR3(75.0f * 1.0f, 75.0f * 23.0f, 75.0f * 1.0f), BLOCK_SIZE,   CCollisionDetection::BLOCKTYPE_BUTTON_INCLUDED, CCollisionDetection::BUTTONCOLOR_YELLOW);
 
 			CGoal::Create(D3DXVECTOR3(75.0f * 0.5f, 75.0f * 25.0f, 75.0f * -0.5f));
-
-=======
-			CGoal::Create(D3DXVECTOR3(75.0f * -2.0f, 75.0f * 3.0f, 75.0f * -2.0f));
-			m_pCoin = CItem_coin::Create(D3DXVECTOR3(75.0f * -2.0f, 75.0f * 3.0f, 75.0f * -2.0f));
-			m_pCoin = CItem_coin::Create(D3DXVECTOR3(75.0f * -2.0f, 75.0f * 3.0f, 75.0f * -2.0f));
-			m_pCoin = CItem_coin::Create(D3DXVECTOR3(75.0f * -2.0f, 75.0f * 3.0f, 75.0f * -2.0f));
-			m_pCoin = CItem_coin::Create(D3DXVECTOR3(75.0f * -2.0f, 75.0f * 3.0f, 75.0f * -2.0f));
-			m_pCoin = CItem_coin::Create(D3DXVECTOR3(75.0f * -2.0f, 75.0f * 3.0f, 75.0f * -2.0f));
-			m_pCoin = CItem_coin::Create(D3DXVECTOR3(75.0f * -2.0f, 75.0f * 3.0f, 75.0f * -2.0f));
 			SaveCreateCoin();
->>>>>>> remotes/origin/coin
+
 			break;
 		case STAGE_2:
 			break;

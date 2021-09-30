@@ -86,6 +86,8 @@ void CPlayer::CollisionDetection(void) {
 
 					if (pCollisionDetection->GetBlockType() == CCollisionDetection::BLOCKTYPE_BUTTON) {
 						pCollisionDetection->BlockColorJudge(pCollisionDetection->GetButtonColorBlock().ButtonColor, true);
+						pCollisionDetection->SetTexture(CCollisionDetection::BLOCKTYPE_PUSH);
+						pCollisionDetection->SetJudge(false);
 					}
 				}
 			}

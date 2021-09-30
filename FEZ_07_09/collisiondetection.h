@@ -35,6 +35,7 @@ public:
 		BLOCKTYPE_WALL,
 		BLOCKTYPE_BUTTON,
 		BLOCKTYPE_BUTTON_INCLUDED,
+		BLOCKTYPE_PUSH,
 		BLOCK_TYPE_MAX
 	}BLOCKTYPE;
 
@@ -62,6 +63,8 @@ public:
 	void UpdateByType(BLOCKTYPE BlockType);
 	void BlockShift(BLOCKTYPE BlockType, CCamera *pCamera, CCamera::ORIENTATION orientarion, CCamera::ROTATE rotate);
 	void BlockColorJudge(BUTTONCOLOR ButtonColor, bool Judge);
+	void SetTexture(BLOCKTYPE BlockType) { BindTexture(m_apTexture[BlockType]); }
+	void SetJudge(bool judge) { m_ButtonColorBlock.bJudge = judge; }
 	
 	static void Load(void);
 	static void Unload(void);

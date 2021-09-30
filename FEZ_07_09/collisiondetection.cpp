@@ -38,6 +38,12 @@ void CCollisionDetection::Update(void) {
 	CCamera::ORIENTATION orientarion = pCamera->GetOrientation();
 	CCamera::ROTATE rotate = pCamera->GetRotake();
 
+	if (m_ButtonColorBlock.bJudge == true &&
+		m_BlockType == BLOCKTYPE_BUTTON_INCLUDED)
+	{
+		BindTexture(m_apTexture[BLOCKTYPE_NONE]);
+	}
+
 	BlockShift(m_BlockType, pCamera, orientarion, rotate);
 	UpdateByType(m_BlockType);
 	CBillboard::SetPos(m_pos);
@@ -131,6 +137,8 @@ void CCollisionDetection::Load(void)
 
 	D3DXCreateTextureFromFile(pDevice, "./data/TEXTURE/block1_1.png", &m_apTexture[BLOCKTYPE_NONE]);
 	D3DXCreateTextureFromFile(pDevice, "./data/TEXTURE/block1_0.png", &m_apTexture[BLOCKTYPE_BUTTON_INCLUDED]);
+	D3DXCreateTextureFromFile(pDevice, "./data/TEXTURE/button1_1.png", &m_apTexture[BLOCKTYPE_BUTTON]);
+	D3DXCreateTextureFromFile(pDevice, "./data/TEXTURE/button1_2.png", &m_apTexture[BLOCKTYPE_PUSH]);
 	D3DXCreateTextureFromFile(pDevice, "./data/TEXTURE/jimmy-malachier-tile-metal-01.jpg", &m_apTexture[BLOCKTYPE_WALL]);
 }
 
@@ -166,8 +174,6 @@ CCollisionDetection *CCollisionDetection::Create(D3DXVECTOR3 pos, D3DXVECTOR3 si
 	pCollisionDetection->m_defaultPos = pos;
 	pCollisionDetection->m_siz = siz;
 	pCollisionDetection->m_BlockType = BlockType;
-
-	//CBlock::Create(pos);
 
 	switch (BlockType) {
 	case BLOCKTYPE_BUTTON_INCLUDED:
