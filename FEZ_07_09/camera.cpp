@@ -34,6 +34,7 @@ CCamera::CCamera()
 	m_posR = DEFAULT_VECTOR;
 	m_posVDest = DEFAULT_VECTOR;
 	m_posRDest = DEFAULT_VECTOR;
+	m_FollowPos = DEFAULT_VECTOR;
 	m_fVerticalAngle = D3DXToRadian(270);
 	m_fHorizontalAngle = D3DXToRadian(90);
 	m_fOffset = INIT_OFFSET;
@@ -63,7 +64,7 @@ HRESULT CCamera::Init(void)
 	m_posR = DEFAULT_VECTOR;
 	m_vecU = D3DXVECTOR3(0.0f, 1.0f, 0.0f);
 	m_fFOV = 90.0f;
-	m_FollowPos = DEFAULT_VECTOR;
+	m_FollowPos = D3DXVECTOR3(0.0f, 75.0f * 6.0f, 0.0f);;
 
 	D3DXMatrixLookAtLH(&m_mtxView, &m_posV, &m_posR, &m_vecU);
 	pDevice->SetTransform(D3DTS_VIEW, &m_mtxView);
@@ -90,7 +91,7 @@ void CCamera::Update(void)
 
 	// 目的地の計算(球面座標)
 	m_posVDest.x = m_fOffset * (sinf(m_fHorizontalAngle) * cosf(m_fVerticalAngle));
-	m_posVDest.y = m_fOffset * cosf(m_fHorizontalAngle) + 75.0f * 6.0f;
+	m_posVDest.y = m_fOffset * cosf(m_fHorizontalAngle) + m_FollowPos.y;
 	m_posVDest.z = m_fOffset * (sinf(m_fHorizontalAngle) * sinf(m_fVerticalAngle));
 
 
@@ -114,10 +115,12 @@ void CCamera::Update(void)
 		}
 
 		m_posRDest.y = cameraHeight;
+		m_FollowPos.y = cameraHeight;
 
 		if (m_posRDest.y <= 75.0f * 6.0f)
 		{
 			m_posRDest.y = 75.0f * 6.0f;
+			m_FollowPos.y = 75.0f * 6.0f;
 		}
 	}
 
