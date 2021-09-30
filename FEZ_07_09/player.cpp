@@ -38,13 +38,16 @@ void CPlayer::Update(void) {
 	CCamera::ORIENTATION Orientation = m_pCamera->GetOrientation();
 	m_pos = GetPos();
 
-	m_pos = RotationDifferentialShift(Orientation, m_pos, m_pCamera->GetRotake(), m_pCamera->GetRotakeOld());
+	if (m_pCamera->GetRotake() != CCamera::ROTATE_NONE) {
+		m_pos = RotationDifferentialShift(Orientation);
+	}
 
 	CollisionDetection();
 
 	if (m_pos.y <= 0) {
 		m_pos.y = 0;
 		SetJumpJudge(true);
+		m_bCollisionDetectionJudge = true;
 	}
 
 	if (m_pos.x <= -75.0f * 12.0f ||
@@ -73,24 +76,26 @@ void CPlayer::CollisionDetection(void) {
 			D3DXVECTOR3 pos = pCollisionDetection->GetPos();
 
 			//Z‚©XŽ²‚ªˆê’v‚µ‚½ê‡
-			if (pCollisionDetection->GetButtonColorBlock().bJudge == true &&
-				pos.z == m_pos.z && Orientation == CCamera::ORIENTATION_FRONT || Orientation == CCamera::ORIENTATION_BACK ||
-				pos.x == m_pos.x && Orientation == CCamera::ORIENTATION_LEFT || Orientation == CCamera::ORIENTATION_RIGHT) {
+			if (pCollisionDetection->GetButtonColorBlock().bJudge == true) {
 				m_bCollisionDetectionJudge = CollisionDetectionCalculation(m_posold, m_pos, PLAYER_SIZE, pos, PLAYER_SIZE, COLLISION::COLLISION_HEIGHT);
 
 				if (m_bCollisionDetectionJudge == true) 
 				{
 					m_pos.y = pos.y + PLAYER_SIZE.y;
 					SetJumpJudge(true);
-					m_RidingBlockPos = pos;
+					m_RidingBlockPos = pCollisionDetection->GetDefaultPos();
 
 					if (pCollisionDetection->GetBlockType() == CCollisionDetection::BLOCKTYPE_BUTTON) {
 						pCollisionDetection->BlockColorJudge(pCollisionDetection->GetButtonColorBlock().ButtonColor, true);
 						pCollisionDetection->SetTexture(CCollisionDetection::BLOCKTYPE_PUSH);
 						pCollisionDetection->SetJudge(false);
 					}
+
+					break;
 				}
 			}
+
+			m_RidingBlockPos = D3DXVECTOR3(-431602080, -431602080, -431602080);
 
 			// ŽŸ‚ÌƒV[ƒ“‚É‚·‚é
 			pObj = pObj->GetNextObj();
@@ -102,21 +107,24 @@ void CPlayer::CollisionDetection(void) {
 	}
 }
 
-D3DXVECTOR3 CPlayer::RotationDifferentialShift(CCamera::ORIENTATION Orientation, D3DXVECTOR3 PlayerPos, CCamera::ROTATE Rotate, CCamera::ROTATE RotateOld) 
+D3DXVECTOR3 CPlayer::RotationDifferentialShift(CCamera::ORIENTATION Orientation) 
 {
-	D3DXVECTOR3 Pos = PlayerPos;
+	D3DXVECTOR3 Pos;
+	if (m_RidingBlockPos == D3DXVECTOR3(-431602080, -431602080, -431602080)) {
+		m_RidingBlockPos = m_pos;
+	}
 
 	if (Orientation == CCamera::ORIENTATION_FRONT) {
-		Pos = D3DXVECTOR3(PlayerPos.x, PlayerPos.y, CCamera::ORIENTATION_FRONT_POS);
+		Pos = D3DXVECTOR3(m_RidingBlockPos.x, m_pos.y + 0.01f, CCamera::ORIENTATION_FRONT_POS);
 	}
 	if (Orientation == CCamera::ORIENTATION_BACK) {
-		Pos = D3DXVECTOR3(PlayerPos.x, PlayerPos.y, CCamera::ORIENTATION_BACK_POS);
+		Pos = D3DXVECTOR3(m_RidingBlockPos.x, m_pos.y + 0.01f, CCamera::ORIENTATION_BACK_POS);
 	}
 	if (Orientation == CCamera::ORIENTATION_LEFT) {
-		Pos = D3DXVECTOR3(CCamera::ORIENTATION_LEFT_POS, PlayerPos.y, PlayerPos.z);
+		Pos = D3DXVECTOR3(CCamera::ORIENTATION_LEFT_POS, m_pos.y + 0.01f, m_RidingBlockPos.z);
 	}
 	if (Orientation == CCamera::ORIENTATION_RIGHT) {
-		Pos = D3DXVECTOR3(CCamera::ORIENTATION_RIGHT_POS, PlayerPos.y, PlayerPos.z);
+		Pos = D3DXVECTOR3(CCamera::ORIENTATION_RIGHT_POS, m_pos.y + 0.01f, m_RidingBlockPos.z);
 	}
 
 	return Pos;

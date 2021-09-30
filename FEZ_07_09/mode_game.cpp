@@ -153,12 +153,17 @@ void CGameMode::InitStageCreate(void)
 			pSound->Play(CSound::SOUND_LABEL_BGM_STAGE1);
 
 			m_pPlayerHook = CPlayerHook::Create(D3DXVECTOR3(75.0f * -1.0f, 75.0f * 1.0f, 75.0f * -2.0f), BLOCK_SIZE);
-			m_pPlayerRotation = CPlayerRotation::Create(D3DXVECTOR3(75.0f * 2.0f, 75.0f * 2.0f + 70.0f, 75.0f * 0.0f), BLOCK_SIZE);
+			m_pPlayerRotation = CPlayerRotation::Create(D3DXVECTOR3(75.0f * 2.0f, 75.0f * 2.0f + 70.0f, 75.0f * -2.0f), BLOCK_SIZE);
 
 			//75.0f * 27.0f, 75.0f * 30.0f
 
 			CStage::Create(D3DXVECTOR3(75.0f / 2.0f, 75.0f * -2.2f, -75.0f / 2.0f));
 			CSky::Create(D3DXVECTOR3(0.0f, 75.0f * 15.0f, 75.0f * 13.5f), D3DXVECTOR2(0.0f, 0.25f));
+
+			//for (int nCount = 0; nCount < roundf(SCREEN_WIDTH / 75.0f); nCount++) {
+			//	CCollisionDetection::Create(D3DXVECTOR3(75.0f * (-12.5f + nCount), 75.0f * -1.0f, 75.0f * 0.0f), BLOCK_SIZE, CCollisionDetection::BLOCKTYPE_NONE);
+			//	CCollisionDetection::Create(D3DXVECTOR3(75.0f * 0.0f, 75.0f * -1.0f, 75.0f * (-12.5f + nCount)), BLOCK_SIZE, CCollisionDetection::BLOCKTYPE_NONE);
+			//}
 
 			CCollisionDetection::Create(D3DXVECTOR3(75.0f * 2.0f, 75.0f * 0.0f, 75.0f * -2.0f), BLOCK_SIZE, CCollisionDetection::BLOCKTYPE_NONE);
 			CCollisionDetection::Create(D3DXVECTOR3(75.0f * 3.0f, 75.0f * 1.0f, 75.0f * -1.0f), BLOCK_SIZE, CCollisionDetection::BLOCKTYPE_NONE);

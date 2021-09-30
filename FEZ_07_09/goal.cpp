@@ -12,9 +12,14 @@
 #include "manager.h"
 #include "renderer.h"
 #include "mode_game.h"
+<<<<<<< HEAD
 #include "player_hook.h"
 #include "player_rotation.h"
 #include "camera.h"
+=======
+
+#include "keyboard.h"
+>>>>>>> remotes/origin/new
 
 //========================
 // Ã“Iƒƒ“ƒo•Ï”éŒ¾
@@ -75,8 +80,12 @@ void CGoal::Uninit(void)
 //=============================================================================
 void CGoal::Update(void)
 {
+<<<<<<< HEAD
 	CPlayerHook *pHook = CGameMode::GetPlayerHook();
 	CPlayerRotation *pRot = CGameMode::GetPlayerRotation();
+=======
+	CInputKeyboard *pKeyboard = CManager::GetInput();
+>>>>>>> remotes/origin/new
 
 	// ‚Ó‚í‚Ó‚í‚³‚¹‚é
 	m_fAngle += D3DXToRadian(1);
@@ -100,6 +109,10 @@ void CGoal::Update(void)
 	if (m_rot.x >= D3DXToRadian(360))
 	{
 		m_rot.x = 0.0f;
+	}
+
+	if (pKeyboard->GetKeyboardTrigger(DIK_SPACE)) {
+		CManager::StartFade(CManager::MODE_RESULT);
 	}
 
 	SetPos(pos);

@@ -18,7 +18,7 @@
 // É}ÉNÉçíËã`
 //*****************************************************************************
 #define MOVE_SIZ 7.0f
-#define JUMP_SIZ 10.0f
+#define JUMP_SIZ 7.0f
 #define GRAVITY_SIZ 0.27f
 #define MOVE_SPECIFIED D3DXVECTOR3(MOVE_SIZ, 0, MOVE_SIZ)
 #define PLAYER_SIZE D3DXVECTOR3(75.0f, 75.0f, 0.0f)
@@ -45,9 +45,14 @@ public:
 	bool GetCollisionDetectionJudge(void) { return m_bCollisionDetectionJudge; }
 	D3DXVECTOR3 GetRidingBlockPos(void) { return m_RidingBlockPos; }
 
+<<<<<<< HEAD
 	D3DXVECTOR3 CPlayer::RotationDifferentialShift(CCamera::ORIENTATION Orientation, D3DXVECTOR3 PlayerPos, CCamera::ROTATE Rotate, CCamera::ROTATE RotateOld);
 	void AddCoin(int nValue) { m_nCoin += nValue; }
 	int GetCoin(void) { return m_nCoin; }
+=======
+	D3DXVECTOR3 CPlayer::RotationDifferentialShift(CCamera::ORIENTATION Orientation);
+
+>>>>>>> remotes/origin/new
 private:
 	D3DXVECTOR3 m_pos;
 	D3DXVECTOR3 m_posold;

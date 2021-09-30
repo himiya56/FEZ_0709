@@ -87,7 +87,6 @@ void CPlayerHook::Update(void)
 
 	m_pos = GetPos();
 	destPos = SortSpike();
-	m_move.y -= GRAVITY_SIZ;
 
 	if (pKeyboard->GetKeyboardTrigger(DIK_RETURN) && m_bHook == false && m_pCamera->GetRotake() == CCamera::ROTATE_NONE)
 	{
@@ -111,6 +110,10 @@ void CPlayerHook::Update(void)
 	}
 	else
 	{
+		if (CPlayer::GetCollisionDetectionJudge() == true ||
+			m_pCamera->GetRotake() != CCamera::ROTATE_NONE) {
+			m_move.y = 0.0f;
+		}
 		// プレイヤー操作
 		if (m_pCamera->GetRotake() == CCamera::ROTATE_NONE) 
 		{
@@ -181,8 +184,12 @@ void CPlayerHook::Update(void)
 				break;
 			}
 
+			if (CPlayer::GetCollisionDetectionJudge() == false || m_pCamera->GetRotake() == CCamera::ROTATE_NONE) {
+				m_move.y -= GRAVITY_SIZ;
+			}
+
 			// Wキーでジャンプ
-			if (CPlayer::GetJumpJudge() == true)
+			if (CPlayer::GetJumpJudge() == true && CPlayer::GetCollisionDetectionJudge() == true)
 			{
 				if (pKeyboard->GetKeyboardTrigger(DIK_UP) || lpDIDevice != NULL && pJoystick->GetJoystickTrigger(JS_A, JOYSTICK_1P))
 				{
@@ -410,7 +417,6 @@ void CPlayerHook::MoveToHook(D3DXVECTOR3 pos)
 			fabsf(pos.y - m_pos.y) <= HOOK_STOP_SIZE)
 		{
 			m_bHook = false;
-			m_pos.z = pos.z;
 			m_circle.fAngle = 0.0f;
 			m_move = MOVE_SPECIFIED;
 		}
@@ -421,7 +427,6 @@ void CPlayerHook::MoveToHook(D3DXVECTOR3 pos)
 			fabsf(pos.y - m_pos.y) <= HOOK_STOP_SIZE)
 		{
 			m_bHook = false;
-			m_pos.x = pos.x;
 			m_circle.fAngle = 0.0f;
 			m_move = MOVE_SPECIFIED;
 		}
