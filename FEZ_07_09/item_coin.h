@@ -27,19 +27,15 @@ public:
 	void Draw(void);
 
 	void CollisionDetection(void);		// ìñÇΩÇËîªíË
-	void AddCreateCoin(int nValue) { m_nCoin += nValue; }
 	static HRESULT Load(void);
 	static void Unload(void);
 	static CItem_coin *Create(D3DXVECTOR3 pos);
-
-	int GetCreateCoin(void) { return m_nCoin; }
 private:
 	static LPDIRECT3DTEXTURE9		m_pTexture;
 	static LPD3DXMESH				m_pMesh;
 	static LPD3DXBUFFER				m_pBuffMat;
 	static DWORD					m_nNumMat;
 	D3DXVECTOR3						m_rot;
-	int m_nCoin;			// ÉRÉCÉìÇÃê∂ê¨êî
 };
 
 #endif // !_ITEM_COIN_H_

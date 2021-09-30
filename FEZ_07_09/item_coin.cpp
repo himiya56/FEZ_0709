@@ -15,6 +15,8 @@
 #include "player.h"
 
 #include "particle_coin.h"
+#include "player_hook.h"
+#include "player_rotation.h"
 
 //=============================================================================
 // マクロ定義
@@ -36,10 +38,9 @@ CItem_coin *CItem_coin::Create(D3DXVECTOR3 pos)
 {
 	CItem_coin *pCoin = NULL;
 	pCoin = new CItem_coin;
+	// coinの生成した数を増やす
 	pCoin->Init();
 	pCoin->SetPos(pos);
-	// coinの生成した数を増やす
-	pCoin->AddCreateCoin(1);
 	return pCoin;
 }
 
@@ -85,7 +86,6 @@ void CItem_coin::Unload(void)
 CItem_coin::CItem_coin()
 {
 	m_rot = DEFAULT_VECTOR;	// 向き設定
-	m_nCoin = 0;			// コインの生成数
 }
 
 //=============================================================================
@@ -101,9 +101,9 @@ CItem_coin::~CItem_coin()
 //=============================================================================
 HRESULT CItem_coin::Init(void)
 {
+	AddCreateCoin();
 	// 初期化処理
 	CItem::Init();
-
 	BindMesh(m_pMesh, m_pBuffMat, m_nNumMat);
 	BindTexture(m_pTexture);
 
@@ -148,27 +148,48 @@ void CItem_coin::Draw(void)
 //=============================================================================
 void CItem_coin::CollisionDetection(void)
 {
-	//// 位置情報の取得
-	//D3DXVECTOR3 pos = GetPos();
+	// 位置情報の取得
+	D3DXVECTOR3 pos = GetPos();
 
-	//// プレイヤー情報の取得
-	//CPlayer *pPlayer = CGameMode::GetPlayer();
-	//// プレイヤーの位置情報の取得
-	//D3DXVECTOR3 playerPos = pPlayer->GetPos();
+	// プレイヤー情報の取得
+	CPlayerHook *pPlayerHook = CGameMode::GetPlayerHook();
+	// プレイヤーの位置情報の取得
+	D3DXVECTOR3 playerHookPos = pPlayerHook->GetPos();
 
-	//// プレイヤーとアイテム位置が重なった場合
-	//if (playerPos.x >= pos.x - COLLISION_SIZE_ITEM.x / 2 &&
-	//	playerPos.x <= pos.x + COLLISION_SIZE_ITEM.x / 2 &&
-	//	playerPos.y >= pos.y - COLLISION_SIZE_ITEM.y / 2 &&
-	//	playerPos.y <= pos.y + COLLISION_SIZE_ITEM.y / 2 &&
-	//	playerPos.z >= pos.z - COLLISION_SIZE_ITEM.z / 2 &&
-	//	playerPos.z <= pos.z + COLLISION_SIZE_ITEM.z / 2)
-	//{
-	//	// コインのparticleの生成
-	//	CParticle_Coin::CoinEffect_Create(EFFECT_POS);
-	//	pPlayer->AddCoin(1);
-	//	// 終了処理
-	//	Uninit();
-	//	return;
-	//}
+	// プレイヤーとアイテム位置が重なった場合
+	if (playerHookPos.x >= pos.x - COLLISION_SIZE_ITEM.x / 2 &&
+		playerHookPos.x <= pos.x + COLLISION_SIZE_ITEM.x / 2 &&
+		playerHookPos.y >= pos.y - COLLISION_SIZE_ITEM.y / 2 &&
+		playerHookPos.y <= pos.y + COLLISION_SIZE_ITEM.y / 2 &&
+		playerHookPos.z >= pos.z - COLLISION_SIZE_ITEM.z / 2 &&
+		playerHookPos.z <= pos.z + COLLISION_SIZE_ITEM.z / 2)
+	{
+		// コインのparticleの生成
+		CParticle_Coin::CoinEffect_Create(EFFECT_POS);
+		pPlayerHook->AddCoin(1);
+		// 終了処理
+		Uninit();
+		return;
+	}
+
+	// プレイヤー情報の取得
+	CPlayerRotation *pPlayerRotation = CGameMode::GetPlayerRotation();
+	// プレイヤーの位置情報の取得
+	D3DXVECTOR3 playerRotationPos = pPlayerRotation->GetPos();
+
+	// プレイヤーとアイテム位置が重なった場合
+	if (playerRotationPos.x >= pos.x - COLLISION_SIZE_ITEM.x / 2 &&
+		playerRotationPos.x <= pos.x + COLLISION_SIZE_ITEM.x / 2 &&
+		playerRotationPos.y >= pos.y - COLLISION_SIZE_ITEM.y / 2 &&
+		playerRotationPos.y <= pos.y + COLLISION_SIZE_ITEM.y / 2 &&
+		playerRotationPos.z >= pos.z - COLLISION_SIZE_ITEM.z / 2 &&
+		playerRotationPos.z <= pos.z + COLLISION_SIZE_ITEM.z / 2)
+	{
+		// コインのparticleの生成
+		CParticle_Coin::CoinEffect_Create(EFFECT_POS);
+		pPlayerRotation->AddCoin(1);
+		// 終了処理
+		Uninit();
+		return;
+	}
 }

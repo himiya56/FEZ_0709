@@ -46,7 +46,8 @@ public:
 	D3DXVECTOR3 GetRidingBlockPos(void) { return m_RidingBlockPos; }
 
 	D3DXVECTOR3 CPlayer::RotationDifferentialShift(CCamera::ORIENTATION Orientation, D3DXVECTOR3 PlayerPos, CCamera::ROTATE Rotate, CCamera::ROTATE RotateOld);
-
+	void AddCoin(int nValue) { m_nCoin += nValue; }
+	int GetCoin(void) { return m_nCoin; }
 private:
 	D3DXVECTOR3 m_pos;
 	D3DXVECTOR3 m_posold;
@@ -55,9 +56,8 @@ private:
 	D3DXVECTOR3 m_RidingBlockPos;
 	bool m_bJumpJudge;
 	bool m_bCollisionDetectionJudge;
-
 	static LPDIRECT3DTEXTURE9		m_pTexture;
-
+	int m_nCoin;    // ÉRÉCÉìÇÃèäéùêî
 	CCamera *m_pCamera;
 };
 

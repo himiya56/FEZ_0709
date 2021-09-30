@@ -17,6 +17,8 @@
 #include "bg_result.h"
 #include "ui_coin.h"
 #include "ui_get_coin.h"
+#include "item.h"
+#include "player.h"
 
 //*****************************************************************************
 // マクロ定義
@@ -33,6 +35,8 @@ CResultMode::CResultMode()
 {
 	m_pCoinUI = NULL;		//生成されているコイン枚数UIのポインタ
 	m_pGetCoinUI = NULL;	//取得したコイン枚数UIのポインタ
+	m_nCreateCoin = 0;
+	m_nGetCoin = 0;
 }
 
 //=============================================================================
@@ -99,8 +103,6 @@ void CResultMode::Uninit(void)
 void CResultMode::Update(void)
 {
 	Input();
-	m_pCoinUI->SetCoin(5);
-	m_pGetCoinUI->SetGetCoin(3);
 }
 
 //=============================================================================
@@ -115,12 +117,16 @@ void CResultMode::Draw(void)
 //=============================================================================
 void CResultMode::InitCreateAll(void)
 {
+	LoadCreateCoin();
+	LoadGetCoin();
 	//リザルト画面の背景生成
 	CResultBG::Create();
 	//生成されているコイン枚数UIの生成
 	m_pCoinUI = CCoinUI::Create();
 	//取得したコイン枚数UIの生成
 	m_pGetCoinUI = CGetCoinUI::Create();
+	m_pCoinUI->SetCoin(m_nCreateCoin);
+	m_pGetCoinUI->SetGetCoin(m_nGetCoin);
 }
 
 //=============================================================================
@@ -146,5 +152,37 @@ void CResultMode::Input(void)
 	{
 		//タイトルモードに遷移する
 		CManager::StartFade(CManager::MODE_TITLE);
+	}
+}
+
+void CResultMode::LoadCreateCoin(void)
+{
+	//ファイルのポインタ
+	FILE *pFile;
+	//ファイルの読み込み
+	pFile = fopen("data/TEXT/CreateCoinData.txt", "r");
+	//ファイルのNULLチェック
+	if (pFile != NULL)
+	{
+		//入力情報読み込み
+		fscanf(pFile, "%d", &m_nCreateCoin);
+		//ファイルを閉じる
+		fclose(pFile);
+	}
+}
+
+void CResultMode::LoadGetCoin(void)
+{
+	//ファイルのポインタ
+	FILE *pFile;
+	//ファイルの読み込み
+	pFile = fopen("data/TEXT/GetCoinData.txt", "r");
+	//ファイルのNULLチェック
+	if (pFile != NULL)
+	{
+		//入力情報読み込み
+		fscanf(pFile, "%d", &m_nGetCoin);
+		//ファイルを閉じる
+		fclose(pFile);
 	}
 }

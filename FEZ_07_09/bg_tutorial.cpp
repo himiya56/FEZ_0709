@@ -17,7 +17,7 @@
 //*****************************************************************************
 // マクロ定義
 //*****************************************************************************
-#define KEYBOARD_GUID_TEXTURE ("data/TEXTURE/bg_title.png")			//テクスチャのパス
+#define KEYBOARD_GUID_TEXTURE ("data/TEXTURE/KeyboardTutorial_FEZ.png")			//テクスチャのパス
 #define JOYSTICK_GUID_TEXTURE ("data/TEXTURE/Tutorial_FEZ.png")			//テクスチャのパス
 #define POSITION (D3DXVECTOR3(SCREEN_WIDTH / 2,SCREEN_HEIGHT / 2,0.0f))	//位置
 #define SIZE (D3DXVECTOR3(1080.0f,1920.0f,0.0f))						//サイズ
