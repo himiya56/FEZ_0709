@@ -27,8 +27,6 @@ HRESULT CPlayerRotation::Init(void) {
 	D3DXCreateTextureFromFile(pDevice, "./data/TEXTURE/Character1.png", &m_pTexture);
 	BindTexture(m_pTexture);
 
-	m_bJumpJudge = true;
-
 	return S_OK;
 }
 
@@ -42,18 +40,18 @@ void CPlayerRotation::Update(void) {
 	CCamera::ORIENTATION Orientation = m_pCamera->GetOrientation();
 	CPlayerHook *pHook = CGameMode::GetPlayerHook();
 	m_pos = GetPos();
-	m_move.y -= GRAVITY_SIZ;
 
 	if (m_posold.y == 0) {
 		m_posold.y = -1.0f;
 	}
 
-	if (m_bJumpJudge == true && CGameMode::GetPlayerHook()->GetPlayerHookJump() == true && !pHook->GetHookState()) {
+	if (CPlayer::GetJumpJudge() == true && CGameMode::GetPlayerHook()->GetPlayerHookJump() == true && !pHook->GetHookState()) {
 		// カメラの回転を呼び出す
 		m_pCamera->DecisionRotate(pKeyboard);
 	}
 
 	if (m_pCamera->GetRotake() == CCamera::ROTATE_NONE) {
+		m_move.y -= GRAVITY_SIZ;
 
 		m_pos = RotationDifferentialShift(Orientation, m_pos, m_pCamera->GetRotake(), m_pCamera->GetRotakeOld());
 
@@ -104,19 +102,15 @@ void CPlayerRotation::Update(void) {
 		}
 
 		// Wキーでジャンプ
-		if (m_bJumpJudge == true) {
+		if (CPlayer::GetJumpJudge() == true) {
 			if (pKeyboard->GetKeyboardTrigger(DIK_W)) {
-				m_bJumpJudge = false;
+				//CPlayer::SetJumpJudge(false);
 				m_move.y = JUMP_SIZ;
 			}
 		}
 	}
 
 	m_pos.y += m_move.y;
-	if (m_pos.y <= 0) {
-		m_pos.y = 0;
-		m_bJumpJudge = true;
-	}
 
 	SetPos(m_pos);
 	CPlayer::Update();

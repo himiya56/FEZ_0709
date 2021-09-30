@@ -40,7 +40,7 @@ private:
 	D3DXVECTOR3 m_posold;
 	D3DXVECTOR3 m_siz;
 	D3DXVECTOR3 m_move;
-	bool m_bJumpJudge;
+	D3DXVECTOR3 m_RidingBlockPos;
 
 	static LPDIRECT3DTEXTURE9		m_pTexture;
 

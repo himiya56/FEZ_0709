@@ -38,6 +38,11 @@ public:
 	void Update(void);
 	void Draw(void);
 	void CollisionDetection(void);
+	void SetJumpJudge(bool JumpJudge) { m_bJumpJudge = JumpJudge; }
+	
+	bool GetJumpJudge(void) { return m_bJumpJudge; }
+	bool GetCollisionDetectionJudge(void) { return m_bCollisionDetectionJudge; }
+	D3DXVECTOR3 GetRidingBlockPos(void) { return m_RidingBlockPos; }
 
 	D3DXVECTOR3 CPlayer::RotationDifferentialShift(CCamera::ORIENTATION Orientation, D3DXVECTOR3 PlayerPos, CCamera::ROTATE Rotate, CCamera::ROTATE RotateOld);
 
@@ -46,7 +51,9 @@ private:
 	D3DXVECTOR3 m_posold;
 	D3DXVECTOR3 m_siz;
 	D3DXVECTOR3 m_move;
+	D3DXVECTOR3 m_RidingBlockPos;
 	bool m_bJumpJudge;
+	bool m_bCollisionDetectionJudge;
 
 	static LPDIRECT3DTEXTURE9		m_pTexture;
 

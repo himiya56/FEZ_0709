@@ -143,7 +143,8 @@ void CPlayerHook::Update(void)
 			}
 
 			// スペースキーでジャンプ
-			if (m_bJumpJudge == true && pKeyboard->GetKeyboardTrigger(DIK_UP)) {
+			if (CPlayer::GetJumpJudge() == true && pKeyboard->GetKeyboardTrigger(DIK_UP)) {
+				CPlayer::SetJumpJudge(false);
 				m_bJumpJudge = false;
 				m_move.y = JUMP_SIZ;
 			}
@@ -151,10 +152,8 @@ void CPlayerHook::Update(void)
 	}
 
 	m_pos.y += m_move.y;
-	if (m_pos.y <= 0) {
-		m_pos.y = 0;
-		m_bJumpJudge = true;
-	}
+
+	m_bJumpJudge = CPlayer::GetJumpJudge();
 
 	SetPos(m_pos);
 	CPlayer::Update();
@@ -246,6 +245,8 @@ D3DXVECTOR3 CPlayerHook::SortSpike(void)
 			break;
 		}
 	}
+
+	spike[nArrayCount].pos.y += 2.5f;
 
 	return spike[nArrayCount].pos;
 }

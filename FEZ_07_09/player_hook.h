@@ -69,6 +69,7 @@ public:
 private:
 	D3DXVECTOR3 m_pos;
 	D3DXVECTOR3 m_move;
+	D3DXVECTOR3 m_RidingBlockPos;
 	bool m_bHook;
 	bool m_bJumpJudge;
 	Circle m_circle;

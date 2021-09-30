@@ -24,6 +24,7 @@ HRESULT CPlayer::Init(void) {
 	m_move = D3DXVECTOR3(MOVE_SIZ, 0, MOVE_SIZ);
 
 	m_bJumpJudge = true;
+	m_bCollisionDetectionJudge = false;
 
 	return S_OK;
 }
@@ -36,9 +37,15 @@ void CPlayer::Update(void) {
 	m_pCamera = CManager::GetCamera();
 	CCamera::ORIENTATION Orientation = m_pCamera->GetOrientation();
 	m_pos = GetPos();
-	//m_pos = RotationDifferentialShift(Orientation, m_pos, m_pCamera->GetRotake(), m_pCamera->GetRotakeOld());
+
+	m_pos = RotationDifferentialShift(Orientation, m_pos, m_pCamera->GetRotake(), m_pCamera->GetRotakeOld());
 
 	CollisionDetection();
+
+	if (m_pos.y <= 0) {
+		m_pos.y = 0;
+		SetJumpJudge(true);
+	}
 
 	SetPos(m_pos);
 	m_posold = m_pos;
@@ -60,12 +67,13 @@ void CPlayer::CollisionDetection(void) {
 			//Z‚©XŽ²‚ªˆê’v‚µ‚½ê‡
 			if (pos.z == m_pos.z && Orientation == CCamera::ORIENTATION_FRONT || Orientation == CCamera::ORIENTATION_BACK ||
 				pos.x == m_pos.x && Orientation == CCamera::ORIENTATION_LEFT || Orientation == CCamera::ORIENTATION_RIGHT) {
-				bool bCollisionDetectionJudge = CollisionDetectionCalculation(m_posold, m_pos, PLAYER_SIZE, pos, PLAYER_SIZE, COLLISION::COLLISION_HEIGHT);
+				m_bCollisionDetectionJudge = CollisionDetectionCalculation(m_posold, m_pos, PLAYER_SIZE, pos, PLAYER_SIZE, COLLISION::COLLISION_HEIGHT);
 
-				if (bCollisionDetectionJudge == true) 
+				if (m_bCollisionDetectionJudge == true) 
 				{
 					m_pos.y = pos.y + PLAYER_SIZE.y;
-					m_bJumpJudge = true;
+					SetJumpJudge(true);
+					m_RidingBlockPos = pos;
 				}
 			}
 
