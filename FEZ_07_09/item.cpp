@@ -18,7 +18,7 @@ LPD3DXMESH	CItem::m_pMesh = NULL;
 LPD3DXBUFFER CItem::m_pBuffMat = NULL;
 DWORD CItem::m_nNumMat = NULL;
 LPDIRECT3DTEXTURE9 CItem::m_pTexture = NULL;
-
+int CItem::m_nCreateCoin = 0;
 //=============================================================================
 // コンストラクタ
 //=============================================================================
@@ -78,5 +78,11 @@ void CItem::Draw(void)
 {
 	// 描画処理
 	CScene3D::Draw();
+}
+
+void CItem::AddCreateCoin(void)
+{
+	m_nCreateCoin++;
+	m_nCreateCoin = m_nCreateCoin;
 }
 

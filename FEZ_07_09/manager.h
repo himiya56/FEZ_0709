@@ -28,6 +28,7 @@ class CSound;
 class CGameMode;
 class CFade;
 class CPlayerHook;
+class CItem;
 
 //*****************************************************************************
 // マネージャークラス定義
@@ -68,6 +69,7 @@ public:
 
 	static CPlayer *GetPlayer(void) { return m_pPlayer; }
 	static CPlayerHook *GetPlayerHook(void) { return m_pPlayerHook; }
+	static CItem *GetItem(void) { return m_pCoin; }
 	static CSound *GetSound(void) { return m_pSound; }
 	static CGameMode *GetGameMode(void) { return m_pGameMode; }
 	static CFade * GetFade(void) { return m_pFade; }
@@ -88,10 +90,9 @@ private:
 	static CPlayer          *m_pPlayer;
 	static CPlayerHook		*m_pPlayerHook;
 	static CCollisionDetection *m_CollisionDetection;
-
+	static CItem			*m_pCoin;
 	static CGameMode		*m_pGameMode;				  // ゲームモードのポインタ
 	static CFade			*m_pFade;					  //フェードのポインタ
-
 };
 
 #endif

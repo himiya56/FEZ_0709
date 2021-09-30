@@ -8,6 +8,8 @@
 //*****************************************************************************
 // ヘッダファイルのインクルード
 //*****************************************************************************
+#include <stdio.h>
+#include <stdlib.h>
 #include "main.h"
 #include "manager.h"
 //#include "sound.h"
@@ -26,6 +28,8 @@
 #include "player.h"
 #include "goal.h"
 #include "testObj.h"
+#include "item.h"
+#include "item_coin.h"
 
 //*****************************************************************************
 // マクロ定義
@@ -34,6 +38,7 @@
 //*****************************************************************************
 // 静的メンバ変数宣言
 //*****************************************************************************
+CPlayer *CGameMode::m_pPlayer = NULL;
 CPlayerHook *CGameMode::m_pPlayerHook = NULL;
 CPlayerRotation *CGameMode::m_pPlayerRotation = NULL;
 
@@ -43,6 +48,7 @@ CPlayerRotation *CGameMode::m_pPlayerRotation = NULL;
 CGameMode::CGameMode()
 {
 	m_bCreatePause = false;		//ポーズを使用してるか
+	m_pCoin = NULL;
 }
 
 //=============================================================================
@@ -110,8 +116,7 @@ void CGameMode::Uninit(void)
 //=============================================================================
 void CGameMode::Update(void)
 {
-	////入力処理関数呼び出し
-	//Input();
+	SaveGetCoin();
 }
 
 //=============================================================================
@@ -173,6 +178,13 @@ void CGameMode::InitStageCreate(void)
 			CCollisionDetection::Create(D3DXVECTOR3(75.0f * 2.0f, 75.0f * 9.0f, 75.0f * -4.0f), BLOCK_SIZE, CCollisionDetection::BLOCKTYPE_NONE);
 
 			CGoal::Create(D3DXVECTOR3(75.0f * -2.0f, 75.0f * 3.0f, 75.0f * -2.0f));
+			m_pCoin = CItem_coin::Create(D3DXVECTOR3(75.0f * -2.0f, 75.0f * 3.0f, 75.0f * -2.0f));
+			m_pCoin = CItem_coin::Create(D3DXVECTOR3(75.0f * -2.0f, 75.0f * 3.0f, 75.0f * -2.0f));
+			m_pCoin = CItem_coin::Create(D3DXVECTOR3(75.0f * -2.0f, 75.0f * 3.0f, 75.0f * -2.0f));
+			m_pCoin = CItem_coin::Create(D3DXVECTOR3(75.0f * -2.0f, 75.0f * 3.0f, 75.0f * -2.0f));
+			m_pCoin = CItem_coin::Create(D3DXVECTOR3(75.0f * -2.0f, 75.0f * 3.0f, 75.0f * -2.0f));
+			m_pCoin = CItem_coin::Create(D3DXVECTOR3(75.0f * -2.0f, 75.0f * 3.0f, 75.0f * -2.0f));
+			SaveCreateCoin();
 			break;
 		case STAGE_2:
 			break;
@@ -181,5 +193,43 @@ void CGameMode::InitStageCreate(void)
 		default:
 			break;
 		}
+	}
+}
+
+void CGameMode::SaveCreateCoin(void)
+{
+	//ファイルのポインタ
+	FILE * pFile;
+	//ゲームモードの取得
+	CGameMode * pGameMode = CManager::GetGameMode();
+	//ファイルの書き込み
+	pFile = fopen("data/Text/CreateCoinData.txt", "w");
+	//ファイルのNULLチェック
+	if (pFile != NULL)
+	{
+		int nCreateCoin = m_pCoin->GetCreateCoin();
+		fprintf(pFile, "%d\n", nCreateCoin);
+		//ファイルを閉じる
+		fclose(pFile);
+	}
+}
+
+void CGameMode::SaveGetCoin(void)
+{
+	//ファイルのポインタ
+	FILE * pFile;
+	//ゲームモードの取得
+	CGameMode * pGameMode = CManager::GetGameMode();
+	//ファイルの書き込み
+	pFile = fopen("data/Text/GetCoinData.txt", "w");
+	//ファイルのNULLチェック
+	if (pFile != NULL)
+	{
+		int nHookGetCoin = m_pPlayerHook->GetCoin();
+		int nRotationGetCoin = m_pPlayerRotation->GetCoin();
+		int nGetCoin = nHookGetCoin + nRotationGetCoin;
+		fprintf(pFile, "%d\n", nGetCoin);
+		//ファイルを閉じる
+		fclose(pFile);
 	}
 }

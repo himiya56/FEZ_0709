@@ -19,8 +19,10 @@
 //*****************************************************************************
 // 前方宣言
 //*****************************************************************************
+class CPlayer;
 class CPlayerHook;
 class CPlayerRotation;
+class CItem_coin;
 
 //*****************************************************************************
 // クラス定義
@@ -44,17 +46,20 @@ public:
 	void Draw(void);
 	void SetbCreatePause(bool bPouse) { m_bCreatePause = bPouse; }
 	bool GetbCreatePause(void) { return m_bCreatePause; }
-
+	static CPlayer * GetPlayer(void) { return m_pPlayer; }
 	static CPlayerHook* GetPlayerHook(void) { return m_pPlayerHook; }
 	static CPlayerRotation* GetPlayerRotation(void) { return m_pPlayerRotation; }
+	CItem_coin * GetItem(void) { return m_pCoin; }
 private:
+	void SaveCreateCoin(void);
+	void SaveGetCoin(void);
 	void InitCreate(void);
 	void InitStageCreate(void);
-	void Input(void);
 	bool m_bCreatePause;	//ポーズを生成してるか
 	STAGE m_Stage;			//ステージ
-
+	static CPlayer * m_pPlayer;
 	static CPlayerHook *m_pPlayerHook;
 	static CPlayerRotation *m_pPlayerRotation;
+	CItem_coin * m_pCoin;
 };
 #endif

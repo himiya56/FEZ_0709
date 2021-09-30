@@ -19,7 +19,7 @@
 // É}ÉNÉçíËã`
 //*****************************************************************************
 #define POSITION (D3DXVECTOR3(SCREEN_WIDTH / 2 + 125.0f,SCREEN_HEIGHT / 2 + 85.0f, 0.0f))
-#define SIZE (D3DXVECTOR3(300.0f, 300.0f, 0.0f))
+#define SIZE (D3DXVECTOR3(250.0f, 250.0f, 0.0f))
 #define MINIMUM_INTEGER (0)
 #define MINIMUM_COUNT_NUMBER (0)
 #define NUM_CONVERSION (10.0f)

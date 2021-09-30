@@ -10,7 +10,7 @@
 LPDIRECT3DTEXTURE9 CPlayer::m_pTexture = NULL;
 
 CPlayer::CPlayer(): CBillboard(OBJ_TYPE::OBJ_TYPE_PLAYER) {
-
+	m_nCoin = 0;
 }
 
 CPlayer::~CPlayer() {

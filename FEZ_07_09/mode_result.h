@@ -38,7 +38,11 @@ public:
 private:
 	void InitCreateAll(void);
 	void Input(void);
+	void LoadCreateCoin(void);
+	void LoadGetCoin(void);
 	CCoinUI * m_pCoinUI;		//生成されているコイン枚数UIのポインタ
 	CGetCoinUI * m_pGetCoinUI;	//取得したコイン枚数UIのポインタ
+	int m_nCreateCoin;
+	int m_nGetCoin;
 };
 #endif
