@@ -23,6 +23,7 @@
 #include "collisiondetection.h"
 #include "sound.h"
 #include "player.h"
+#include "goal.h"
 
 //*****************************************************************************
 // É}ÉNÉçíËã`
@@ -167,6 +168,8 @@ void CGameMode::InitStageCreate(void)
 			CCollisionDetection::Create(D3DXVECTOR3(75.0f * 0.0f, 75.0f * 7.0f, 75.0f * -2.0f), BLOCK_SIZE, CCollisionDetection::BLOCKTYPE_NONE);
 			CCollisionDetection::Create(D3DXVECTOR3(75.0f * 1.0f, 75.0f * 8.0f, 75.0f * -5.0f), BLOCK_SIZE, CCollisionDetection::BLOCKTYPE_NONE);
 			CCollisionDetection::Create(D3DXVECTOR3(75.0f * 2.0f, 75.0f * 9.0f, 75.0f * -4.0f), BLOCK_SIZE, CCollisionDetection::BLOCKTYPE_NONE);
+
+			CGoal::Create(D3DXVECTOR3(75.0f * -2.0f, 75.0f * 3.0f, 75.0f * -2.0f));
 			break;
 		case STAGE_2:
 			break;

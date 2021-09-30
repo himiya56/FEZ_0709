@@ -41,6 +41,7 @@
 #include "collisiondetection.h"
 #include "player_hook.h"
 #include "spike.h"
+#include "goal.h"
 
 //*****************************************************************************
 // Ã“Iƒƒ“ƒo•Ï”éŒ¾

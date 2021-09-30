@@ -37,6 +37,7 @@
     <ClInclude Include="camera.h" />
     <ClInclude Include="collisiondetection.h" />
     <ClInclude Include="fade.h" />
+    <ClInclude Include="goal.h" />
     <ClInclude Include="input.h" />
     <ClInclude Include="joystick.h" />
     <ClInclude Include="keyboard.h" />
@@ -84,6 +85,7 @@
     <ClCompile Include="camera.cpp" />
     <ClCompile Include="collisiondetection.cpp" />
     <ClCompile Include="fade.cpp" />
+    <ClCompile Include="goal.cpp" />
     <ClCompile Include="input.cpp" />
     <ClCompile Include="joystick.cpp" />
     <ClCompile Include="keyboard.cpp" />
