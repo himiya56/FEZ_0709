@@ -47,6 +47,7 @@ public:
 	void Draw(void);
 	void ReleaseAll(void);
 	void UpdateByType(BLOCKTYPE BlockType);
+	void BlockShift(BLOCKTYPE BlockType, CCamera *pCamera, CCamera::ORIENTATION orientarion, CCamera::ROTATE rotate);
 	
 	static void Load(void);
 	static void Unload(void);
